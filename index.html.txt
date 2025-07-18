@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowState Pro - AI Productivity Companion</title>
+    <meta name="description" content="Advanced AI-powered productivity companion with smart task management and notifications">
+    <meta name="theme-color" content="#007AFF">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed');
+                    });
+            });
+        }
+    </script>
+    
+    <!-- Enhanced styles with PWA optimizations -->
+    <style>
+        /* Previous styles remain the same, plus these additions */
+        
+        .install-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #007AFF;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 122, 255, 0.3);
+            z-index: 1000;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+        
+        .install-banner.show {
+            display: block;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        
+        .notification-permission {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .notification-permission.show {
+            display: block;
+        }
+        
+        .offline-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 1001;
+            display: none;
+        }
+        
+        .offline-indicator.show {
+            display: block;
+        }
+        
+        /* Enhanced notification styles */
+        .system-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            z-index: 1002;
+            max-width: 350px;
+            display: none;
+        }
+        
+        .system-notification.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1d1d1f;
+        }
+        
+        .notification-body {
+            color: #6e6e73;
+            margin-bottom: 16px;
+        }
+        
+        .notification-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .notification-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .notification-btn.primary {
+            background: #007AFF;
+            color: white;
+        }
+        
+        .notification-btn.secondary {
+            background: rgba(0, 0, 0, 0.05);
+            color: #1d1d1f;
+        }
+    </style>
+</head>
+<meta name="theme-color" content="#007AFF">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js');
+    });
+}
+</script>
+
+<body>
+    <!-- Install Banner -->
+    <div class="install-banner" id="installBanner">
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <div>
+                <div style="font-weight: 600; margin-bottom: 4px;">Install FlowState Pro</div>
+                <div style="font-size: 14px; opacity: 0.8;">Get the full app experience with notifications</div>
+            </div>
+            <button class="btn btn-secondary" onclick="installApp()" style="flex-shrink: 0;">Install</button>
+            <button class="btn btn-secondary" onclick="dismissInstall()" style="flex-shrink: 0;">×</button>
+        </div>
+    </div>
+    
+    <!-- Offline Indicator -->
+    <div class="offline-indicator" id="offlineIndicator">
+        📴 Offline Mode
+    </div>
+    
+    <!-- System Notification -->
+    <div class="system-notification" id="systemNotification">
+        <div class="notification-title" id="notificationTitle">Task Reminder</div>
+        <div class="notification-body" id="notificationBody">It's time to start your scheduled activity!</div>
+        <div class="notification-actions">
+            <button class="notification-btn primary" onclick="startTask()">Start Now</button>
+            <button class="notification-btn secondary" onclick="snoozeTask()">Snooze 5min</button>
+            <button class="notification-btn secondary" onclick="dismissSystemNotification()">Dismiss</button>
+        </div>
+    </div>
+    
+    <!-- Previous HTML content remains the same -->
+    <div class="app-container">
+        <!-- Notification Permission Banner -->
+        <div class="notification-permission" id="notificationBanner">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <div style="font-size: 24px;">🔔</div>
+                <div style="flex: 1;">
+                    <div style="font-weight: 600; margin-bottom: 4px;">Enable Notifications</div>
+                    <div style="font-size: 14px; color: #6e6e73;">Get reminders for your scheduled tasks</div>
+                </div>
+                <button class="btn btn-primary btn-small" onclick="requestNotificationPermission()">Enable</button>
+                <button class="btn btn-secondary btn-small" onclick="dismissNotificationBanner()">Later</button>
+            </div>
+        </div>
+        
+        <!-- Rest of your existing HTML content -->
+        <!-- (App header, main content, etc. - same as before) -->
+        
+    </div>
+    
+    <script>
+        // PWA Installation
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBanner').classList.add('show');
+        });
+        
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('App installed');
+                    }
+                    deferredPrompt = null;
+                    document.getElementById('installBanner').classList.remove('show');
+                });
+            }
+        }
+        
+        function dismissInstall() {
+            document.getElementById('installBanner').classList.remove('show');
+        }
+        
+        // Notification Management
+        let notificationPermission = false;
+        
+        function requestNotificationPermission() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        notificationPermission = true;
+                        localStorage.setItem('notificationPermission', 'granted');
+                        dismissNotificationBanner();
+                        showNotification('🎉 Notifications enabled! You\'ll now get task reminders.');
+                        
+                        // Register for push notifications if service worker is available
+                        if ('serviceWorker' in navigator && 'PushManager' in window) {
+                            registerForPushNotifications();
+                        }
+                    } else {
+                        showNotification('❌ Notifications blocked. Enable them in browser settings for task reminders.');
+                    }
+                });
+            }
+        }
+        
+        function dismissNotificationBanner() {
+            document.getElementById('notificationBanner').classList.remove('show');
+        }
+        
+        // Push Notification Registration
+        async function registerForPushNotifications() {
+            try {
+                const registration = await navigator.serviceWorker.getRegistration();
+                if (registration) {
+                    const subscription = await registration.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: urlB64ToUint8Array('your-vapid-public-key') // Replace with your VAPID key
+                    });
+                    
+                    // Send subscription to your server
+                    console.log('Push subscription registered:', subscription);
+                }
+            } catch (error) {
+                console.error('Push subscription failed:', error);
+            }
+        }
+        
+        // Background Task Scheduling
+        function scheduleTaskNotification(task) {
+            if (!notificationPermission) return;
+            
+            const taskTime = new Date();
+            const [hours, minutes] = task.time.split(':');
+            taskTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+            
+            const timeUntilTask = taskTime.getTime() - Date.now();
+            
+            if (timeUntilTask > 0) {
+                setTimeout(() => {
+                    showTaskNotification(task);
+                }, timeUntilTask);
+            }
+        }
+        
+        function showTaskNotification(task) {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                const notification = new Notification(`⏰ Time for ${task.title}!`, {
+                    body: `Your ${task.duration}-minute ${task.title} session is starting now.`,
+                    icon: 'icon-192.png',
+                    badge: 'icon-192.png',
+                    tag: `task-${task.id}`,
+                    requireInteraction: true,
+                    actions: [
+                        { action: 'start', title: 'Start Now' },
+                        { action: 'snooze', title: 'Snooze 5min' }
+                    ]
+                });
+                
+                notification.onclick = () => {
+                    window.focus();
+                    notification.close();
+                    startTaskById(task.id);
+                };
+                
+                // Also show in-app notification
+                showSystemNotification(task);
+            }
+        }
+        
+        function showSystemNotification(task) {
+            const notification = document.getElementById('systemNotification');
+            const title = document.getElementById('notificationTitle');
+            const body = document.getElementById('notificationBody');
+            
+            title.textContent = `⏰ Time for ${task.title}!`;
+            body.textContent = `Your ${task.duration}-minute session is starting now.`;
+            
+            notification.classList.add('show');
+            
+            // Store current task for actions
+            notification.dataset.taskId = task.id;
+        }
+        
+        function startTask() {
+            const notification = document.getElementById('systemNotification');
+            const taskId = notification.dataset.taskId;
+            if (taskId) {
+                startTaskById(parseInt(taskId));
+            }
+            dismissSystemNotification();
+        }
+        
+        function snoozeTask() {
+            const notification = document.getElementById('systemNotification');
+            const taskId = notification.dataset.taskId;
+            if (taskId) {
+                const task = tasks.find(t => t.id === parseInt(taskId));
+                if (task) {
+                    setTimeout(() => showTaskNotification(task), 5 * 60 * 1000); // 5 minutes
+                }
+            }
+            dismissSystemNotification();
+        }
+        
+        function dismissSystemNotification() {
+            document.getElementById('systemNotification').classList.remove('show');
+        }
+        
+        function startTaskById(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                // Switch to timer tab and start the task
+                switchTab('timer');
+                currentTimerActivity = task;
+                timerSeconds = task.duration * 60;
+                updateTimerDisplay();
+                document.getElementById('currentActivity').textContent = 
+                    `Current: ${task.activity} (${task.duration} min)`;
+                showMotivationalMessage();
+            }
+        }
+        
+        // Network Status Detection
+        function updateNetworkStatus() {
+            const indicator = document.getElementById('offlineIndicator');
+            if (navigator.onLine) {
+                indicator.classList.remove('show');
+            } else {
+                indicator.classList.add('show');
+            }
+        }
+        
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+        
+        // Enhanced Task Creation with Notifications
+        function createTaskWithNotifications(taskData) {
+            const newTask = {
+                id: Date.now(),
+                title: taskData.activity || taskData.title,
+                time: taskData.time,
+                duration: taskData.duration,
+                completed: false,
+                createdAt: new Date(),
+                createdBy: taskData.createdBy || 'Manual'
+            };
+            
+            tasks.push(newTask);
+            
+            // Schedule notification for this task
+            scheduleTaskNotification(newTask);
+            
+            // Update UI
+            renderTasks();
+            updateStats();
+            updateProgressChart();
+            updateProgressRing();
+            
+            return newTask;
+        }
+        
+        // Initialize PWA features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check notification permission
+            if ('Notification' in window) {
+                if (Notification.permission === 'granted') {
+                    notificationPermission = true;
+                } else if (Notification.permission === 'default') {
+                    document.getElementById('notificationBanner').classList.add('show');
+                }
+            }
+            
+            // Update network status
+            updateNetworkStatus();
+            
+            // Schedule notifications for existing tasks
+            tasks.forEach(task => {
+                if (!task.completed) {
+                    scheduleTaskNotification(task);
+                }
+            });
+            
+            // Rest of your existing initialization code...
+        });
+        
+        // Helper function for VAPID key conversion
+        function urlB64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding)
+                .replace(/\-/g, '+')
+                .replace(/_/g, '/');
+            
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+            
+            for (let i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
+        
+        // Your existing JavaScript code continues here...
+        // (All the previous AI, task management, and UI code remains the same)
+    </script>
+</body>
+</html>
