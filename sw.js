@@ -1,30 +1,31 @@
-const CACHE_NAME = 'flowstate-pro-v1';
+const CACHE_NAME = 'flowstate-pro-v2';
 const urlsToCache = [
-    '/flowstate-pro-new/',
-    '/flowstate-pro-new/index.html',
-    '/flowstate-pro-new/manifest.json',
-    '/flowstate-pro-new/icon-192.png',
-    '/flowstate-pro-new/icon-512.png',
-    'https://cdn.jsdelivr.net/npm/chart.js'
+    './',
+    './index.html',
+    './manifest.json',
+    './icon-192.png',
+    './icon-512.png'
 ];
 
-// Install event - cache resources
+// Enhanced install event
 self.addEventListener('install', function(event) {
-    console.log('Service Worker installing...');
+    console.log('PWA Service Worker installing...');
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(function(cache) {
-                console.log('Opened cache');
-                return cache.addAll(urlsToCache).catch(error => {
-                    console.error('Failed to cache:', error);
-                });
+                console.log('PWA cache opened');
+                return cache.addAll(urlsToCache);
+            })
+            .then(() => {
+                console.log('PWA ready for installation');
+                return self.skipWaiting();
             })
     );
-    self.skipWaiting();
 });
 
-// Activate event
+// Enhanced activate event  
 self.addEventListener('activate', function(event) {
+    console.log('PWA Service Worker activating...');
     event.waitUntil(
         caches.keys().then(function(cacheNames) {
             return Promise.all(
@@ -34,20 +35,18 @@ self.addEventListener('activate', function(event) {
                     }
                 })
             );
+        }).then(() => {
+            return self.clients.claim();
         })
     );
-    self.clients.claim();
 });
 
-// Fetch event - serve from cache when offline
+// Fetch event
 self.addEventListener('fetch', function(event) {
     event.respondWith(
         caches.match(event.request)
             .then(function(response) {
                 return response || fetch(event.request);
-            })
-            .catch(function() {
-                return caches.match('/flowstate-pro-new/index.html');
             })
     );
 });
