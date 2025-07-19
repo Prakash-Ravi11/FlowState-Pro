@@ -1,22 +1,38 @@
 {
     "name": "FlowState Pro - AI Productivity Companion",
     "short_name": "FlowState Pro",
-    "description": "Advanced AI-powered productivity companion with smart task management",
-    "start_url": "/flowstate-pro-new/",
+    "description": "Advanced AI productivity companion with timers and notifications",
+    "start_url": "./",
     "display": "standalone",
     "background_color": "#f5f7fa",
     "theme_color": "#007AFF",
-    "scope": "/flowstate-pro-new/",
+    "orientation": "portrait-primary",
+    "scope": "./",
+    "categories": ["productivity", "utilities", "lifestyle"],
     "icons": [
         {
-            "src": "/flowstate-pro-new/icon-192.png",
+            "src": "./icon-192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
-            "src": "/flowstate-pro-new/icon-512.png",
+            "src": "./icon-192.png",
+            "sizes": "192x192", 
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "./icon-512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "./icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png", 
+            "purpose": "maskable"
         }
     ]
 }
