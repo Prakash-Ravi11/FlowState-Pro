@@ -3,692 +3,602 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlowState Pro - Ultimate AI Productivity Companion</title>
-    <meta name="description" content="Ultimate AI productivity companion with real-time ChatGPT, user accounts, voice AI, system notifications, study tracking, and intelligent task management">
-    <meta name="keywords" content="productivity, AI assistant, task management, study timer, focus app, flowstate, chatgpt, voice commands">
-    <meta name="author" content="FlowState Pro">
-    <meta name="theme-color" content="#3b82f6">
+    <title>FlowState Pro - AI Productivity Assistant</title>
+    <meta name="description" content="Apple-inspired AI productivity app with intelligent task management">
+    <meta name="theme-color" content="#007AFF">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    
-    <!-- Enhanced Meta Tags for SEO -->
-    <meta property="og:title" content="FlowState Pro - Ultimate AI Productivity Companion">
-    <meta property="og:description" content="Transform your productivity with AI-powered task management, voice commands, real-time ChatGPT integration, and intelligent study tracking">
-    <meta property="og:image" content="icon-512.png">
-    <meta property="og:url" content="https://prakash-ravi11.github.io/flowstate-pro-new/">
-    <meta property="og:type" content="website">
-    
-    <!-- Cache Control for Updates -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta name="version" content="8.0.0">
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
+        /* Apple-inspired Design System */
         :root {
-            /* Light Theme - Apple-Inspired */
-            --bg-primary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            --bg-secondary: rgba(255, 255, 255, 0.95);
-            --bg-tertiary: rgba(248, 250, 252, 0.9);
-            --text-primary: #1a202c;
-            --text-secondary: #64748b;
-            --text-accent: #3b82f6;
-            --border-color: rgba(0, 0, 0, 0.08);
-            --shadow-primary: 0 10px 25px rgba(0, 0, 0, 0.08);
-            --shadow-secondary: 0 4px 12px rgba(0, 0, 0, 0.04);
-            --primary-color: #3b82f6;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --accent-gradient: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            --glass-bg: rgba(255, 255, 255, 0.7);
+            --primary-blue: #007AFF;
+            --primary-blue-dark: #0056CC;
+            --secondary-blue: #5AC8FA;
+            --success-green: #34C759;
+            --warning-orange: #FF9500;
+            --danger-red: #FF3B30;
+            --text-primary: #000000;
+            --text-secondary: #8E8E93;
+            --text-tertiary: #C7C7CC;
+            --background-primary: #F2F2F7;
+            --background-secondary: #FFFFFF;
+            --background-tertiary: #F2F2F7;
+            --separator: #C6C6C8;
+            --overlay: rgba(0, 0, 0, 0.4);
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --border-radius: 10px;
+            --border-radius-large: 20px;
         }
 
         [data-theme="dark"] {
-            /* Dark Theme - Sophisticated & Modern */
-            --bg-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            --bg-secondary: rgba(15, 23, 42, 0.95);
-            --bg-tertiary: rgba(30, 41, 59, 0.9);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-accent: #60a5fa;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --shadow-primary: 0 25px 50px rgba(0, 0, 0, 0.4);
-            --shadow-secondary: 0 8px 25px rgba(0, 0, 0, 0.2);
-            --primary-color: #60a5fa;
-            --success-color: #34d399;
-            --warning-color: #fbbf24;
-            --danger-color: #f87171;
-            --card-bg: rgba(15, 23, 42, 0.95);
-            --accent-gradient: linear-gradient(135deg, #60a5fa, #3730a3);
-            --glass-bg: rgba(15, 23, 42, 0.7);
-        }
-
-        [data-theme="elegant"] {
-            /* Elegant Theme - Luxury & Premium */
-            --bg-primary: linear-gradient(135deg, #fdf4ff 0%, #f3e8ff 100%);
-            --bg-secondary: rgba(253, 244, 255, 0.95);
-            --bg-tertiary: rgba(243, 232, 255, 0.9);
-            --text-primary: #581c87;
-            --text-secondary: #7c3aed;
-            --text-accent: #a855f7;
-            --border-color: rgba(139, 92, 246, 0.15);
-            --shadow-primary: 0 20px 40px rgba(139, 92, 246, 0.15);
-            --shadow-secondary: 0 8px 20px rgba(139, 92, 246, 0.08);
-            --primary-color: #8b5cf6;
-            --success-color: #06d6a0;
-            --warning-color: #ffd60a;
-            --danger-color: #ff006e;
-            --card-bg: rgba(253, 244, 255, 0.9);
-            --accent-gradient: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            --glass-bg: rgba(253, 244, 255, 0.8);
+            --text-primary: #FFFFFF;
+            --text-secondary: #8E8E93;
+            --text-tertiary: #48484A;
+            --background-primary: #000000;
+            --background-secondary: #1C1C1E;
+            --background-tertiary: #2C2C2E;
+            --separator: #38383A;
+            --overlay: rgba(0, 0, 0, 0.6);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
-            background: var(--bg-primary);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+            background: var(--background-primary);
             color: var(--text-primary);
-            line-height: 1.6;
-            font-weight: 400;
+            line-height: 1.47;
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* Apple-style Glass Morphism */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Enhanced Authentication Modal */
-        .auth-modal {
+        /* Simple Authentication */
+        .auth-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
+            background: var(--overlay);
+            backdrop-filter: blur(20px);
             display: flex;
-            justify-content: center;
             align-items: center;
-            z-index: 4000;
-            animation: fadeIn 0.3s ease;
+            justify-content: center;
+            z-index: 1000;
         }
 
-        .auth-modal.hidden {
+        .auth-overlay.hidden {
             display: none;
         }
 
-        .auth-content {
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            border-radius: 24px;
-            padding: 48px;
-            box-shadow: var(--shadow-primary);
-            max-width: 500px;
+        .auth-card {
+            background: var(--background-secondary);
+            border-radius: var(--border-radius-large);
+            padding: 40px;
             width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .auth-logo {
             width: 80px;
             height: 80px;
-            background: var(--accent-gradient);
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
             border-radius: 20px;
+            margin: 0 auto 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
-            margin: 0 auto 32px;
-            box-shadow: 0 12px 40px rgba(0, 122, 255, 0.3);
+            color: white;
         }
 
         .auth-title {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
+            margin-bottom: 8px;
             color: var(--text-primary);
-            margin-bottom: 12px;
-            letter-spacing: -0.02em;
         }
 
         .auth-subtitle {
             color: var(--text-secondary);
-            margin-bottom: 40px;
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+            margin-bottom: 32px;
         }
 
         .auth-input {
-            padding: 18px 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            font-size: 17px;
-            background: var(--bg-secondary);
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--separator);
+            border-radius: var(--border-radius);
+            background: var(--background-tertiary);
             color: var(--text-primary);
-            transition: all 0.3s ease;
-            font-family: inherit;
+            font-size: 17px;
+            margin-bottom: 16px;
+            transition: all 0.2s ease;
         }
 
         .auth-input:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
-            transform: translateY(-2px);
+            border-color: var(--primary-blue);
+            background: var(--background-secondary);
         }
 
-        .auth-input::placeholder {
-            color: var(--text-secondary);
-        }
-
-        .auth-btn {
-            padding: 18px 32px;
-            background: var(--accent-gradient);
+        .auth-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-blue);
             color: white;
             border: none;
-            border-radius: 16px;
+            border-radius: var(--border-radius);
             font-size: 17px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3);
-            font-family: inherit;
-        }
-
-        .auth-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(0, 122, 255, 0.4);
-        }
-
-        .auth-btn.loading {
-            position: relative;
-            pointer-events: none;
-            opacity: 0.7;
-        }
-
-        .auth-btn.loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid white;
-            border-top: 2px solid transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        /* Enhanced Message Display */
-        .message-display {
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 500;
-            animation: slideDown 0.3s ease;
-        }
-
-        .message-display.error {
-            background: rgba(255, 59, 48, 0.1);
-            border: 1px solid rgba(255, 59, 48, 0.2);
-            color: var(--danger-color);
-        }
-
-        .message-display.success {
-            background: rgba(52, 199, 89, 0.1);
-            border: 1px solid rgba(52, 199, 89, 0.2);
-            color: var(--success-color);
-        }
-
-        .message-display.info {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            color: var(--primary-color);
-        }
-
-        .message-close {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: inherit;
-            padding: 0;
-            margin-left: 12px;
-        }
-
-        /* Email Verification Display */
-        .verification-display {
-            background: var(--bg-tertiary);
-            padding: 24px;
-            border-radius: 16px;
-            margin: 20px 0;
-            border: 2px dashed var(--primary-color);
-            text-align: center;
-        }
-
-        .verification-code {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--primary-color);
-            letter-spacing: 4px;
-            margin: 16px 0;
-            font-family: 'Courier New', monospace;
-        }
-
-        /* Password Reset Interface */
-        .reset-container {
-            background: var(--bg-tertiary);
-            padding: 24px;
-            border-radius: 16px;
-            margin: 20px 0;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Gender Selector */
-        .gender-selector {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .gender-options {
-            display: flex;
-            gap: 16px;
-            margin-top: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
             transition: all 0.2s ease;
         }
 
-        .radio-option:hover {
-            background: var(--bg-tertiary);
+        .auth-button:hover {
+            background: var(--primary-blue-dark);
         }
 
-        .radio-option input[type="radio"] {
-            margin: 0;
-        }
-
-        .radio-option input[type="radio"]:checked + span {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        .auth-switch {
-            margin-top: 32px;
-            color: var(--text-secondary);
-            font-size: 16px;
-        }
-
-        .auth-link {
-            color: var(--primary-color);
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .auth-link:hover {
-            text-decoration: underline;
-        }
-
-        .forgot-password {
-            margin-top: 16px;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        .input-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            font-weight: 600;
-            text-align: left;
-        }
-
-        /* Main App Container */
+        /* Main App Layout */
         .app-container {
-            max-width: 1600px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            border-radius: 28px;
-            padding: 40px;
-            box-shadow: var(--shadow-primary);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
         }
 
         .app-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 32px;
+            padding: 16px 0;
         }
 
         .app-title {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 12px;
         }
 
-        .app-logo {
-            width: 56px;
-            height: 56px;
-            background: var(--accent-gradient);
-            border-radius: 16px;
+        .app-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 24px;
             font-weight: 700;
-            box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3);
+            font-size: 18px;
         }
 
         .app-name {
-            font-size: 36px;
-            font-weight: 800;
+            font-size: 34px;
+            font-weight: 700;
             color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-
-        .app-subtitle {
-            font-size: 18px;
-            color: var(--text-secondary);
-            margin-left: 4px;
-            font-weight: 500;
         }
 
         .header-controls {
             display: flex;
             align-items: center;
-            gap: 24px;
-        }
-
-        /* Enhanced Theme Selector */
-        .theme-selector {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 6px;
-            background: var(--bg-tertiary);
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-        }
-
-        .theme-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 12px;
-            background: transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .theme-btn:hover {
-            background: var(--border-color);
-            color: var(--text-primary);
-            transform: scale(1.05);
-        }
-
-        .theme-btn.active {
-            background: var(--primary-color);
-            color: white;
-            box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
-        }
-
-        /* User Profile */
-        .user-profile {
-            position: relative;
-            display: flex;
-            align-items: center;
             gap: 16px;
-            padding: 12px 20px;
-            background: var(--bg-tertiary);
-            border-radius: 16px;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
         }
 
-        .user-profile:hover {
-            background: var(--card-bg);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-secondary);
+        .theme-toggle {
+            background: var(--background-secondary);
+            border: 1px solid var(--separator);
+            border-radius: 20px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--background-tertiary);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--background-secondary);
+            border: 1px solid var(--separator);
+            border-radius: 20px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .user-menu:hover {
+            background: var(--background-tertiary);
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
-            background: var(--accent-gradient);
+            width: 24px;
+            height: 24px;
+            background: var(--primary-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        .user-name {
+            font-size: 12px;
             font-weight: 600;
-            color: var(--text-primary);
-            font-size: 16px;
         }
 
-        .user-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            box-shadow: var(--shadow-primary);
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            min-width: 220px;
-            z-index: 1000;
-            display: none;
-            margin-top: 8px;
-        }
-
-        .user-dropdown.show {
-            display: block;
-            animation: fadeIn 0.2s ease;
-        }
-
-        .dropdown-item {
-            padding: 16px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.2s ease;
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        .dropdown-item:hover {
-            background: var(--bg-tertiary);
-            transform: translateX(4px);
-        }
-
-        /* Main Content Grid */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 420px;
-            gap: 40px;
-        }
-
+        /* Apple-style Cards */
         .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 28px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-secondary);
+            background: var(--background-secondary);
+            border-radius: var(--border-radius-large);
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--separator);
             transition: all 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-primary);
-        }
-
-        .card-header {
-            margin-bottom: 28px;
-        }
-
-        .card-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-            letter-spacing: -0.01em;
-        }
-
-        .card-subtitle {
-            font-size: 16px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        /* Enhanced Button Styles */
-        .btn {
-            padding: 16px 28px;
-            border: none;
-            border-radius: 12px;
-            font-size: 17px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: inherit;
-            text-align: center;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background: var(--accent-gradient);
-            color: white;
-            box-shadow: 0 6px 20px rgba(0, 122, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(0, 122, 255, 0.4);
-        }
-
-        .btn-secondary {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--border-color);
+            box-shadow: var(--card-shadow-hover);
             transform: translateY(-2px);
         }
 
-        .btn-small {
-            padding: 12px 20px;
+        .card-header {
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
             font-size: 15px;
         }
 
-        /* Input Styles */
-        .input-field {
-            padding: 16px 20px;
-            border: 1px solid var(--border-color);
+        /* Main Content Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 24px;
+        }
+
+        /* AI Assistant Section */
+        .ai-section {
+            background: var(--background-secondary);
+            border-radius: var(--border-radius-large);
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--separator);
+            margin-bottom: 20px;
+        }
+
+        .ai-mode-toggle {
+            display: flex;
+            background: var(--background-tertiary);
             border-radius: 12px;
-            font-size: 17px;
-            background: var(--bg-secondary);
-            transition: all 0.3s ease;
-            font-family: inherit;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+
+        .ai-mode-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ai-mode-btn.active {
+            background: var(--background-secondary);
+            color: var(--primary-blue);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--separator);
+            border-radius: var(--border-radius);
+            background: var(--background-tertiary);
             color: var(--text-primary);
-            width: 100%;
+            font-size: 17px;
+            transition: all 0.2s ease;
         }
 
         .input-field:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
-            background: var(--bg-secondary);
-            transform: translateY(-2px);
+            border-color: var(--primary-blue);
+            background: var(--background-secondary);
         }
 
-        .input-field::placeholder {
-            color: var(--text-secondary);
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Enhanced Task Display */
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-blue-dark);
+        }
+
+        .btn-secondary {
+            background: var(--background-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--separator);
+        }
+
+        .btn-secondary:hover {
+            background: var(--background-primary);
+        }
+
+        /* Task List - Apple Reminders Style */
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
         .task-item {
-            background: var(--bg-tertiary);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 16px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: var(--background-secondary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--separator);
+            transition: all 0.2s ease;
+            cursor: pointer;
         }
 
         .task-item:hover {
-            background: var(--card-bg);
-            transform: translateX(8px);
-            box-shadow: var(--shadow-secondary);
+            background: var(--background-tertiary);
         }
 
         .task-item.completed {
-            background: rgba(52, 199, 89, 0.1);
-            border-color: var(--success-color);
+            opacity: 0.6;
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .task-checkbox.checked {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .task-meta {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 12px;
+        }
+
+        .task-controls {
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .task-item:hover .task-controls {
+            opacity: 1;
+        }
+
+        .task-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--separator);
+            background: var(--background-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .task-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        /* Apple-style Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--background-secondary);
+            border: 1px solid var(--separator);
+            border-radius: var(--border-radius-large);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            max-width: 350px;
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .notification-icon {
+            font-size: 24px;
+        }
+
+        .notification-title {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .notification-body {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Progress Ring - Apple Watch Style */
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .progress-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring circle {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+        }
+
+        .progress-ring .background {
+            stroke: var(--separator);
+        }
+
+        .progress-ring .progress {
+            stroke: var(--primary-blue);
+            stroke-dasharray: 283;
+            stroke-dashoffset: 283;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .progress-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-percent {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Statistics Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--background-secondary);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--separator);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 600;
         }
 
         /* AI Chat Interface */
-        .ai-chat-container {
-            height: 500px;
+        .ai-chat {
+            height: 300px;
             display: flex;
             flex-direction: column;
         }
@@ -696,1010 +606,728 @@
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 24px;
-            background: var(--bg-tertiary);
-            border-radius: 16px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-            scroll-behavior: smooth;
+            padding: 16px;
+            background: var(--background-tertiary);
+            border-radius: var(--border-radius);
+            margin-bottom: 16px;
+            border: 1px solid var(--separator);
         }
 
         .message {
-            margin-bottom: 20px;
-            padding: 16px 20px;
-            border-radius: 20px;
-            max-width: 85%;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 80%;
             word-wrap: break-word;
-            animation: messageSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .message.user {
-            background: var(--accent-gradient);
+            background: var(--primary-blue);
             color: white;
             margin-left: auto;
-            text-align: right;
-            box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
         }
 
         .message.ai {
-            background: var(--card-bg);
+            background: var(--background-secondary);
             color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            margin-right: auto;
-            box-shadow: var(--shadow-secondary);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes messageSlide {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            border: 1px solid var(--separator);
         }
 
         /* Responsive Design */
-        @media (max-width: 1200px) {
-            .main-content {
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .app-container {
+                padding: 16px;
+            }
+            
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 768px) {
-            .app-container {
-                padding: 24px;
-                border-radius: 20px;
-            }
-            
-            .header-controls {
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            .auth-content {
-                padding: 32px;
-                border-radius: 20px;
-            }
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--separator);
+            border-radius: 50%;
+            border-top-color: var(--primary-blue);
+            animation: spin 1s ease-in-out infinite;
         }
 
-        /* Utility Classes */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Hide/Show Elements */
         .hidden { display: none !important; }
         .show { display: block !important; }
-        .text-center { text-align: center; }
     </style>
 </head>
 <body data-theme="light">
-    <!-- Enhanced Authentication Modal with Email Confirmation & Password Reset -->
-    <div class="auth-modal" id="authModal">
-        <div class="auth-content">
+    <!-- Simple Authentication -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-card">
             <div class="auth-logo">FS</div>
-            <div class="auth-title" id="authTitle">Welcome to FlowState Pro</div>
-            <div class="auth-subtitle" id="authSubtitle">Sign in to your account</div>
-            
-            <!-- Dynamic Message Display -->
-            <div class="message-display hidden" id="messageDisplay">
-                <span id="messageText"></span>
-                <button onclick="dismissMessage()" class="message-close">×</button>
-            </div>
-            
-            <!-- Main Authentication Form -->
-            <form class="auth-form" id="authForm" onsubmit="handleAuth(event)">
-                <!-- Registration Fields -->
-                <input type="text" class="auth-input" id="nameInput" placeholder="Full Name" style="display: none;">
-                <input type="number" class="auth-input" id="ageInput" placeholder="Age" min="13" max="120" style="display: none;">
-                <div class="gender-selector" id="genderSelector" style="display: none;">
-                    <label class="input-label">Gender</label>
-                    <div class="gender-options">
-                        <label class="radio-option">
-                            <input type="radio" name="gender" value="male" id="genderMale">
-                            <span>Male</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="gender" value="female" id="genderFemale">
-                            <span>Female</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="gender" value="other" id="genderOther">
-                            <span>Other</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <!-- Common Fields -->
-                <input type="email" class="auth-input" id="emailInput" placeholder="Email Address" required>
-                <input type="password" class="auth-input" id="passwordInput" placeholder="Password (min 6 characters)" minlength="6" required>
-                <input type="password" class="auth-input" id="confirmPasswordInput" placeholder="Confirm Password" style="display: none;">
-                
-                <button type="submit" class="auth-btn" id="authSubmitBtn">Sign In</button>
-            </form>
-            
-            <!-- Email Verification Interface -->
-            <div class="verification-display hidden" id="verificationInterface">
-                <div style="font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--primary-color);">
-                    📧 Email Verification Required
-                </div>
-                <div style="margin-bottom: 16px; color: var(--text-secondary);">
-                    We've sent a verification code to <strong id="verificationEmail"></strong>
-                </div>
-                <div class="verification-code" id="verificationCode">
-                    XXXXXX
-                </div>
-                <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;">
-                    In production, this would be sent via email. For demo purposes, the code is shown above.
-                </div>
-                <div style="display: flex; gap: 12px; margin-bottom: 16px;">
-                    <input type="text" class="auth-input" id="codeInput" placeholder="Enter 6-digit code" maxlength="6" style="text-transform: uppercase; letter-spacing: 2px; text-align: center;">
-                    <button class="btn btn-primary" onclick="verifyEmailCode()">Verify</button>
-                </div>
-                <div style="display: flex; gap: 12px; justify-content: center;">
-                    <button class="btn btn-secondary btn-small" onclick="resendVerificationCode()">Resend Code</button>
-                    <button class="btn btn-secondary btn-small" onclick="cancelVerification()">Cancel</button>
-                </div>
-            </div>
-
-            <!-- Password Reset Interface -->
-            <div class="reset-container hidden" id="resetInterface">
-                <div style="font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--primary-color);">
-                    🔐 Reset Your Password
-                </div>
-                <div style="margin-bottom: 16px; color: var(--text-secondary);">
-                    Enter your email address and we'll send you a reset link.
-                </div>
-                <div style="display: flex; gap: 12px; margin-bottom: 16px;">
-                    <input type="email" class="auth-input" id="resetEmailInput" placeholder="Enter your email address">
-                    <button class="btn btn-primary" onclick="sendPasswordReset()">Send Reset</button>
-                </div>
-                <button class="btn btn-secondary btn-small" onclick="cancelPasswordReset()">Back to Login</button>
-            </div>
-            
-            <div class="auth-switch" id="authSwitchContainer">
-                <span id="authSwitchText">Don't have an account?</span>
-                <span class="auth-link" id="authSwitchLink" onclick="toggleAuthMode()">Create Account</span>
-            </div>
-            
-            <!-- Forgot Password Link -->
-            <div class="forgot-password" id="forgotPasswordContainer">
-                <span class="auth-link" onclick="showPasswordReset()">Forgot Password?</span>
-            </div>
+            <h1 class="auth-title">Welcome to FlowState Pro</h1>
+            <p class="auth-subtitle">Your AI-powered productivity companion</p>
+            <input type="text" class="auth-input" id="nameInput" placeholder="Your Name" required>
+            <button class="auth-button" onclick="quickSignIn()">Get Started</button>
         </div>
     </div>
 
-    <!-- Main App Container -->
-    <div class="app-container glass hidden" id="mainApp">
-        <!-- Enhanced App Header -->
-        <div class="app-header">
+    <div class="app-container">
+        <!-- App Header -->
+        <header class="app-header">
             <div class="app-title">
-                <div class="app-logo">FS</div>
-                <div>
-                    <div class="app-name">FlowState Pro</div>
-                    <div class="app-subtitle">Ultimate AI Productivity Companion</div>
-                </div>
+                <div class="app-icon">FS</div>
+                <h1 class="app-name">FlowState Pro</h1>
             </div>
             <div class="header-controls">
-                <div class="theme-selector">
-                    <button class="theme-btn active" data-theme="light" onclick="setTheme('light')">Light</button>
-                    <button class="theme-btn" data-theme="dark" onclick="setTheme('dark')">Dark</button>
-                    <button class="theme-btn" data-theme="elegant" onclick="setTheme('elegant')">Elegant</button>
-                </div>
-                
-                <!-- User Profile -->
-                <div class="user-profile" id="userProfile" onclick="toggleUserDropdown()">
-                    <div class="user-avatar" id="userAvatar">?</div>
-                    <div class="user-name" id="userName">Guest</div>
-                    <div class="user-dropdown" id="userDropdown">
-                        <div class="dropdown-item" onclick="showProfile()">
-                            <span>👤</span> My Profile
-                        </div>
-                        <div class="dropdown-item" onclick="showStats()">
-                            <span>📊</span> My Statistics
-                        </div>
-                        <div class="dropdown-item" onclick="exportData()">
-                            <span>📤</span> Export Data
-                        </div>
-                        <div class="dropdown-item" onclick="importData()">
-                            <span>📥</span> Import Data
-                        </div>
-                        <div class="dropdown-item" onclick="showSettings()">
-                            <span>⚙️</span> Settings
-                        </div>
-                        <div class="dropdown-item" onclick="showHelp()">
-                            <span>❓</span> Help & Support
-                        </div>
-                        <div class="dropdown-item" onclick="logout()">
-                            <span>🚪</span> Sign Out
-                        </div>
-                    </div>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span id="themeIcon">🌙</span>
+                </button>
+                <div class="user-menu" onclick="showUserMenu()">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <span id="userName">Anonymous</span>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <!-- Welcome Section -->
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">🎉 Welcome to FlowState Pro!</div>
-                <div class="card-subtitle">Your ultimate AI-powered productivity companion is ready</div>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                <div class="card">
-                    <div class="card-title">🧠 AI Assistant</div>
-                    <div class="card-subtitle">Get personalized productivity coaching</div>
-                    <button class="btn btn-primary" onclick="startAIChat()" style="margin-top: 16px;">
-                        Start Chatting
-                    </button>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title">🎯 Smart Tasks</div>
-                    <div class="card-subtitle">Create tasks with natural language</div>
-                    <button class="btn btn-primary" onclick="createQuickTask()" style="margin-top: 16px;">
-                        Create Task
-                    </button>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title">📚 Study Tracker</div>
-                    <div class="card-subtitle">Track your learning progress</div>
-                    <button class="btn btn-primary" onclick="startStudySession()" style="margin-top: 16px;">
-                        Start Session
-                    </button>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title">🎤 Voice Commands</div>
-                    <div class="card-subtitle">Control app with your voice</div>
-                    <button class="btn btn-primary" onclick="enableVoice()" style="margin-top: 16px;">
-                        Enable Voice
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Left Panel -->
-            <div style="display: flex; flex-direction: column; gap: 32px;">
-                <!-- Ultra AI Assistant -->
-                <div class="card">
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- AI Task Creator -->
+                <div class="ai-section">
                     <div class="card-header">
-                        <div class="card-title">🧠 Ultra AI Assistant</div>
-                        <div class="card-subtitle">Personalized productivity coaching</div>
+                        <h2 class="card-title">🤖 AI Task Assistant</h2>
+                        <p class="card-subtitle">Create tasks naturally with AI or manually</p>
                     </div>
-                    
-                    <div class="ai-chat-container">
-                        <div class="chat-messages" id="chatMessages"></div>
-                        
-                        <div style="display: flex; gap: 12px;">
-                            <input type="text" class="input-field" id="chatInput" placeholder="Ask me anything or describe a task..." style="flex: 1;">
-                            <button class="btn btn-primary btn-small" onclick="sendMessage()">
-                                🚀 Send
+
+                    <div class="ai-mode-toggle">
+                        <button class="ai-mode-btn active" id="aiModeBtn" onclick="setMode('ai')">AI Assistant</button>
+                        <button class="ai-mode-btn" id="manualModeBtn" onclick="setMode('manual')">Manual Entry</button>
+                    </div>
+
+                    <!-- AI Mode -->
+                    <div id="aiMode">
+                        <div class="input-group">
+                            <input type="text" class="input-field" id="aiInput" placeholder="Tell me what you want to do... (e.g., 'Study math for 2 hours at 7 PM')">
+                            <button class="btn btn-primary" onclick="createWithAI()">
+                                <span>🧠</span> Create
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Manual Mode -->
+                    <div id="manualMode" class="hidden">
+                        <div class="input-group">
+                            <input type="text" class="input-field" id="taskTitle" placeholder="Task title">
+                            <input type="time" class="input-field" id="taskTime" style="flex: 0 0 120px;">
+                            <select class="input-field" id="taskDuration" style="flex: 0 0 100px;">
+                                <option value="15">15m</option>
+                                <option value="30">30m</option>
+                                <option value="45">45m</option>
+                                <option value="60">1h</option>
+                                <option value="90">1.5h</option>
+                                <option value="120">2h</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="createManually()">
+                                <span>➕</span> Add
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Smart Task Creator -->
+                <!-- Today's Tasks -->
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">🎯 Smart Task Creator</div>
-                        <div class="card-subtitle">Create tasks with natural language</div>
+                        <h2 class="card-title">📋 Today's Tasks</h2>
+                        <p class="card-subtitle" id="taskSummary">No tasks yet</p>
                     </div>
-                    
-                    <div style="display: flex; gap: 12px; margin-bottom: 16px;">
-                        <input type="text" class="input-field" id="taskInput" placeholder="E.g., 'Study math for 2 hours at 7 PM'" style="flex: 1;">
-                        <button class="btn btn-primary" onclick="createTask()">
-                            🤖 Create
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Panel -->
-            <div style="display: flex; flex-direction: column; gap: 32px;">
-                <!-- Tasks List -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">📋 Today's Tasks</div>
-                        <div class="card-subtitle" id="tasksSummary">Ready to start your productive day</div>
-                    </div>
-                    <div id="tasksList">
+                    <div class="task-list" id="taskList">
                         <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
-                            <div style="font-size: 64px; margin-bottom: 20px;">🎯</div>
-                            <div style="font-size: 18px; font-weight: 500;">Your productivity journey starts here!</div>
-                            <div style="font-size: 15px; margin-top: 8px;">Create your first task</div>
+                            <div style="font-size: 48px; margin-bottom: 16px;">📝</div>
+                            <p>Create your first task above!</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Progress Display -->
+                <!-- AI Chat Assistant -->
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">🏆 Daily Progress</div>
-                        <div class="card-subtitle">Track your achievements</div>
+                        <h2 class="card-title">💬 AI Assistant</h2>
+                        <p class="card-subtitle">Get help, motivation, and guidance</p>
+                    </div>
+                    <div class="ai-chat">
+                        <div class="chat-messages" id="chatMessages"></div>
+                        <div class="input-group">
+                            <input type="text" class="input-field" id="chatInput" placeholder="Ask me anything...">
+                            <button class="btn btn-primary" onclick="sendChatMessage()">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Daily Progress -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📊 Daily Progress</h2>
+                        <p class="card-subtitle">Your productivity overview</p>
                     </div>
                     
-                    <div style="text-align: center; padding: 20px;">
-                        <div style="font-size: 48px; font-weight: 800; color: var(--primary-color); margin-bottom: 8px;" id="progressPercent">0%</div>
-                        <div style="color: var(--text-secondary);">Tasks Completed</div>
+                    <div class="progress-ring">
+                        <svg>
+                            <circle class="background" cx="60" cy="60" r="45"></circle>
+                            <circle class="progress" cx="60" cy="60" r="45" id="progressCircle"></circle>
+                        </svg>
+                        <div class="progress-center">
+                            <div class="progress-percent" id="progressPercent">0%</div>
+                            <div class="progress-label">Complete</div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 16px;">
+                        <div style="font-weight: 600; color: var(--text-primary);" id="progressMessage">Ready to be productive!</div>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📈 Statistics</h2>
+                        <p class="card-subtitle">Your productivity metrics</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="todayTasks">0</div>
+                            <div class="stat-label">Today's Tasks</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="completedTasks">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalTime">0h</div>
+                            <div class="stat-label">Time Today</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="streakDays">0</div>
+                            <div class="stat-label">Streak</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">⚡ Quick Actions</h2>
+                        <p class="card-subtitle">Common productivity tools</p>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <button class="btn btn-secondary" onclick="startPomodoro()">
+                            🍅 Pomodoro
+                        </button>
+                        <button class="btn btn-secondary" onclick="setBreakReminder()">
+                            ☕ Break
+                        </button>
+                        <button class="btn btn-secondary" onclick="showMotivation()">
+                            💪 Motivate
+                        </button>
+                        <button class="btn btn-secondary" onclick="exportData()">
+                            📤 Export
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Notification Template -->
+    <div class="notification" id="notification">
+        <div class="notification-header">
+            <span class="notification-icon" id="notificationIcon">⏰</span>
+            <span class="notification-title" id="notificationTitle">Task Reminder</span>
+        </div>
+        <div class="notification-body" id="notificationBody">
+            It's time for your scheduled task!
+        </div>
+        <div class="notification-actions">
+            <button class="btn btn-primary" onclick="startTask()" style="flex: 1;">Start</button>
+            <button class="btn btn-secondary" onclick="snoozeTask()" style="flex: 1;">Snooze</button>
+            <button class="btn btn-secondary" onclick="dismissNotification()">×</button>
+        </div>
+    </div>
+
     <script>
-        console.log('🚀 FlowState Pro v8.0 with Email Confirmation & Password Reset Loading...');
-        
-        // Enhanced Application State
+        // Application State
         let currentUser = null;
         let tasks = [];
         let completedTasks = [];
+        let currentMode = 'ai';
         let currentTheme = 'light';
-        let isLoggedIn = false;
-        let isLoginMode = true;
-        let pendingVerification = null;
-        let verificationCodes = {};
+        let activeTimers = new Map();
+        let currentNotificationTask = null;
 
-        // Enhanced User Database with Email Verification
-        function getUsersDB() {
-            return JSON.parse(localStorage.getItem('flowstate-users-v2') || '{}');
-        }
-
-        function saveUsersDB(users) {
-            localStorage.setItem('flowstate-users-v2', JSON.stringify(users));
-        }
-
-        function getVerificationDB() {
-            return JSON.parse(localStorage.getItem('flowstate-verification') || '{}');
-        }
-
-        function saveVerificationDB(codes) {
-            localStorage.setItem('flowstate-verification', JSON.stringify(codes));
-        }
-
-        function normalizeEmail(email) {
-            return email.toLowerCase().trim();
-        }
-
-        function generateVerificationCode() {
-            return Math.floor(100000 + Math.random() * 900000).toString();
-        }
-
-        // Initialize Application
-        window.addEventListener('load', function() {
-            console.log('🔧 Setting up enhanced authentication system...');
-            
-            // Check if user is already logged in
-            const savedUser = localStorage.getItem('flowstate-current-user-v2');
-            if (savedUser) {
-                try {
-                    currentUser = JSON.parse(savedUser);
-                    if (currentUser.emailVerified) {
-                        showMainApp();
-                        updateUserDisplay();
-                        initializeApp();
-                    } else {
-                        showAuthModal();
-                    }
-                } catch (error) {
-                    console.error('Error loading saved user:', error);
-                    showAuthModal();
-                }
-            } else {
-                showAuthModal();
+        // Advanced AI Assistant
+        class AppleStyleAI {
+            constructor() {
+                this.context = [];
+                this.patterns = {
+                    taskCreation: [
+                        /(?:create|add|schedule|make|plan|set|do|work on|study|practice|exercise|read|write|call|meet)\s+([^,]+?)(?:\s+(?:at|from|starting)\s+(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m))?\s*(?:for\s+(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i,
+                        /(?:remind me to|i need to|i want to|help me)\s+([^,]+?)(?:\s+(?:at|around)\s+(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m))?\s*(?:for\s+(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i,
+                        /([^,]+?)\s+(?:at|from)\s+(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)\s*(?:for\s+(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i
+                    ]
+                };
             }
-            
-            // Set up theme
-            const savedTheme = localStorage.getItem('flowstate-theme') || 'light';
-            setTheme(savedTheme);
-            
-            console.log('✅ FlowState Pro Authentication System Ready!');
-        });
 
-        // Enhanced Authentication Functions with Email Verification
-        function handleAuth(event) {
-            event.preventDefault();
-            console.log('📝 Authentication attempt - Mode:', isLoginMode ? 'Login' : 'Register');
-            
-            const email = normalizeEmail(document.getElementById('emailInput').value);
-            const password = document.getElementById('passwordInput').value;
-            
-            console.log('📧 Email:', email);
-            
-            if (!email || !password) {
-                showMessage('Please fill in all required fields', 'error');
+            async processMessage(message) {
+                console.log('AI processing:', message);
+                
+                // Try to create a task
+                for (let pattern of this.patterns.taskCreation) {
+                    const match = message.match(pattern);
+                    if (match) {
+                        const taskData = this.extractTaskData(match, message);
+                        if (taskData.title) {
+                            const success = this.createTask(taskData);
+                            if (success) {
+                                return `✅ **Task Created!**\n\n📋 **${taskData.title}**\n⏰ ${taskData.time}\n⏱️ ${taskData.duration} minutes\n\nI'll remind you when it's time to start! 🚀`;
+                            }
+                        }
+                    }
+                }
+
+                // Handle other requests
+                if (message.toLowerCase().includes('progress') || message.toLowerCase().includes('stats')) {
+                    return this.generateProgressReport();
+                }
+
+                if (message.toLowerCase().includes('motivat') || message.toLowerCase().includes('inspire')) {
+                    return this.generateMotivation();
+                }
+
+                if (message.toLowerCase().includes('help') || message.toLowerCase().includes('how')) {
+                    return this.generateHelp();
+                }
+
+                return this.generateResponse(message);
+            }
+
+            extractTaskData(match, originalMessage) {
+                let title = match[1] ? match[1].trim() : '';
+                let time = match[2] ? this.parseTime(match[2]) : this.getDefaultTime();
+                let duration = match[3] ? this.parseDuration(match[3]) : 60;
+
+                // Clean up title
+                title = title
+                    .replace(/^(to\s+|for\s+|a\s+|an\s+|the\s+)/i, '')
+                    .replace(/\s+(at|from|for|lasting)\s+.*$/i, '')
+                    .trim();
+
+                if (title.length < 2) {
+                    title = 'New Task';
+                }
+
+                title = title.charAt(0).toUpperCase() + title.slice(1);
+
+                return { title, time, duration };
+            }
+
+            parseTime(timeStr) {
+                const cleanTime = timeStr.replace(/\s+/g, '').toLowerCase();
+                
+                if (cleanTime.includes(':')) {
+                    const parts = cleanTime.split(':');
+                    if (parts.length === 2) {
+                        let hour = parseInt(parts[0]);
+                        let minute = parseInt(parts[1].replace(/[^\d]/g, ''));
+                        
+                        if (cleanTime.includes('pm') && hour !== 12) hour += 12;
+                        if (cleanTime.includes('am') && hour === 12) hour = 0;
+                        
+                        return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                    }
+                }
+
+                const match = cleanTime.match(/(\d{1,2})(am|pm)/);
+                if (match) {
+                    let hour = parseInt(match[1]);
+                    const period = match[2];
+                    
+                    if (period === 'pm' && hour !== 12) hour += 12;
+                    if (period === 'am' && hour === 12) hour = 0;
+                    
+                    return `${hour.toString().padStart(2, '0')}:00`;
+                }
+
+                return timeStr;
+            }
+
+            parseDuration(durationStr) {
+                const match = durationStr.match(/(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr)/i);
+                if (match) {
+                    const value = parseInt(match[1]);
+                    const unit = match[0].toLowerCase();
+                    return unit.includes('hour') || unit.includes('hr') || unit.includes('h') ? value * 60 : value;
+                }
+                return 60;
+            }
+
+            getDefaultTime() {
+                const now = new Date();
+                const nextHour = now.getHours() + 1;
+                return `${nextHour.toString().padStart(2, '0')}:00`;
+            }
+
+            createTask(taskData) {
+                const newTask = {
+                    id: Date.now(),
+                    title: taskData.title,
+                    time: taskData.time,
+                    duration: taskData.duration,
+                    completed: false,
+                    createdAt: new Date(),
+                    createdBy: 'AI',
+                    hasAlarm: true
+                };
+
+                tasks.push(newTask);
+                this.scheduleAlarm(newTask);
+                updateUI();
+                saveUserData();
+                return true;
+            }
+
+            scheduleAlarm(task) {
+                const taskTime = new Date();
+                const [hours, minutes] = task.time.split(':');
+                taskTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
+                if (taskTime <= new Date()) {
+                    taskTime.setDate(taskTime.getDate() + 1);
+                }
+
+                const timeUntilTask = taskTime.getTime() - Date.now();
+                
+                setTimeout(() => {
+                    showTaskNotification(task);
+                }, timeUntilTask);
+            }
+
+            generateProgressReport() {
+                const today = new Date().toDateString();
+                const todayTasks = tasks.filter(t => t.createdAt.toDateString() === today);
+                const completed = todayTasks.filter(t => t.completed).length;
+                const total = todayTasks.length;
+                const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+                return `📊 **Your Progress Today**\n\n✅ Completed: ${completed}/${total} tasks\n📈 Success Rate: ${rate}%\n⏱️ Time Invested: ${this.calculateTimeSpent()} minutes\n\n${this.getProgressMessage(rate)}`;
+            }
+
+            generateMotivation() {
+                const motivations = [
+                    "🌟 You're doing amazing! Every task completed is a step toward your goals!",
+                    "💪 Your consistency is building unstoppable momentum. Keep going!",
+                    "🚀 You're not just checking off tasks, you're building the life you want!",
+                    "⭐ Your dedication today is creating tomorrow's success story!",
+                    "🔥 You're in the flow state - this is where magic happens!"
+                ];
+                return motivations[Math.floor(Math.random() * motivations.length)];
+            }
+
+            generateHelp() {
+                return `🤖 **I'm here to help!** Here's what I can do:\n\n📝 **Create Tasks**: Just tell me what you want to do\n⏰ **Set Reminders**: I'll notify you when it's time\n📊 **Track Progress**: Ask me for updates anytime\n💪 **Motivate You**: I'll keep you inspired\n\nTry saying: "Study math for 2 hours at 7 PM" or "Remind me to exercise"`;
+            }
+
+            generateResponse(message) {
+                const responses = [
+                    "I'm your AI productivity assistant! I can help you create tasks, set reminders, and stay motivated. What would you like to work on?",
+                    "Ready to boost your productivity? I can understand natural language and help you organize your day. What's your goal?",
+                    "I'm here to help you stay focused and achieve your goals! Try describing a task you want to do, and I'll set it up for you.",
+                    "Let's make today productive! I can help with task creation, time management, and motivation. How can I assist you?"
+                ];
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            calculateTimeSpent() {
+                const today = new Date().toDateString();
+                return completedTasks
+                    .filter(t => t.completedAt && t.completedAt.toDateString() === today)
+                    .reduce((total, t) => total + (t.duration || 0), 0);
+            }
+
+            getProgressMessage(rate) {
+                if (rate >= 80) return "🏆 Outstanding performance! You're crushing your goals!";
+                if (rate >= 60) return "🎯 Great work! You're making solid progress!";
+                if (rate >= 40) return "💪 Good momentum! Keep building those habits!";
+                return "🌱 Every journey starts with a single step. You've got this!";
+            }
+        }
+
+        const aiAssistant = new AppleStyleAI();
+
+        // Authentication Functions
+        function quickSignIn() {
+            const name = document.getElementById('nameInput').value.trim();
+            if (!name) {
+                showToast('Please enter your name');
                 return;
             }
+
+            currentUser = {
+                id: Date.now(),
+                name: name,
+                createdAt: new Date()
+            };
+
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+            document.getElementById('authOverlay').classList.add('hidden');
             
-            const submitBtn = document.getElementById('authSubmitBtn');
-            submitBtn.classList.add('loading');
+            loadUserData();
+            showToast(`Welcome, ${name}! 👋`);
             
-            // Simulate processing delay
+            // Add welcome message to chat
             setTimeout(() => {
-                try {
-                    if (isLoginMode) {
-                        handleLogin(email, password);
-                    } else {
-                        handleRegistration(email, password);
-                    }
-                } catch (error) {
-                    showMessage(error.message, 'error');
-                } finally {
-                    submitBtn.classList.remove('loading');
-                    submitBtn.textContent = isLoginMode ? 'Sign In' : 'Create Account';
-                }
+                addChatMessage("👋 Welcome to FlowState Pro! I'm your AI assistant. I can help you create tasks, set reminders, and stay motivated. Try saying 'Study math for 2 hours at 7 PM' or ask me for help!", 'ai');
             }, 1000);
         }
 
-        function handleLogin(email, password) {
-            const users = getUsersDB();
-            const user = users[email];
+        // Mode Switching
+        function setMode(mode) {
+            currentMode = mode;
             
-            if (!user) {
-                throw new Error('No account found with this email address. Please create an account first.');
-            }
+            document.getElementById('aiModeBtn').classList.toggle('active', mode === 'ai');
+            document.getElementById('manualModeBtn').classList.toggle('active', mode === 'manual');
             
-            if (user.password !== password) {
-                throw new Error('Incorrect password. Please try again.');
-            }
-            
-            if (!user.emailVerified) {
-                throw new Error('Please verify your email address before signing in. Check your inbox for the verification code.');
-            }
-            
-            // Successful login
-            currentUser = user;
-            localStorage.setItem('flowstate-current-user-v2', JSON.stringify(currentUser));
-            
-            showMessage(`Welcome back, ${currentUser.name}! 🎉`, 'success');
-            
-            setTimeout(() => {
-                showMainApp();
-                updateUserDisplay();
-                initializeApp();
-            }, 1500);
+            document.getElementById('aiMode').classList.toggle('hidden', mode !== 'ai');
+            document.getElementById('manualMode').classList.toggle('hidden', mode !== 'manual');
         }
 
-        function handleRegistration(email, password) {
-            const name = document.getElementById('nameInput').value.trim();
-            const age = document.getElementById('ageInput').value;
-            const gender = document.querySelector('input[name="gender"]:checked')?.value;
-            const confirmPassword = document.getElementById('confirmPasswordInput').value;
+        // Task Creation Functions
+        async function createWithAI() {
+            const input = document.getElementById('aiInput');
+            const message = input.value.trim();
             
-            if (!name) {
-                throw new Error('Please enter your full name');
+            if (!message) {
+                showToast('Please describe what you want to do');
+                return;
             }
-            
-            if (password !== confirmPassword) {
-                throw new Error('Passwords do not match');
+
+            // Show loading
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<span class="loading"></span> Creating...';
+            button.disabled = true;
+
+            try {
+                const response = await aiAssistant.processMessage(message);
+                addChatMessage(message, 'user');
+                addChatMessage(response, 'ai');
+                input.value = '';
+            } catch (error) {
+                console.error('AI Error:', error);
+                showToast('❌ Something went wrong. Please try again.');
+            } finally {
+                button.innerHTML = originalText;
+                button.disabled = false;
             }
-            
-            const users = getUsersDB();
-            
-            if (users[email]) {
-                throw new Error('An account with this email already exists. Please sign in instead.');
+        }
+
+        function createManually() {
+            const title = document.getElementById('taskTitle').value.trim();
+            const time = document.getElementById('taskTime').value;
+            const duration = parseInt(document.getElementById('taskDuration').value);
+
+            if (!title) {
+                showToast('Please enter a task title');
+                return;
             }
-            
-            // Create new user (unverified)
-            const newUser = {
-                name: name,
-                email: email,
-                password: password,
-                age: age || null,
-                gender: gender || 'not-specified',
-                emailVerified: false,
-                createdAt: new Date().toISOString(),
+
+            if (!time) {
+                showToast('Please select a time');
+                return;
+            }
+
+            const newTask = {
                 id: Date.now(),
-                tasks: [],
-                completedTasks: [],
-                stats: {
-                    totalStudyTime: 0,
-                    tasksCompleted: 0,
-                    streakDays: 0
-                }
+                title: title,
+                time: time,
+                duration: duration,
+                completed: false,
+                createdAt: new Date(),
+                createdBy: 'Manual',
+                hasAlarm: true
             };
-            
-            // Store user temporarily
-            users[email] = newUser;
-            saveUsersDB(users);
-            
-            // Generate and store verification code
-            const verificationCode = generateVerificationCode();
-            const verificationDB = getVerificationDB();
-            verificationDB[email] = {
-                code: verificationCode,
-                expires: Date.now() + (30 * 60 * 1000), // 30 minutes
-                user: newUser
-            };
-            saveVerificationDB(verificationDB);
-            
-            pendingVerification = { email, code: verificationCode };
-            
-            // Send confirmation email (simulated)
-            sendConfirmationEmail(email, name, verificationCode);
-        }
 
-        function sendConfirmationEmail(email, name, code) {
-            console.log('📧 Sending confirmation email...');
-            console.log('📧 To:', email);
-            console.log('📧 Code:', code);
+            tasks.push(newTask);
+            aiAssistant.scheduleAlarm(newTask);
             
-            // Hide main form and show verification interface
-            document.getElementById('authForm').style.display = 'none';
-            document.getElementById('authSwitchContainer').style.display = 'none';
-            document.getElementById('forgotPasswordContainer').style.display = 'none';
+            // Clear inputs
+            document.getElementById('taskTitle').value = '';
+            document.getElementById('taskTime').value = '';
             
-            document.getElementById('verificationInterface').classList.remove('hidden');
-            document.getElementById('verificationEmail').textContent = email;
-            document.getElementById('verificationCode').textContent = code;
-            
-            showMessage(`📧 Confirmation email sent to ${email}! Check the code below.`, 'info');
-            
-            // In production, this would actually send an email
-            console.log(`
-                📧 EMAIL SIMULATION:
-                ==================
-                To: ${email}
-                Subject: Welcome to FlowState Pro - Verify Your Email
-                
-                Hi ${name}!
-                
-                Welcome to FlowState Pro! Please verify your email address by entering this code:
-                
-                Verification Code: ${code}
-                
-                This code expires in 30 minutes.
-                
-                Best regards,
-                FlowState Pro Team
-            `);
-        }
-
-        function verifyEmailCode() {
-            const enteredCode = document.getElementById('codeInput').value.trim();
-            
-            if (!enteredCode) {
-                showMessage('Please enter the verification code', 'error');
-                return;
-            }
-            
-            if (!pendingVerification) {
-                showMessage('No pending verification found', 'error');
-                return;
-            }
-            
-            const verificationDB = getVerificationDB();
-            const verification = verificationDB[pendingVerification.email];
-            
-            if (!verification) {
-                showMessage('Verification expired. Please register again.', 'error');
-                return;
-            }
-            
-            if (Date.now() > verification.expires) {
-                showMessage('Verification code expired. Please register again.', 'error');
-                delete verificationDB[pendingVerification.email];
-                saveVerificationDB(verificationDB);
-                return;
-            }
-            
-            if (enteredCode !== verification.code) {
-                showMessage('Invalid verification code. Please try again.', 'error');
-                return;
-            }
-            
-            // Email verified successfully!
-            const users = getUsersDB();
-            const user = users[pendingVerification.email];
-            user.emailVerified = true;
-            user.verifiedAt = new Date().toISOString();
-            
-            users[pendingVerification.email] = user;
-            saveUsersDB(users);
-            
-            // Clean up verification
-            delete verificationDB[pendingVerification.email];
-            saveVerificationDB(verificationDB);
-            
-            currentUser = user;
-            localStorage.setItem('flowstate-current-user-v2', JSON.stringify(currentUser));
-            
-            showMessage(`🎉 Email verified successfully! Welcome to FlowState Pro, ${user.name}!`, 'success');
-            
-            setTimeout(() => {
-                showMainApp();
-                updateUserDisplay();
-                initializeApp();
-            }, 2000);
-        }
-
-        function resendVerificationCode() {
-            if (!pendingVerification) {
-                showMessage('No pending verification found', 'error');
-                return;
-            }
-            
-            const newCode = generateVerificationCode();
-            const verificationDB = getVerificationDB();
-            
-            verificationDB[pendingVerification.email] = {
-                code: newCode,
-                expires: Date.now() + (30 * 60 * 1000),
-                user: verificationDB[pendingVerification.email].user
-            };
-            saveVerificationDB(verificationDB);
-            
-            pendingVerification.code = newCode;
-            document.getElementById('verificationCode').textContent = newCode;
-            
-            showMessage('📧 New verification code sent!', 'info');
-            console.log('🔄 New verification code:', newCode);
-        }
-
-        function cancelVerification() {
-            // Reset to main form
-            document.getElementById('authForm').style.display = 'flex';
-            document.getElementById('authSwitchContainer').style.display = 'block';
-            document.getElementById('forgotPasswordContainer').style.display = 'block';
-            document.getElementById('verificationInterface').classList.add('hidden');
-            
-            // Clean up pending verification
-            if (pendingVerification) {
-                const verificationDB = getVerificationDB();
-                delete verificationDB[pendingVerification.email];
-                saveVerificationDB(verificationDB);
-                
-                const users = getUsersDB();
-                delete users[pendingVerification.email];
-                saveUsersDB(users);
-                
-                pendingVerification = null;
-            }
-            
-            dismissMessage();
-        }
-
-        // Password Reset Functions
-        function showPasswordReset() {
-            document.getElementById('authForm').style.display = 'none';
-            document.getElementById('authSwitchContainer').style.display = 'none';
-            document.getElementById('forgotPasswordContainer').style.display = 'none';
-            document.getElementById('resetInterface').classList.remove('hidden');
-            
-            document.getElementById('authTitle').textContent = 'Reset Password';
-            document.getElementById('authSubtitle').textContent = 'Enter your email to receive reset instructions';
-        }
-
-        function sendPasswordReset() {
-            const email = normalizeEmail(document.getElementById('resetEmailInput').value);
-            
-            if (!email) {
-                showMessage('Please enter your email address', 'error');
-                return;
-            }
-            
-            const users = getUsersDB();
-            if (!users[email]) {
-                showMessage('No account found with this email address', 'error');
-                return;
-            }
-            
-            // Generate reset token (in production, this would be secure)
-            const resetToken = Math.random().toString(36).substring(2, 15);
-            const resetDB = JSON.parse(localStorage.getItem('flowstate-reset-tokens') || '{}');
-            
-            resetDB[email] = {
-                token: resetToken,
-                expires: Date.now() + (60 * 60 * 1000) // 1 hour
-            };
-            
-            localStorage.setItem('flowstate-reset-tokens', JSON.stringify(resetDB));
-            
-            // Simulate sending reset email
-            console.log(`
-                📧 PASSWORD RESET EMAIL SIMULATION:
-                ===================================
-                To: ${email}
-                Subject: FlowState Pro - Password Reset Request
-                
-                Hi there!
-                
-                You requested a password reset for your FlowState Pro account.
-                
-                Reset Token: ${resetToken}
-                
-                Click the link below to reset your password:
-                https://flowstate-pro.com/reset?token=${resetToken}
-                
-                This link expires in 1 hour.
-                
-                If you didn't request this, please ignore this email.
-                
-                Best regards,
-                FlowState Pro Team
-            `);
-            
-            showMessage(`📧 Password reset instructions sent to ${email}! Check your email for the reset link.`, 'success');
-            
-            setTimeout(() => {
-                cancelPasswordReset();
-            }, 3000);
-        }
-
-        function cancelPasswordReset() {
-            document.getElementById('authForm').style.display = 'flex';
-            document.getElementById('authSwitchContainer').style.display = 'block';
-            document.getElementById('forgotPasswordContainer').style.display = 'block';
-            document.getElementById('resetInterface').classList.add('hidden');
-            
-            document.getElementById('authTitle').textContent = isLoginMode ? 'Welcome Back' : 'Join FlowState Pro';
-            document.getElementById('authSubtitle').textContent = isLoginMode ? 'Sign in to your account' : 'Create your productivity workspace';
-            
-            dismissMessage();
-        }
-
-        // UI Management Functions
-        function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
-            console.log('🔄 Switching to:', isLoginMode ? 'Login' : 'Register');
-            
-            const nameInput = document.getElementById('nameInput');
-            const ageInput = document.getElementById('ageInput');
-            const genderSelector = document.getElementById('genderSelector');
-            const confirmInput = document.getElementById('confirmPasswordInput');
-            const submitBtn = document.getElementById('authSubmitBtn');
-            const title = document.getElementById('authTitle');
-            const subtitle = document.getElementById('authSubtitle');
-            const switchText = document.getElementById('authSwitchText');
-            const switchLink = document.getElementById('authSwitchLink');
-            
-            if (isLoginMode) {
-                // Switch to Login Mode
-                nameInput.style.display = 'none';
-                ageInput.style.display = 'none';
-                genderSelector.style.display = 'none';
-                confirmInput.style.display = 'none';
-                submitBtn.textContent = 'Sign In';
-                title.textContent = 'Welcome Back';
-                subtitle.textContent = 'Sign in to your FlowState Pro account';
-                switchText.textContent = "Don't have an account?";
-                switchLink.textContent = 'Create Account';
-                
-                nameInput.required = false;
-                confirmInput.required = false;
-            } else {
-                // Switch to Register Mode
-                nameInput.style.display = 'block';
-                ageInput.style.display = 'block';
-                genderSelector.style.display = 'block';
-                confirmInput.style.display = 'block';
-                submitBtn.textContent = 'Create Account';
-                title.textContent = 'Join FlowState Pro';
-                subtitle.textContent = 'Create your personalized productivity workspace';
-                switchText.textContent = 'Already have an account?';
-                switchLink.textContent = 'Sign In';
-                
-                nameInput.required = true;
-                confirmInput.required = true;
-            }
-            
-            dismissMessage();
-        }
-
-        function showMessage(message, type = 'info') {
-            console.log(`📢 Message (${type}):`, message);
-            const messageDiv = document.getElementById('messageDisplay');
-            const messageText = document.getElementById('messageText');
-            
-            messageDiv.className = `message-display ${type}`;
-            messageText.innerHTML = message;
-            messageDiv.classList.remove('hidden');
-        }
-
-        function dismissMessage() {
-            document.getElementById('messageDisplay').classList.add('hidden');
-        }
-
-        // App Navigation Functions
-        function showAuthModal() {
-            document.getElementById('authModal').classList.remove('hidden');
-            document.getElementById('mainApp').classList.add('hidden');
-        }
-
-        function showMainApp() {
-            document.getElementById('authModal').classList.add('hidden');
-            document.getElementById('mainApp').classList.remove('hidden');
-        }
-
-        function updateUserDisplay() {
-            if (currentUser) {
-                document.getElementById('userName').textContent = currentUser.name;
-                document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
-            }
-        }
-
-        function logout() {
-            console.log('🚪 Logging out...');
-            
-            if (currentUser) {
-                // Save user data before logout
-                const users = getUsersDB();
-                currentUser.tasks = tasks;
-                currentUser.completedTasks = completedTasks;
-                currentUser.lastLogin = new Date().toISOString();
-                users[currentUser.email] = currentUser;
-                saveUsersDB(users);
-            }
-            
-            currentUser = null;
-            tasks = [];
-            completedTasks = [];
-            localStorage.removeItem('flowstate-current-user-v2');
-            
-            // Reset auth form
-            document.getElementById('authForm').reset();
-            if (!isLoginMode) {
-                toggleAuthMode();
-            }
-            
-            showAuthModal();
-            showToast('👋 Logged out successfully');
-        }
-
-        // Theme Functions
-        function setTheme(themeName) {
-            document.body.setAttribute('data-theme', themeName);
-            
-            document.querySelectorAll('.theme-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-theme') === themeName);
-            });
-            
-            localStorage.setItem('flowstate-theme', themeName);
-            console.log('🎨 Theme set to:', themeName);
-        }
-
-        // App Functionality
-        function initializeApp() {
-            if (currentUser) {
-                tasks = currentUser.tasks || [];
-                completedTasks = currentUser.completedTasks || [];
-                renderTasks();
-                
-                // Show welcome message
-                setTimeout(() => {
-                    const greeting = getTimeBasedGreeting();
-                    addChatMessage(`${greeting}, ${currentUser.name}! 🌟 Welcome to FlowState Pro! I'm your AI productivity companion, ready to help you achieve your goals today. What would you like to accomplish?`, 'ai');
-                }, 1000);
-            }
-        }
-
-        function getTimeBasedGreeting() {
-            const hour = new Date().getHours();
-            if (hour < 12) return 'Good morning';
-            if (hour < 17) return 'Good afternoon';
-            return 'Good evening';
+            updateUI();
+            saveUserData();
+            showToast('✅ Task created successfully!');
         }
 
         // Task Management
-        function createTask() {
-            const input = document.getElementById('taskInput');
-            const taskText = input.value.trim();
-            
-            if (!taskText) {
-                showToast('❌ Please describe your task');
-                return;
-            }
-            
-            const newTask = {
-                id: Date.now(),
-                title: taskText,
-                completed: false,
-                createdAt: new Date(),
-                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-            };
-            
-            tasks.push(newTask);
-            input.value = '';
-            renderTasks();
-            
-            showToast('✅ Task created successfully!');
-            addChatMessage(`✅ **Task Created!** "${taskText}" has been added to your list. You're building great momentum! 🚀`, 'ai');
-        }
-
         function toggleTask(id) {
             const task = tasks.find(t => t.id === id);
             if (task) {
                 task.completed = !task.completed;
                 
                 if (task.completed) {
-                    completedTasks.push({ ...task, completedAt: new Date() });
+                    completedTasks.push({
+                        ...task,
+                        completedAt: new Date()
+                    });
                     showToast('🎉 Task completed!');
-                    addChatMessage(`🎉 **Excellent!** You completed "${task.title}". Keep up the fantastic work! Every task completed brings you closer to your goals! 💪`, 'ai');
+                } else {
+                    completedTasks = completedTasks.filter(t => t.id !== id);
                 }
                 
-                renderTasks();
-                updateProgress();
+                updateUI();
+                saveUserData();
             }
         }
 
-        function removeTask(id) {
+        function deleteTask(id) {
             tasks = tasks.filter(t => t.id !== id);
+            completedTasks = completedTasks.filter(t => t.id !== id);
+            updateUI();
+            saveUserData();
+            showToast('🗑️ Task deleted');
+        }
+
+        function snoozeTaskById(id, minutes = 10) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                // Update task time
+                const newTime = new Date();
+                newTime.setMinutes(newTime.getMinutes() + minutes);
+                task.time = `${newTime.getHours().toString().padStart(2, '0')}:${newTime.getMinutes().toString().padStart(2, '0')}`;
+                
+                // Reschedule alarm
+                aiAssistant.scheduleAlarm(task);
+                updateUI();
+                saveUserData();
+                showToast(`😴 Task snoozed for ${minutes} minutes`);
+            }
+        }
+
+        // UI Update Functions
+        function updateUI() {
             renderTasks();
+            updateStats();
             updateProgress();
-            showToast('🗑️ Task removed');
         }
 
         function renderTasks() {
-            const container = document.getElementById('tasksList');
-            const summary = document.getElementById('tasksSummary');
+            const container = document.getElementById('taskList');
+            const summary = document.getElementById('taskSummary');
             
             if (tasks.length === 0) {
                 container.innerHTML = `
                     <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
-                        <div style="font-size: 64px; margin-bottom: 20px;">🎯</div>
-                        <div style="font-size: 18px; font-weight: 500;">Your productivity journey starts here!</div>
-                        <div style="font-size: 15px; margin-top: 8px;">Create your first task</div>
+                        <div style="font-size: 48px; margin-bottom: 16px;">📝</div>
+                        <p>Create your first task above!</p>
                     </div>
                 `;
-                summary.textContent = 'Ready to start your productive day';
+                summary.textContent = 'No tasks yet';
                 return;
             }
+
+            const today = new Date().toDateString();
+            const todayTasks = tasks.filter(t => t.createdAt.toDateString() === today);
+            const completed = todayTasks.filter(t => t.completed).length;
             
-            const completedToday = tasks.filter(t => t.completed).length;
-            summary.textContent = `${completedToday}/${tasks.length} tasks completed`;
+            summary.textContent = `${completed}/${todayTasks.length} completed today`;
             
-            container.innerHTML = '';
+            const sortedTasks = [...tasks].sort((a, b) => a.time.localeCompare(b.time));
             
-            tasks.forEach(task => {
-                const taskElement = document.createElement('div');
-                taskElement.className = 'task-item';
-                if (task.completed) taskElement.classList.add('completed');
-                
-                taskElement.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <div style="width: 24px; height: 24px; border: 2px solid var(--primary-color); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; ${task.completed ? 'background: var(--primary-color); color: white;' : ''}" onclick="toggleTask(${task.id})">
-                            ${task.completed ? '✓' : ''}
-                        </div>
-                        <div style="flex: 1;">
-                            <div style="font-weight: 600; color: var(--text-primary); ${task.completed ? 'text-decoration: line-through; opacity: 0.7;' : ''}">${task.title}</div>
-                            <div style="font-size: 14px; color: var(--text-secondary);">Created at ${task.time}</div>
-                        </div>
-                        <button onclick="removeTask(${task.id})" style="padding: 8px 12px; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); cursor: pointer;">Remove</button>
+            container.innerHTML = sortedTasks.map(task => `
+                <div class="task-item ${task.completed ? 'completed' : ''}">
+                    <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="toggleTask(${task.id})">
+                        ${task.completed ? '✓' : ''}
                     </div>
-                `;
-                container.appendChild(taskElement);
-            });
+                    <div class="task-content">
+                        <div class="task-title">${task.title}</div>
+                        <div class="task-meta">
+                            <span>⏰ ${task.time}</span>
+                            <span>⏱️ ${task.duration}m</span>
+                            <span>🤖 ${task.createdBy}</span>
+                        </div>
+                    </div>
+                    <div class="task-controls">
+                        <button class="task-btn" onclick="snoozeTaskById(${task.id}, 10)">Snooze</button>
+                        <button class="task-btn" onclick="deleteTask(${task.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            const today = new Date().toDateString();
+            const todayTasks = tasks.filter(t => t.createdAt.toDateString() === today);
+            const completed = todayTasks.filter(t => t.completed).length;
+            const totalTime = Math.round(aiAssistant.calculateTimeSpent() / 60 * 10) / 10;
             
-            updateProgress();
+            document.getElementById('todayTasks').textContent = todayTasks.length;
+            document.getElementById('completedTasks').textContent = completed;
+            document.getElementById('totalTime').textContent = `${totalTime}h`;
+            document.getElementById('streakDays').textContent = calculateStreak();
         }
 
         function updateProgress() {
-            const completedToday = tasks.filter(t => t.completed).length;
-            const totalToday = tasks.length;
-            const percentage = totalToday > 0 ? Math.round((completedToday / totalToday) * 100) : 0;
+            const today = new Date().toDateString();
+            const todayTasks = tasks.filter(t => t.createdAt.toDateString() === today);
+            const completed = todayTasks.filter(t => t.completed).length;
+            const total = todayTasks.length;
+            const percentage = total > 0 ? (completed / total) * 100 : 0;
             
-            document.getElementById('progressPercent').textContent = `${percentage}%`;
+            const circle = document.getElementById('progressCircle');
+            const circumference = 2 * Math.PI * 45;
+            const offset = circumference - (percentage / 100) * circumference;
+            
+            circle.style.strokeDashoffset = offset;
+            document.getElementById('progressPercent').textContent = `${Math.round(percentage)}%`;
+            
+            const messages = {
+                100: "Perfect day! 🎉",
+                80: "Almost there! 🌟",
+                50: "Great progress! 💪",
+                25: "Keep going! 🚀",
+                0: "Ready to be productive! ✨"
+            };
+            
+            const messageKey = Object.keys(messages).reverse().find(key => percentage >= key);
+            document.getElementById('progressMessage').textContent = messages[messageKey];
         }
 
-        // AI Chat Functions
-        function sendMessage() {
+        function calculateStreak() {
+            // Simple streak calculation
+            const today = new Date().toDateString();
+            const todayCompleted = completedTasks.filter(t => 
+                t.completedAt && t.completedAt.toDateString() === today
+            ).length;
+            return todayCompleted > 0 ? Math.min(todayCompleted, 7) : 0;
+        }
+
+        // Chat Functions
+        async function sendChatMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
             
@@ -1708,101 +1336,154 @@
             addChatMessage(message, 'user');
             input.value = '';
             
-            setTimeout(() => {
-                const response = generateAIResponse(message);
+            try {
+                const response = await aiAssistant.processMessage(message);
                 addChatMessage(response, 'ai');
-            }, 1000);
+            } catch (error) {
+                addChatMessage('Sorry, I encountered an error. Please try again.', 'ai');
+            }
         }
 
         function addChatMessage(message, sender) {
             const container = document.getElementById('chatMessages');
-            const div = document.createElement('div');
-            div.className = `message ${sender}`;
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
             
             if (sender === 'ai') {
-                div.innerHTML = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                messageDiv.innerHTML = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
             } else {
-                div.textContent = message;
+                messageDiv.textContent = message;
             }
             
-            container.appendChild(div);
+            container.appendChild(messageDiv);
             container.scrollTop = container.scrollHeight;
         }
 
-        function generateAIResponse(message) {
-            const userName = currentUser ? currentUser.name : 'friend';
+        // Notification Functions
+        function showTaskNotification(task) {
+            currentNotificationTask = task;
             
-            if (message.toLowerCase().includes('motivat') || message.toLowerCase().includes('inspire')) {
-                return `🔥 ${userName}, you're doing amazing! Every step you take is building toward your success. Your dedication today creates your freedom tomorrow! Keep pushing forward! 💪`;
+            document.getElementById('notificationIcon').textContent = '⏰';
+            document.getElementById('notificationTitle').textContent = `Time for ${task.title}!`;
+            document.getElementById('notificationBody').textContent = `Your ${task.duration}-minute session is starting now.`;
+            
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            
+            // Browser notification
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification(`Time for ${task.title}!`, {
+                    body: `Your ${task.duration}-minute session is starting now.`,
+                    icon: 'icon-192.png',
+                    badge: 'icon-192.png',
+                    tag: `task-${task.id}`
+                });
             }
             
-            if (message.toLowerCase().includes('task') || message.toLowerCase().includes('todo')) {
-                return `🎯 Great thinking, ${userName}! Tasks are the building blocks of achievement. I can help you create, organize, and track your tasks. What would you like to accomplish today?`;
-            }
-            
-            if (message.toLowerCase().includes('help') || message.toLowerCase().includes('how')) {
-                return `🤝 I'm here to help, ${userName}! I can assist with task creation, productivity tips, motivation, progress tracking, and much more. What specific area would you like help with?`;
-            }
-            
-            const responses = [
-                `Hi ${userName}! I'm your AI productivity companion. I'm here to help you achieve your goals and stay motivated throughout your journey! 🚀`,
-                `That's a great question, ${userName}! As your AI assistant, I can help you optimize your productivity, create smart tasks, and provide personalized guidance. How can I support you today? 💪`,
-                `${userName}, I love your engagement! Let's work together to make this a super productive day. What's your biggest priority right now? 🎯`,
-                `Excellent, ${userName}! Your proactive approach is exactly what leads to success. I'm here to provide insights, motivation, and practical help. What can we tackle together? ⚡`
-            ];
-            
-            return responses[Math.floor(Math.random() * responses.length)];
+            // Auto-dismiss after 30 seconds
+            setTimeout(() => {
+                dismissNotification();
+            }, 30000);
         }
 
-        // Quick Action Functions
-        function startAIChat() {
-            addChatMessage("👋 Hello! I'm your AI productivity coach. I can help you create tasks, provide motivation, track progress, and offer personalized productivity tips. What would you like to work on today?", 'ai');
-        }
-
-        function createQuickTask() {
-            document.getElementById('taskInput').focus();
-        }
-
-        function startStudySession() {
-            const studyTask = {
-                id: Date.now(),
-                title: 'Study Session - 25 minutes',
-                completed: false,
-                createdAt: new Date(),
-                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-            };
-            
-            tasks.push(studyTask);
-            renderTasks();
-            showToast('📚 Study session started!');
-            addChatMessage("📚 **Study Session Started!** Focus for the next 25 minutes. Remember: every minute of learning is an investment in your future! You've got this! 🧠✨", 'ai');
-        }
-
-        function enableVoice() {
-            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                showToast('🎤 Voice commands enabled! Say "Create task" to get started.');
-                addChatMessage("🎤 **Voice Commands Activated!** You can now speak to me naturally. Try saying things like 'Create a task to study math' or 'How am I doing today?' 🗣️", 'ai');
-            } else {
-                showToast('❌ Voice recognition not supported in this browser');
+        function startTask() {
+            if (currentNotificationTask) {
+                showToast(`Started: ${currentNotificationTask.title}`);
+                dismissNotification();
             }
         }
 
-        // User Interface Functions
-        function toggleUserDropdown() {
-            const dropdown = document.getElementById('userDropdown');
-            dropdown.classList.toggle('show');
+        function snoozeTask() {
+            if (currentNotificationTask) {
+                snoozeTaskById(currentNotificationTask.id, 10);
+                dismissNotification();
+            }
         }
 
-        function showProfile() {
-            if (!currentUser) return;
+        function dismissNotification() {
+            document.getElementById('notification').classList.remove('show');
+            currentNotificationTask = null;
+        }
+
+        // Utility Functions
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', currentTheme);
+            document.getElementById('themeIcon').textContent = currentTheme === 'light' ? '🌙' : '☀️';
+            saveUserData();
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--background-secondary);
+                color: var(--text-primary);
+                padding: 12px 24px;
+                border-radius: 20px;
+                border: 1px solid var(--separator);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                font-weight: 500;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
             
-            const profile = `👤 **${currentUser.name}'s Profile**\n\n📧 **Email:** ${currentUser.email}\n📅 **Member since:** ${new Date(currentUser.createdAt).toLocaleDateString()}\n✅ **Email verified:** ${currentUser.emailVerified ? 'Yes' : 'No'}\n🎯 **Tasks completed:** ${completedTasks.length}\n📊 **Current tasks:** ${tasks.length}`;
-            addChatMessage(profile, 'ai');
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
         }
 
-        function showStats() {
-            const stats = `📊 **Your Productivity Statistics:**\n\n✅ **Total tasks:** ${tasks.length + completedTasks.length}\n🏆 **Completed:** ${completedTasks.length}\n📈 **Success rate:** ${tasks.length + completedTasks.length > 0 ? Math.round((completedTasks.length / (tasks.length + completedTasks.length)) * 100) : 0}%\n🔥 **Current streak:** Keep building!`;
-            addChatMessage(stats, 'ai');
+        function saveUserData() {
+            if (currentUser) {
+                const userData = {
+                    user: currentUser,
+                    tasks: tasks,
+                    completedTasks: completedTasks,
+                    theme: currentTheme
+                };
+                localStorage.setItem('flowstate-data', JSON.stringify(userData));
+            }
+        }
+
+        function loadUserData() {
+            const saved = localStorage.getItem('flowstate-data');
+            if (saved) {
+                const data = JSON.parse(saved);
+                tasks = data.tasks || [];
+                completedTasks = data.completedTasks || [];
+                currentTheme = data.theme || 'light';
+                
+                document.body.setAttribute('data-theme', currentTheme);
+                document.getElementById('themeIcon').textContent = currentTheme === 'light' ? '🌙' : '☀️';
+            }
+            
+            updateUI();
+        }
+
+        // Quick Actions
+        function startPomodoro() {
+            const message = "Start a 25-minute Pomodoro session";
+            document.getElementById('aiInput').value = message;
+            createWithAI();
+        }
+
+        function setBreakReminder() {
+            const message = "Remind me to take a break in 1 hour";
+            document.getElementById('aiInput').value = message;
+            createWithAI();
+        }
+
+        function showMotivation() {
+            addChatMessage("Give me some motivation", 'user');
+            setTimeout(() => {
+                aiAssistant.processMessage("motivation").then(response => {
+                    addChatMessage(response, 'ai');
+                });
+            }, 500);
         }
 
         function exportData() {
@@ -1810,122 +1491,57 @@
                 user: currentUser,
                 tasks: tasks,
                 completedTasks: completedTasks,
-                exportDate: new Date().toISOString()
+                exportDate: new Date()
             };
             
-            const dataStr = JSON.stringify(data, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `flowstate-pro-${currentUser.name}-data.json`;
-            link.click();
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'flowstate-data.json';
+            a.click();
+            URL.revokeObjectURL(url);
             
             showToast('📤 Data exported successfully!');
         }
 
-        function importData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            input.onchange = function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        try {
-                            const data = JSON.parse(e.target.result);
-                            tasks = data.tasks || [];
-                            completedTasks = data.completedTasks || [];
-                            renderTasks();
-                            updateProgress();
-                            showToast('📥 Data imported successfully!');
-                        } catch (error) {
-                            showToast('❌ Invalid file format');
-                        }
-                    };
-                    reader.readAsText(file);
-                }
-            };
-            input.click();
+        function showUserMenu() {
+            showToast('👤 User menu coming soon!');
         }
 
-        function showSettings() {
-            addChatMessage("⚙️ **Settings Panel:**\n\n🎨 **Themes:** Use the theme selector in the header\n📧 **Email:** Manage your account email\n🔐 **Password:** Reset your password\n📊 **Data:** Export or import your data\n🔔 **Notifications:** Browser notification settings\n\nMore settings coming soon!", 'ai');
-        }
-
-        function showHelp() {
-            const help = `🆘 **FlowState Pro Help Guide:**\n\n🎯 **Creating Tasks:** Type naturally like "Study math for 2 hours" or "Call John at 3 PM"\n🧠 **AI Assistant:** Ask me anything about productivity, motivation, or task management\n📊 **Progress Tracking:** Watch your daily completion rate grow\n🎨 **Themes:** Switch between Light, Dark, and Elegant themes\n📤 **Data Management:** Export/import your data anytime\n🔐 **Account:** Secure email verification and password reset\n\n**Need more help?** Just ask me anything in the chat! I'm here to help you succeed! 💪`;
-            addChatMessage(help, 'ai');
-        }
-
-        // Utility Functions
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: var(--bg-secondary);
-                color: var(--text-primary);
-                padding: 16px 24px;
-                border-radius: 12px;
-                box-shadow: var(--shadow-primary);
-                z-index: 1000;
-                border: 1px solid var(--border-color);
-                backdrop-filter: blur(20px);
-                animation: slideDown 0.3s ease;
-                max-width: 300px;
-            `;
-            toast.textContent = message;
-            
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.animation = 'fadeOut 0.3s ease';
-                setTimeout(() => {
-                    if (toast.parentNode) {
-                        toast.remove();
-                    }
-                }, 300);
-            }, 3000);
-        }
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.user-profile')) {
-                document.getElementById('userDropdown').classList.remove('show');
-            }
-        });
-
-        // Add Enter key functionality
+        // Initialize App
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('chatInput')?.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') sendMessage();
+            // Request notification permission
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+            
+            // Check if user is already signed in
+            const saved = localStorage.getItem('flowstate-data');
+            if (saved) {
+                const data = JSON.parse(saved);
+                if (data.user) {
+                    currentUser = data.user;
+                    document.getElementById('userName').textContent = data.user.name;
+                    document.getElementById('userAvatar').textContent = data.user.name.charAt(0).toUpperCase();
+                    document.getElementById('authOverlay').classList.add('hidden');
+                    loadUserData();
+                }
+            }
+            
+            // Enable Enter key for inputs
+            document.getElementById('aiInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') createWithAI();
             });
             
-            document.getElementById('taskInput')?.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') createTask();
+            document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendChatMessage();
             });
             
-            document.getElementById('codeInput')?.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') verifyEmailCode();
+            document.getElementById('nameInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') quickSignIn();
             });
         });
-
-        // Add CSS for fadeOut animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeOut {
-                from { opacity: 1; transform: translateX(0); }
-                to { opacity: 0; transform: translateX(100%); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        console.log('🎯 FlowState Pro v8.0 Authentication System Ready!');
-        console.log('✨ Features: Email Confirmation, Password Reset, Secure Login');
     </script>
 </body>
 </html>
