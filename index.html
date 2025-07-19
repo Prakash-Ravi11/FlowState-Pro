@@ -6,7 +6,6 @@
     <title>FlowState Pro - Student Productivity</title>
     <meta name="description" content="A free, modern productivity app for students with tasks, AI chat, and focus timer">
     
-    <!-- Cache Control -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -20,39 +19,41 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
         :root {
-            --bg-primary: #F7F7FA;
-            --bg-secondary: rgba(255, 255, 255, 0.9);
+            --bg-primary: #E8ECEF;
+            --bg-secondary: #F8FAFC;
             --text-primary: #1A1A1E;
             --text-secondary: #5C5C66;
             --primary-color: #007AFF;
             --success-color: #28A745;
             --danger-color: #FF3B30;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --sidebar-bg: rgba(255, 255, 255, 0.98);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow: 6px 6px 12px rgba(0, 0, 0, 0.05), -6px -6px 12px rgba(255, 255, 255, 0.9);
+            --card-bg: #F8FAFC;
+            --sidebar-bg: #F8FAFC;
         }
 
         [data-theme="dark"] {
             --bg-primary: #1A1A1E;
-            --bg-secondary: rgba(40, 40, 46, 0.9);
+            --bg-secondary: #2A2A2E;
             --text-primary: #E6E6E6;
             --text-secondary: #A0A0A8;
             --primary-color: #40C4FF;
-            --border-color: rgba(255, 255, 255, 0.15);
-            --card-bg: rgba(40, 40, 46, 0.95);
-            --sidebar-bg: rgba(40, 40, 46, 0.98);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow: 6px 6px 12px rgba(0, 0, 0, 0.2), -6px -6px 12px rgba(255, 255, 255, 0.05);
+            --card-bg: #2A2A2E;
+            --sidebar-bg: #2A2A2E;
         }
 
         [data-theme="vibrant"] {
             --bg-primary: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
-            --bg-secondary: rgba(255, 255, 255, 0.9);
+            --bg-secondary: rgba(255, 255, 255, 0.95);
             --text-primary: #FFFFFF;
             --text-secondary: #E0E0E6;
             --primary-color: #FF6B6B;
-            --border-color: rgba(255, 255, 255, 0.2);
+            --border-color: rgba(255, 255, 255, 0.15);
+            --shadow: 6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 0.3);
             --card-bg: rgba(255, 255, 255, 0.95);
-            --sidebar-bg: rgba(255, 255, 255, 0.98);
+            --sidebar-bg: rgba(255, 255, 255, 0.95);
         }
 
         * {
@@ -73,21 +74,21 @@
         .app-container {
             display: flex;
             max-width: 1400px;
-            margin: 20px auto;
-            gap: 20px;
+            margin: 24px auto;
+            gap: 24px;
             padding: 0 16px;
         }
 
         .sidebar {
-            width: 260px;
+            width: 250px;
             background: var(--sidebar-bg);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 20px;
             box-shadow: var(--shadow);
             backdrop-filter: blur(10px);
             position: sticky;
-            top: 20px;
-            height: calc(100vh - 40px);
+            top: 24px;
+            height: calc(100vh - 48px);
             overflow-y: auto;
         }
 
@@ -102,48 +103,50 @@
             width: 36px;
             height: 36px;
             background: var(--primary-color);
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 18px;
             font-weight: 700;
+            box-shadow: var(--shadow);
         }
 
         .app-name {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 600;
         }
 
         .sidebar-nav {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
 
         .nav-item {
             padding: 10px 14px;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             color: var(--text-primary);
             font-weight: 500;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .nav-item:hover, .nav-item.active {
             background: var(--primary-color);
             color: white;
             transform: translateX(4px);
+            box-shadow: var(--shadow);
         }
 
         .main-content {
             flex: 1;
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 20px;
             box-shadow: var(--shadow);
             backdrop-filter: blur(10px);
@@ -151,15 +154,16 @@
 
         .card {
             background: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 16px;
             border: 1px solid var(--border-color);
             margin-bottom: 16px;
+            box-shadow: var(--shadow);
         }
 
         .card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.9);
         }
 
         .card-title {
@@ -181,7 +185,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -211,10 +215,11 @@
         .auth-input {
             padding: 10px;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 8px;
             background: var(--bg-secondary);
             color: var(--text-primary);
             font-size: 14px;
+            box-shadow: inset var(--shadow);
         }
 
         .auth-btn {
@@ -222,14 +227,14 @@
             background: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
         }
 
         .auth-btn:hover {
-            opacity: 0.9;
             transform: scale(1.02);
+            box-shadow: var(--shadow);
         }
 
         .auth-error {
@@ -242,7 +247,7 @@
         .btn {
             padding: 8px 14px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 500;
             cursor: pointer;
             display: flex;
@@ -257,13 +262,15 @@
         }
 
         .btn-primary:hover {
-            opacity: 0.9;
+            transform: scale(1.02);
+            box-shadow: var(--shadow);
         }
 
         .btn-secondary {
             background: var(--bg-secondary);
             color: var(--text-primary);
             border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
         }
 
         .btn-secondary:hover {
@@ -273,13 +280,14 @@
         }
 
         .chat-messages {
-            height: 220px;
+            height: 200px;
             overflow-y: auto;
             padding: 10px;
             background: var(--bg-secondary);
-            border-radius: 6px;
-            margin-bottom: 10px;
+            border-radius: 8px;
+            margin-bottom: 12px;
             border: 1px solid var(--border-color);
+            box-shadow: inset var(--shadow);
         }
 
         .message {
@@ -309,8 +317,9 @@
             gap: 10px;
             padding: 10px;
             background: var(--bg-secondary);
-            border-radius: 6px;
+            border-radius: 8px;
             margin-bottom: 12px;
+            box-shadow: var(--shadow);
         }
 
         .voice-btn {
@@ -322,6 +331,7 @@
             color: white;
             cursor: pointer;
             font-size: 14px;
+            box-shadow: var(--shadow);
         }
 
         .voice-btn.listening {
@@ -345,12 +355,13 @@
             padding: 6px 10px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 12px;
             display: flex;
             align-items: center;
             gap: 6px;
+            box-shadow: var(--shadow);
         }
 
         .integration-btn.connected {
@@ -363,9 +374,10 @@
             width: 100%;
             height: 6px;
             background: var(--border-color);
-            border-radius: 3px;
+            border-radius: 4px;
             overflow: hidden;
             margin: 10px 0;
+            box-shadow: inset var(--shadow);
         }
 
         .progress-fill {
@@ -380,8 +392,9 @@
             gap: 10px;
             padding: 10px;
             background: var(--bg-secondary);
-            border-radius: 6px;
+            border-radius: 8px;
             margin-bottom: 12px;
+            box-shadow: var(--shadow);
         }
 
         .timer-btn {
@@ -389,9 +402,10 @@
             background: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 13px;
+            box-shadow: var(--shadow);
         }
 
         .timer-btn.active {
@@ -401,14 +415,15 @@
         .sidebar-toggle {
             display: none;
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 16px;
+            left: 16px;
             z-index: 1000;
             background: var(--primary-color);
             color: white;
             padding: 8px;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
+            box-shadow: var(--shadow);
         }
 
         @media (max-width: 1024px) {
@@ -449,15 +464,13 @@
     </style>
 </head>
 <body data-theme="light">
-    <!-- Sidebar Toggle for Mobile -->
     <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
 
-    <!-- Authentication Modal -->
     <div class="auth-modal" id="authModal">
         <div class="auth-content">
             <h2 id="authTitle">Welcome to FlowState Pro</h2>
             <p id="authSubtitle">Sign in to your account</p>
-            <form class="auth-form" id="authForm">
+            <form class="auth-form" id="authActor">
                 <input type="text" class="auth-input" id="nameInput" placeholder="Full Name" style="display: none;">
                 <input type="email" class="auth-input" id="emailInput" placeholder="Email Address" required>
                 <input type="password" class="auth-input" id="passwordInput" placeholder="Password" required>
@@ -473,7 +486,6 @@
     </div>
 
     <div class="app-container">
-        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="app-logo">FS</div>
@@ -488,20 +500,18 @@
                 <div class="nav-item" data-section="settings">⚙️ Settings</div>
                 <div class="nav-item" onclick="userManager.logout()">🚪 Sign Out</div>
             </div>
-            <div class="user-profile" style="margin-top: auto; padding: 10px; background: var(--bg-secondary); border-radius: 6px;">
-                <div class="user-avatar" id="userAvatar">U</div>
-                <div id="userName">User</div>
+            <div class="user-profile" style="margin-top: auto; padding: 10px; background: var(--bg-secondary); border-radius: 8px; box-shadow: var(--shadow);">
+                <div class="user-avatar" id="userAvatar" style="width: 24px; height: 24px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;">U</div>
+                <div id="userName" style="font-size: 14px;">User</div>
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content">
-            <!-- Dashboard Section -->
             <div class="section" id="dashboard-section">
                 <div class="card">
                     <div class="card-title">Welcome, <span id="welcomeName">User</span>!</div>
                     <div class="card-subtitle">Your student productivity companion</div>
-                    <div style="background: var(--bg-secondary); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+                    <div style="background: var(--bg-secondary); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: var(--shadow);">
                         <div style="font-style: italic; font-size: 14px; margin-bottom: 6px;" id="quoteText">"The way to get started is to quit talking and begin doing."</div>
                         <div style="font-weight: 500; color: var(--primary-color);" id="quoteAuthor">— Walt Disney</div>
                     </div>
@@ -518,13 +528,12 @@
                 </div>
             </div>
 
-            <!-- Tasks Section -->
             <div class="section hidden" id="tasks-section">
                 <div class="card">
                     <div class="card-title">Smart Task Creator</div>
                     <div class="card-subtitle">Add tasks with AI or voice</div>
                     <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-                        <input type="text" class="input-field" id="taskInput" placeholder="e.g., Study Math - 7:00 PM">
+                        <input type="text" class="auth-input" id="taskInput" placeholder="e.g., Study Math - 7:00 PM">
                         <button class="btn btn-primary" onclick="createTask()">Create</button>
                     </div>
                 </div>
@@ -535,22 +544,21 @@
                 </div>
             </div>
 
-            <!-- AI Assistant Section -->
             <div class="section hidden" id="assistant-section">
                 <div class="card">
                     <div class="card-title">AI Study Buddy</div>
                     <div class="card-subtitle">Your personal study coach</div>
                     <div class="voice-controls">
                         <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()">🎤</button>
-                        <select id="voiceGender" onchange="updateVoice()">
+                        <select id="voiceGender" onchange="updateVoice()" style="padding: 6px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
                             <option value="female">Female Voice</option>
                             <option value="male">Male Voice</option>
                         </select>
-                        <div id="voiceStatus">Voice ready</div>
+                        <div id="voiceStatus" style="font-size: 12px;">Voice ready</div>
                     </div>
                     <div class="chat-messages" id="chatMessages"></div>
                     <div style="display: flex; gap: 8px;">
-                        <input type="text" class="input-field" id="chatInput" placeholder="Ask me anything...">
+                        <input type="text" class="auth-input" id="chatInput" placeholder="Ask me anything...">
                         <button class="btn btn-primary" onclick="sendMessage()">Send</button>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
@@ -562,15 +570,14 @@
                 <div class="card">
                     <div class="card-title">Ask Your Doubts</div>
                     <div class="card-subtitle">Get instant study help</div>
-                    <textarea class="input-field" id="doubtInput" placeholder="e.g., How to solve quadratic equations?..." style="height: 70px; resize: vertical;"></textarea>
+                    <textarea class="auth-input" id="doubtInput" placeholder="e.g., How to solve quadratic equations?..." style="height: 70px; resize: vertical;"></textarea>
                     <div style="margin-top: 10px;">
                         <button class="btn btn-primary" onclick="resolveDoubt()">🧠 Get AI Help</button>
                     </div>
-                    <div id="doubtResponse" style="margin-top: 10px; padding: 10px; background: var(--bg-secondary); border-radius: 6px; display: none;"></div>
+                    <div id="doubtResponse" style="margin-top: 10px; padding: 10px; background: var(--bg-secondary); border-radius: 8px; box-shadow: var(--shadow); display: none;"></div>
                 </div>
             </div>
 
-            <!-- Focus Timer Section -->
             <div class="section hidden" id="focus-section">
                 <div class="card">
                     <div class="card-title">Focus Timer</div>
@@ -584,7 +591,6 @@
                 </div>
             </div>
 
-            <!-- Integrations Section -->
             <div class="section hidden" id="integrations-section">
                 <div class="card">
                     <div class="card-title">App Integrations</div>
@@ -600,7 +606,6 @@
                 </div>
             </div>
 
-            <!-- Settings Section -->
             <div class="section hidden" id="settings-section">
                 <div class="card">
                     <div class="card-title">Settings</div>
@@ -616,7 +621,6 @@
     </div>
 
     <script>
-        // Application State
         let currentUser = null;
         let tasks = [];
         let isLoggedIn = false;
@@ -634,7 +638,6 @@
             slack: false
         };
 
-        // Student-Focused Quotes
         const quotes = {
             motivation: [
                 { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
@@ -647,7 +650,6 @@
             ]
         };
 
-        // Utility to Hash Passwords
         async function hashPassword(password) {
             const encoder = new TextEncoder();
             const data = encoder.encode(password);
@@ -657,7 +659,6 @@
                 .join('');
         }
 
-        // User Management
         class UserManager {
             constructor() {
                 this.currentUser = null;
@@ -779,7 +780,6 @@
 
         const userManager = new UserManager();
 
-        // Voice Management
         function initVoice() {
             if ('webkitSpeechRecognition' in window) {
                 recognition = new webkitSpeechRecognition();
@@ -865,397 +865,10 @@
             }
         }
 
-        // Focus Timer
         function toggleTimer() {
-            if (isTimerRunning) {
+            if ( isTimerRunning) {
                 clearInterval(timerInterval);
                 document.getElementById('timerStartBtn').textContent = 'Start';
                 document.getElementById('timerStartBtn').classList.remove('active');
                 isTimerRunning = false;
-                speakText('Timer stopped. Take a break or keep studying!');
-            } else {
-                timerInterval = setInterval(() => {
-                    timerSeconds--;
-                    if (timerSeconds <= 0) {
-                        clearInterval(timerInterval);
-                        isTimerRunning = false;
-                        document.getElementById('timerStartBtn').textContent = 'Start';
-                        document.getElementById('timerStartBtn').classList.remove('active');
-                        speakText('Great job! Time for a 5-minute break.');
-                        timerSeconds = 25 * 60;
-                    }
-                    updateTimerDisplay();
-                }, 1000);
-                isTimerRunning = true;
-                document.getElementById('timerStartBtn').textContent = 'Stop';
-                document.getElementById('timerStartBtn').classList.add('active');
-                speakText('Focus timer started. Let’s study!');
-            }
-        }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            timerSeconds = 25 * 60;
-            isTimerRunning = false;
-            document.getElementById('timerStartBtn').textContent = 'Start';
-            document.getElementById('timerStartBtn').classList.remove('active');
-            updateTimerDisplay();
-        }
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timerSeconds / 60);
-            const seconds = timerSeconds % 60;
-            document.getElementById('timerDisplay').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        // Task Management
-        function createTask() {
-            const input = document.getElementById('taskInput');
-            const message = input.value.trim();
-            if (!message) return;
-            input.value = '';
-            addChatMessage(message, 'user');
-            const response = aiAssistant.handleTaskCreation(message);
-            addChatMessage(response, 'ai');
-            speakText(`Task created! ${aiAssistant.getMotivation()}`);
-        }
-
-        function extractTaskFromText(message) {
-            const match = message.match(/(.+?)(?:\s*-\s*(\d{1,2}:\d{2}\s*(?:am|pm))?)/i);
-            const title = match ? match[1].trim() : message.trim() || 'New Task';
-            const time = match && match[2] ? match[2] : '09:00';
-            return {
-                id: Date.now(),
-                title: title.charAt(0).toUpperCase() + title.slice(1),
-                time: time,
-                completed: false,
-                createdAt: new Date()
-            };
-        }
-
-        // Integrations (Mocked)
-        function connectApp(app) {
-            integrations[app] = !integrations[app];
-            updateIntegrationStatus();
-            document.getElementById('integrationStatus').textContent = integrations[app] 
-                ? `${app} connected (mock)` 
-                : `${app} disconnected (mock)`;
-            if (integrations[app]) {
-                addChatMessage(`Synced tasks with ${app} (mock).`, 'ai');
-                speakText(`Synced tasks with ${app}.`);
-            }
-        }
-
-        function updateIntegrationStatus() {
-            Object.keys(integrations).forEach(app => {
-                const btn = document.getElementById(`${app}Btn`);
-                btn.classList.toggle('connected', integrations[app]);
-                btn.textContent = integrations[app] ? `✅ ${app}` : `🔗 ${app}`;
-            });
-        }
-
-        // AI Assistant
-        class AIAssistant {
-            constructor() {
-                this.motivationIndex = 0;
-            }
-
-            async processMessage(message) {
-                if (this.isTaskRequest(message)) {
-                    return this.handleTaskCreation(message);
-                }
-                if (message.toLowerCase().includes('progress')) {
-                    return this.getProgressReport();
-                }
-                if (message.toLowerCase().includes('tip')) {
-                    return this.getStudyTip();
-                }
-                if (message.toLowerCase().includes('motivat')) {
-                    return this.getMotivation();
-                }
-                return this.getGeneralResponse(message);
-            }
-
-            isTaskRequest(message) {
-                return /create|add|schedule|task|remind/i.test(message);
-            }
-
-            handleTaskCreation(message) {
-                const task = extractTaskFromText(message);
-                if (task.title) {
-                    tasks.push(task);
-                    renderTasks();
-                    userManager.saveData();
-                    const quote = this.getRandomQuote('motivation');
-                    return `✅ Task "${task.title}" created for ${task.time}!\n\n💡 "${quote.text}" — ${quote.author}`;
-                }
-                return "Please provide more task details.";
-            }
-
-            getProgressReport() {
-                const completed = tasks.filter(t => t.completed).length;
-                const total = tasks.length;
-                const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
-                return `📊 Progress: ${completed}/${total} tasks\n📈 ${rate}%\n\n${this.getMotivationalMessage(rate)}`;
-            }
-
-            getStudyTip() {
-                const tips = [
-                    "📚 Break your study sessions into 25-minute chunks with 5-minute breaks.",
-                    "🧠 Summarize what you’ve learned in your own words to retain it better.",
-                    "📝 Take notes by hand to improve memory retention.",
-                    "📱 Avoid phone distractions during study time.",
-                    "🎯 Set specific goals for each study session."
-                ];
-                return tips[Math.floor(Math.random() * tips.length)];
-            }
-
-            getMotivation() {
-                const motivations = [
-                    `🌟 ${currentUser?.name || 'Scholar'}, you're unstoppable!`,
-                    `💪 Keep pushing, ${currentUser?.name || 'Achiever'}!`,
-                    `🚀 ${currentUser?.name || 'Star'}, ace those exams!`
-                ];
-                this.motivationIndex = (this.motivationIndex + 1) % motivations.length;
-                return motivations[this.motivationIndex];
-            }
-
-            getMotivationalMessage(rate) {
-                if (rate >= 80) return `🎉 Amazing work, ${currentUser?.name || 'Scholar'}!`;
-                if (rate >= 40) return `💪 Solid progress, ${currentUser?.name || 'Fighter'}!`;
-                return `🚀 Keep studying, ${currentUser?.name || 'Explorer'}!`;
-            }
-
-            getGeneralResponse(message) {
-                return `Hey ${currentUser?.name || 'friend'}, I'm here to help you study smarter! What's next?`;
-            }
-
-            getRandomQuote(category) {
-                const quoteArray = quotes[category] || quotes.motivation;
-                return quoteArray[Math.floor(Math.random() * quoteArray.length)];
-            }
-
-            displayQuote(category = 'motivation') {
-                const quote = this.getRandomQuote(category);
-                document.getElementById('quoteText').textContent = `"${quote.text}"`;
-                document.getElementById('quoteAuthor').textContent = `— ${quote.author}`;
-            }
-        }
-
-        const aiAssistant = new AIAssistant();
-
-        // Doubt Resolution
-        async function resolveDoubt() {
-            const question = document.getElementById('doubtInput').value.trim();
-            if (!question) return;
-            const response = document.getElementById('doubtResponse');
-            response.style.display = 'block';
-            response.innerHTML = '<div>🤔 Thinking...</div>';
-            setTimeout(() => {
-                response.innerHTML = `
-                    <div style="line-height: 1.4; font-size: 13px;">
-                        <strong>🧠 Study Buddy Response:</strong><br>
-                        For "<em>${question}</em>":<br>
-                        Try breaking it down into smaller parts and practice daily.<br>
-                        <strong>Tip:</strong> Review related concepts or ask your teacher for clarification.<br>
-                        <em>💡 Keep learning, ${currentUser?.name || 'student'}!</em>
-                    </div>
-                `;
-                speakText('I found a study tip for your question.');
-            }, 1500);
-        }
-
-        // UI Functions
-        function toggleAuthMode() {
-            const isLogin = document.getElementById('authTitle').textContent.includes('Sign In');
-            document.getElementById('authTitle').textContent = isLogin ? 'Create Account' : 'Sign In';
-            document.getElementById('nameInput').style.display = isLogin ? 'block' : 'none';
-            document.getElementById('confirmPasswordInput').style.display = isLogin ? 'block' : 'none';
-            document.getElementById('authSubmitBtn').textContent = isLogin ? 'Create Account' : 'Sign In';
-            document.getElementById('authSwitchText').textContent = isLogin ? 'Already have an account?' : "Don't have an account?";
-            document.getElementById('authSwitchLink').textContent = isLogin ? 'Sign In' : 'Sign Up';
-            document.getElementById('authError').textContent = '';
-        }
-
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            if (!message) return;
-            addChatMessage(message, 'user');
-            input.value = '';
-            const response = await aiAssistant.processMessage(message);
-            addChatMessage(response, 'ai');
-            speakText(response.replace(/[🎯💪🚀⚡🌟📊✅📈🔄📱🧠]/g, ''));
-        }
-
-        function addChatMessage(message, sender) {
-            const container = document.getElementById('chatMessages');
-            const div = document.createElement('div');
-            div.className = `message ${sender}`;
-            div.innerHTML = message.replace(/\n/g, '<br>');
-            container.appendChild(div);
-            container.scrollTop = container'
-
-            s.scrollHeight;
-        }
-
-        function renderTasks() {
-            const container = document.getElementById('tasksList');
-            const summary = document.getElementById('tasksSummary');
-            if (tasks.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 24px; color: var(--text-secondary);"><div style="font-size: 32px; margin-bottom: 6px;">📝</div><div>Create your first task!</div></div>';
-                summary.textContent = 'No tasks yet';
-                updateProgress();
-                return;
-            }
-            const completed = tasks.filter(t => t.completed).length;
-            summary.textContent = `${completed}/${tasks.length} completed`;
-            container.innerHTML = '';
-            tasks.forEach(task => {
-                const div = document.createElement('div');
-                div.style.cssText = 'display: flex; align-items: center; gap: 8px; padding: 10px; background: var(--bg-secondary); border-radius: 6px; margin-bottom: 6px;';
-                div.innerHTML = `
-                    <div style="width: 16px; height: 16px; border: 2px solid var(--primary-color); border-radius: 50%; cursor: pointer; ${task.completed ? 'background: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center;' : ''}" onclick="toggleTask(${task.id})">
-                        ${task.completed ? '✓' : ''}
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="font-weight: 500; font-size: 14px;">${task.title}</div>
-                        <div style="font-size: 12px; color: var(--text-secondary);">${task.time}</div>
-                    </div>
-                    <button onclick="removeTask(${task.id})" style="padding: 4px 10px; background: var(--danger-color); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Remove</button>
-                `;
-                container.appendChild(div);
-            });
-            updateProgress();
-        }
-
-        function toggleTask(id) {
-            const task = tasks.find(t => t.id === id);
-            if (task) {
-                task.completed = !task.completed;
-                if (task.completed) {
-                    const quote = aiAssistant.getRandomQuote('superhero');
-                    addChatMessage(`🎉 Task done! "${quote.text}" — ${quote.author}`, 'ai');
-                    speakText(`Great job, ${currentUser?.name}! ${quote.text}`);
-                }
-                renderTasks();
-                userManager.saveData();
-            }
-        }
-
-        function removeTask(id) {
-            tasks = tasks.filter(t => t.id !== id);
-            renderTasks();
-            userManager.saveData();
-        }
-
-        function updateProgress() {
-            const completed = tasks.filter(t => t.completed).length;
-            const total = tasks.length;
-            const percentage = total > 0 ? (completed / total) * 100 : 0;
-            document.getElementById('progressFill').style.width = `${percentage}%`;
-            document.getElementById('progressPercent').textContent = `${Math.round(percentage)}%`;
-        }
-
-        function quickAction(type) {
-            const actions = {
-                progress: 'Show my progress report',
-                tips: 'Give me a study tip',
-                motivation: 'I need motivation'
-            };
-            document.getElementById('chatInput').value = actions[type];
-            sendMessage();
-        }
-
-        function setTheme(theme) {
-            document.body.setAttribute('data-theme', theme);
-            document.querySelectorAll('.btn-secondary').forEach(btn => {
-                btn.classList.toggle('active', btn.textContent.toLowerCase() === theme);
-            });
-            if (currentUser) {
-                currentUser.preferences.theme = theme;
-                userManager.saveData();
-            }
-        }
-
-        // Authentication Handlers
-        document.getElementById('authForm').addEventListener('submit', async e => {
-            e.preventDefault();
-            const email = document.getElementById('emailInput').value.trim();
-            const password = document.getElementById('passwordInput').value.trim();
-            const isRegister = document.getElementById('nameInput').style.display !== 'none';
-            const name = document.getElementById('nameInput').value.trim();
-            const confirmPassword = document.getElementById('confirmPasswordInput').value.trim();
-            document.getElementById('authError').textContent = '';
-
-            if (isRegister) {
-                await userManager.register(name, email, password, confirmPassword);
-            } else {
-                await userManager.loginWithEmail(email, password);
-            }
-        });
-
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', () => {
-            initVoice();
-            aiAssistant.displayQuote();
-            document.getElementById('chatInput').addEventListener('keypress', e => {
-                if (e.key === 'Enter') sendMessage();
-            });
-            document.getElementById('taskInput').addEventListener('keypress', e => {
-                if (e.key === 'Enter') createTask();
-            });
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    document.querySelectorAll('.section').forEach(section => section.classList.add('hidden'));
-                    document.getElementById(`${item.dataset.section}-section`).classList.remove('hidden');
-                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-                    item.classList.add('active');
-                    if (window.innerWidth <= 1024) toggleSidebar();
-                });
-            });
-            if ('Notification' in window && Notification.permission === 'default') {
-                Notification.requestPermission();
-            }
-        });
-
-        // Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(reg => {
-                    reg.update();
-                    reg.addEventListener('updatefound', () => {
-                        const newWorker = reg.installing;
-                        newWorker.addEventListener('statechange', () => {
-                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                const banner = document.createElement('div');
-                                banner.innerHTML = `
-                                    <div style="position: fixed; bottom: 12px; left: 12px; right: 12px; background: var(--primary-color); color: white; padding: 10px; border-radius: 6px; text-align: center; z-index: 9999;">
-                                        🆕 Update available! 
-                                        <button onclick="updateApp()" style="margin-left: 6px; padding: 4px 10px; background: white; color: var(--primary-color); border: none; border-radius: 4px; font-weight: 500;">Update</button>
-                                    </div>
-                                `;
-                                document.body.appendChild(banner);
-                            }
-                        });
-                    });
-                    navigator.serviceWorker.addEventListener('controllerchange', () => window.location.reload());
-                }).catch(err => console.error('Service Worker registration failed:', err));
-            });
-        }
-
-        function updateApp() {
-            navigator.serviceWorker.getRegistration().then(reg => {
-                if (reg && reg.waiting) {
-                    reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+                speakText('Timer
