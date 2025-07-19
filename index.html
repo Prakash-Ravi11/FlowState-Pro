@@ -3,340 +3,558 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlowState Pro - Student Productivity</title>
-    <meta name="description" content="A free, modern productivity app for students with tasks, AI chat, and focus timer">
+    <title>Study Buddy Pro - AI-Powered Learning Companion</title>
     
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    
+    <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#007AFF">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="apple-touch-icon" href="/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Study Buddy Pro">
+    <meta name="description" content="AI-powered study companion with focus timer, task management, and personalized learning assistance">
+    
+    <!-- PWA Links -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    
+    <!-- External Resources -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
+        /* ============ CSS Variables & Theme System ============ */
         :root {
-            --bg-primary: #E8ECEF;
-            --bg-secondary: #F8FAFC;
-            --text-primary: #1A1A1E;
-            --text-secondary: #5C5C66;
-            --primary-color: #007AFF;
-            --success-color: #28A745;
-            --danger-color: #FF3B30;
-            --border-color: rgba(0, 0, 0, 0.08);
-            --shadow: 6px 6px 12px rgba(0, 0, 0, 0.05), -6px -6px 12px rgba(255, 255, 255, 0.9);
-            --card-bg: #F8FAFC;
-            --sidebar-bg: #F8FAFC;
+            /* Light Theme */
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-overlay: rgba(0, 0, 0, 0.1);
+            
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --text-inverse: #ffffff;
+            
+            --accent-primary: #007AFF;
+            --accent-secondary: #5856D6;
+            --accent-success: #34C759;
+            --accent-warning: #FF9500;
+            --accent-danger: #FF3B30;
+            --accent-info: #32D74B;
+            
+            --border-primary: rgba(0, 0, 0, 0.1);
+            --border-secondary: rgba(0, 0, 0, 0.05);
+            --border-focus: rgba(0, 122, 255, 0.3);
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+            
+            --gradient-primary: linear-gradient(135deg, #007AFF, #5856D6);
+            --gradient-secondary: linear-gradient(135deg, #34C759, #32D74B);
+            --gradient-danger: linear-gradient(135deg, #FF3B30, #FF9500);
         }
 
         [data-theme="dark"] {
-            --bg-primary: #1A1A1E;
-            --bg-secondary: #2A2A2E;
-            --text-primary: #E6E6E6;
-            --text-secondary: #A0A0A8;
-            --primary-color: #40C4FF;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --shadow: 6px 6px 12px rgba(0, 0, 0, 0.2), -6px -6px 12px rgba(255, 255, 255, 0.05);
-            --card-bg: #2A2A2E;
-            --sidebar-bg: #2A2A2E;
+            /* Dark Theme - High Contrast */
+            --bg-primary: #000000;
+            --bg-secondary: #1c1c1e;
+            --bg-tertiary: #2c2c2e;
+            --bg-card: rgba(28, 28, 30, 0.9);
+            --bg-overlay: rgba(255, 255, 255, 0.1);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #e5e5e7;
+            --text-muted: #8e8e93;
+            --text-inverse: #000000;
+            
+            --accent-primary: #0A84FF;
+            --accent-secondary: #5E5CE6;
+            --accent-success: #30D158;
+            --accent-warning: #FF9F0A;
+            --accent-danger: #FF453A;
+            --accent-info: #40C8E0;
+            
+            --border-primary: rgba(255, 255, 255, 0.2);
+            --border-secondary: rgba(255, 255, 255, 0.1);
+            --border-focus: rgba(10, 132, 255, 0.5);
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.6);
+            
+            --gradient-primary: linear-gradient(135deg, #0A84FF, #5E5CE6);
+            --gradient-secondary: linear-gradient(135deg, #30D158, #40C8E0);
+            --gradient-danger: linear-gradient(135deg, #FF453A, #FF9F0A);
         }
 
         [data-theme="vibrant"] {
-            --bg-primary: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
-            --bg-secondary: rgba(255, 255, 255, 0.95);
-            --text-primary: #FFFFFF;
-            --text-secondary: #E0E0E6;
-            --primary-color: #FF6B6B;
-            --border-color: rgba(255, 255, 255, 0.15);
-            --shadow: 6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 0.3);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --sidebar-bg: rgba(255, 255, 255, 0.95);
+            /* Vibrant Theme - Colorful Gradient */
+            --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --bg-secondary: rgba(255, 255, 255, 0.15);
+            --bg-tertiary: rgba(255, 255, 255, 0.1);
+            --bg-card: rgba(255, 255, 255, 0.2);
+            --bg-overlay: rgba(0, 0, 0, 0.2);
+            
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.9);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --text-inverse: #1e293b;
+            
+            --accent-primary: #FFD60A;
+            --accent-secondary: #FF9F0A;
+            --accent-success: #30D158;
+            --accent-warning: #FF9500;
+            --accent-danger: #FF453A;
+            --accent-info: #40C8E0;
+            
+            --border-primary: rgba(255, 255, 255, 0.3);
+            --border-secondary: rgba(255, 255, 255, 0.2);
+            --border-focus: rgba(255, 214, 10, 0.5);
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.5);
+            
+            --gradient-primary: linear-gradient(135deg, #FFD60A, #FF9F0A);
+            --gradient-secondary: linear-gradient(135deg, #30D158, #40C8E0);
+            --gradient-danger: linear-gradient(135deg, #FF453A, #FF9500);
         }
 
+        /* ============ Base Styles ============ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: all 0.2s ease;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--bg-primary);
-            min-height: 100vh;
             color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
+        /* ============ Typography ============ */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 { font-size: 2.5rem; font-weight: 800; }
+        h2 { font-size: 2rem; font-weight: 700; }
+        h3 { font-size: 1.5rem; font-weight: 600; }
+        h4 { font-size: 1.25rem; font-weight: 600; }
+        h5 { font-size: 1.125rem; font-weight: 500; }
+        h6 { font-size: 1rem; font-weight: 500; }
+
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+
+        /* ============ Layout Components ============ */
         .app-container {
             display: flex;
-            max-width: 1400px;
-            margin: 24px auto;
-            gap: 24px;
-            padding: 0 16px;
+            min-height: 100vh;
+            position: relative;
         }
 
-        .sidebar {
-            width: 250px;
-            background: var(--sidebar-bg);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 24px;
-            height: calc(100vh - 48px);
+        /* ============ Sidebar Styles ============ */
+        #sidebar {
+            width: 320px;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border-primary);
+            box-shadow: var(--shadow-lg);
+            padding: 2rem 1.5rem;
             overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            z-index: 1000;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
+        #sidebar.hidden {
+            transform: translateX(-100%);
         }
 
-        .app-logo {
-            width: 36px;
-            height: 36px;
-            background: var(--primary-color);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            font-weight: 700;
-            box-shadow: var(--shadow);
-        }
-
-        .app-name {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .sidebar-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .nav-item {
-            padding: 10px 14px;
-            border-radius: 10px;
+        /* ============ Mobile Navigation Toggle ============ */
+        #navToggle {
+            display: none;
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 1100;
+            width: 3rem;
+            height: 3rem;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: var(--text-inverse);
+            font-size: 1.2rem;
             cursor: pointer;
-            color: var(--text-primary);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
         }
 
-        .nav-item:hover, .nav-item.active {
-            background: var(--primary-color);
-            color: white;
-            transform: translateX(4px);
-            box-shadow: var(--shadow);
+        #navToggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-lg);
         }
 
-        .main-content {
+        /* ============ Main Content Area ============ */
+        #main {
             flex: 1;
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
+            margin-left: 320px;
+            padding: 2rem;
+            min-height: 100vh;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        #main.full-width {
+            margin-left: 0;
+        }
+
+        /* ============ Card Components ============ */
         .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 16px;
-            box-shadow: var(--shadow);
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-secondary);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .card:hover {
             transform: translateY(-2px);
-            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-secondary);
         }
 
         .card-title {
-            font-size: 16px;
+            font-size: 1.25rem;
             font-weight: 600;
-            margin-bottom: 6px;
+            color: var(--text-primary);
         }
 
         .card-subtitle {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
         }
 
-        .auth-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+        /* ============ Form Elements ============ */
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
-        .auth-modal.hidden {
-            display: none;
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
         }
 
-        .auth-content {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 24px;
-            max-width: 360px;
-            width: 90%;
-            text-align: center;
-            box-shadow: var(--shadow);
-        }
-
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .auth-input {
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-primary);
+            border-radius: 0.5rem;
             background: var(--bg-secondary);
             color: var(--text-primary);
-            font-size: 14px;
-            box-shadow: inset var(--shadow);
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
-        .auth-btn {
-            padding: 10px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px var(--border-focus);
+            transform: translateY(-1px);
         }
 
-        .auth-btn:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow);
+        .form-input::placeholder {
+            color: var(--text-muted);
         }
 
-        .auth-error {
-            color: var(--danger-color);
-            font-size: 12px;
-            margin-top: 6px;
-            min-height: 18px;
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
         }
 
+        /* ============ Button Styles ============ */
         .btn {
-            padding: 8px 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 0.5rem;
+            font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:active {
+            transform: translateY(0);
         }
 
         .btn-primary {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow);
+            background: var(--gradient-primary);
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-secondary {
-            background: var(--bg-secondary);
+            background: var(--bg-tertiary);
             color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
+            border: 1px solid var(--border-primary);
         }
 
-        .btn-secondary:hover {
-            background: var(--primary-color);
-            color: white;
-            border-color: transparent;
+        .btn-success {
+            background: var(--gradient-secondary);
+            color: var(--text-inverse);
         }
 
-        .chat-messages {
-            height: 200px;
-            overflow-y: auto;
-            padding: 10px;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: inset var(--shadow);
+        .btn-danger {
+            background: var(--gradient-danger);
+            color: var(--text-inverse);
         }
 
-        .message {
-            margin-bottom: 10px;
-            padding: 8px 10px;
-            border-radius: 8px;
-            max-width: 80%;
-            font-size: 13px;
-            line-height: 1.4;
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
         }
 
-        .message.user {
-            background: var(--primary-color);
-            color: white;
-            margin-left: auto;
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
         }
 
-        .message.ai {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
+        .btn-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            border-radius: 50%;
         }
 
-        .voice-controls {
+        /* ============ Layout Utilities ============ */
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .gap-2 { gap: 0.5rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+
+        .text-center { text-align: center; }
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+
+        .hidden { display: none !important; }
+
+        /* ============ Authentication Styles ============ */
+        .auth-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-logo {
+            width: 4rem;
+            height: 4rem;
+            background: var(--gradient-primary);
+            border-radius: 1rem;
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            margin-bottom: 12px;
-            box-shadow: var(--shadow);
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: var(--text-inverse);
+            font-weight: 700;
         }
 
-        .voice-btn {
-            width: 32px;
-            height: 32px;
-            border: none;
-            border-radius: 50%;
-            background: var(--primary-color);
-            color: white;
+        .auth-toggle {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .auth-link {
+            color: var(--accent-primary);
             cursor: pointer;
-            font-size: 14px;
-            box-shadow: var(--shadow);
+            font-weight: 500;
         }
 
-        .voice-btn.listening {
-            background: var(--danger-color);
-            animation: pulse 1s infinite;
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ============ Task List Styles ============ */
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--border-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .task-checkbox {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid var(--accent-primary);
+            border-radius: 0.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .task-checkbox.checked {
+            background: var(--accent-primary);
+            color: var(--text-inverse);
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .task-time {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* ============ Progress Bar ============ */
+        .progress-container {
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 0.75rem;
+            background: var(--bg-tertiary);
+            border-radius: 0.375rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 0.375rem;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* ============ Timer Styles ============ */
+        .timer-display {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            color: var(--accent-primary);
+            font-variant-numeric: tabular-nums;
+            margin: 1rem 0;
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .timer-active {
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
@@ -345,530 +563,1904 @@
             100% { transform: scale(1); }
         }
 
-        .integrations-section {
+        /* ============ Integration Toggle Styles ============ */
+        .integration-item {
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--border-secondary);
         }
 
-        .integration-btn {
-            padding: 6px 10px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
+        .integration-info {
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: var(--shadow);
+            gap: 1rem;
         }
 
-        .integration-btn.connected {
-            background: var(--success-color);
-            color: white;
-            border-color: transparent;
+        .integration-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--border-color);
-            border-radius: 4px;
+        .integration-icon.zoom { background: #2D8CFF; color: white; }
+        .integration-icon.calendar { background: #34C759; color: white; }
+        .integration-icon.slack { background: #4A154B; color: white; }
+
+        .toggle-switch {
+            position: relative;
+            width: 3rem;
+            height: 1.5rem;
+            background: var(--bg-tertiary);
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: var(--accent-primary);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 0.125rem;
+            left: 0.125rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(1.5rem);
+        }
+
+        /* ============ Quote Display ============ */
+        .quote-card {
+            background: var(--gradient-primary);
+            color: var(--text-inverse);
+            text-align: center;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
             overflow: hidden;
-            margin: 10px 0;
-            box-shadow: inset var(--shadow);
         }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
+        .quote-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" fill-opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" fill-opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.5;
         }
 
-        .timer-controls {
+        .quote-text {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            font-size: 1rem;
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============ AI Chat Styles ============ */
+        .ai-chat-container {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-secondary);
+        }
+
+        .ai-message {
+            background: var(--bg-secondary);
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        .ai-input-container {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-end;
+        }
+
+        /* ============ Voice Recording Indicator ============ */
+        .voice-recording {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            z-index: 2000;
+            text-align: center;
+        }
+
+        .voice-wave {
+            width: 4rem;
+            height: 4rem;
+            background: var(--accent-danger);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            margin-bottom: 12px;
-            box-shadow: var(--shadow);
+            justify-content: center;
+            animation: voiceWave 1.5s infinite;
         }
 
-        .timer-btn {
-            padding: 6px 14px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 13px;
-            box-shadow: var(--shadow);
+        @keyframes voiceWave {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
-        .timer-btn.active {
-            background: var(--danger-color);
-        }
-
-        .sidebar-toggle {
-            display: none;
+        /* ============ Notification Styles ============ */
+        .notification {
             position: fixed;
-            top: 16px;
-            left: 16px;
-            z-index: 1000;
-            background: var(--primary-color);
-            color: white;
-            padding: 8px;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: var(--shadow);
+            top: 2rem;
+            right: 2rem;
+            background: var(--bg-card);
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 3000;
+            max-width: 300px;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            border-left: 4px solid var(--accent-success);
+        }
+
+        .notification.error {
+            border-left: 4px solid var(--accent-danger);
+        }
+
+        .notification.info {
+            border-left: 4px solid var(--accent-primary);
+        }
+
+        /* ============ Install Prompt ============ */
+        .install-prompt {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-xl);
+            z-index: 2000;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .install-prompt.show {
+            transform: translateY(0);
+        }
+
+        /* ============ Loading Spinner ============ */
+        .spinner {
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid var(--border-primary);
+            border-top: 2px solid var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ============ Responsive Design ============ */
         @media (max-width: 1024px) {
-            .app-container {
-                flex-direction: column;
+            #sidebar {
+                width: 280px;
             }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: fixed;
-                top: 0;
-                left: -100%;
-                transition: left 0.3s ease;
-                z-index: 999;
-            }
-            .sidebar.active {
-                left: 0;
-            }
-            .sidebar-toggle {
-                display: block;
-            }
-            .main-content {
-                margin-top: 60px;
+            
+            #main {
+                margin-left: 280px;
             }
         }
 
         @media (max-width: 768px) {
-            .main-content {
-                padding: 12px;
+            #navToggle {
+                display: flex;
             }
+            
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            
+            #sidebar.show {
+                transform: translateX(0);
+            }
+            
+            #main {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            
+            .timer-display {
+                font-size: 2.5rem;
+            }
+            
+            .timer-controls {
+                flex-wrap: wrap;
+            }
+            
+            .notification {
+                left: 1rem;
+                right: 1rem;
+                top: 1rem;
+            }
+            
+            .install-prompt {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
             .card {
-                padding: 12px;
+                padding: 1rem;
             }
-            .app-container {
-                margin: 12px;
+            
+            .timer-display {
+                font-size: 2rem;
             }
+            
+            .quote-card {
+                padding: 1.5rem;
+            }
+            
+            .quote-text {
+                font-size: 1.125rem;
+            }
+            
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            
+            .task-actions {
+                align-self: flex-end;
+            }
+        }
+
+        /* ============ Dark Mode Specific Fixes ============ */
+        [data-theme="dark"] .form-input,
+        [data-theme="dark"] .form-select,
+        [data-theme="dark"] .form-textarea {
+            background: var(--bg-tertiary);
+            border-color: var(--border-primary);
+        }
+
+        [data-theme="dark"] .task-item {
+            background: var(--bg-tertiary);
+        }
+
+        [data-theme="dark"] .ai-chat-container {
+            background: var(--bg-secondary);
+        }
+
+        [data-theme="dark"] .integration-item {
+            background: var(--bg-tertiary);
+        }
+
+        /* ============ Print Styles ============ */
+        @media print {
+            #sidebar,
+            #navToggle,
+            .timer-controls,
+            .voice-recording,
+            .notification,
+            .install-prompt {
+                display: none !important;
+            }
+            
+            #main {
+                margin-left: 0;
+                box-shadow: none;
+            }
+            
+            .card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+
+        /* ============ Animation Classes ============ */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scale-in {
+            animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* ============ Accessibility Improvements ============ */
+        .btn:focus,
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ============ Custom Scrollbar ============ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
         }
     </style>
 </head>
-<body data-theme="light">
-    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
 
-    <div class="auth-modal" id="authModal">
-        <div class="auth-content">
-            <h2 id="authTitle">Welcome to FlowState Pro</h2>
-            <p id="authSubtitle">Sign in to your account</p>
-            <form class="auth-form" id="authActor">
-                <input type="text" class="auth-input" id="nameInput" placeholder="Full Name" style="display: none;">
-                <input type="email" class="auth-input" id="emailInput" placeholder="Email Address" required>
-                <input type="password" class="auth-input" id="passwordInput" placeholder="Password" required>
-                <input type="password" class="auth-input" id="confirmPasswordInput" placeholder="Confirm Password" style="display: none;">
-                <button type="submit" class="auth-btn" id="authSubmitBtn">Sign In</button>
-                <div class="auth-error" id="authError"></div>
-            </form>
-            <p style="margin-top: 12px; font-size: 12px;">
-                <span id="authSwitchText">Don't have an account?</span>
-                <a href="#" id="authSwitchLink" onclick="toggleAuthMode()">Sign Up</a>
-            </p>
+<body data-theme="light">
+    <!-- Mobile Navigation Toggle -->
+    <button id="navToggle" class="hidden" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Install App Prompt -->
+    <div id="installPrompt" class="install-prompt">
+        <div class="flex items-center justify-between">
+            <div>
+                <h4>Install Study Buddy Pro</h4>
+                <p class="text-sm text-muted">Get the full app experience on your device</p>
+            </div>
+            <div class="flex gap-2">
+                <button class="btn btn-primary btn-sm" onclick="installApp()">Install</button>
+                <button class="btn btn-secondary btn-sm" onclick="dismissInstall()">Later</button>
+            </div>
         </div>
     </div>
 
-    <div class="app-container">
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <div class="app-logo">FS</div>
-                <div class="app-name">FlowState Pro</div>
-            </div>
-            <div class="sidebar-nav">
-                <div class="nav-item active" data-section="dashboard">📊 Dashboard</div>
-                <div class="nav-item" data-section="tasks">📋 Tasks</div>
-                <div class="nav-item" data-section="assistant">🧠 AI Study Buddy</div>
-                <div class="nav-item" data-section="focus">⏰ Focus Timer</div>
-                <div class="nav-item" data-section="integrations">🔗 Integrations</div>
-                <div class="nav-item" data-section="settings">⚙️ Settings</div>
-                <div class="nav-item" onclick="userManager.logout()">🚪 Sign Out</div>
-            </div>
-            <div class="user-profile" style="margin-top: auto; padding: 10px; background: var(--bg-secondary); border-radius: 8px; box-shadow: var(--shadow);">
-                <div class="user-avatar" id="userAvatar" style="width: 24px; height: 24px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;">U</div>
-                <div id="userName" style="font-size: 14px;">User</div>
-            </div>
+    <!-- Voice Recording Indicator -->
+    <div id="voiceRecording" class="voice-recording hidden">
+        <div class="voice-wave">
+            <i class="fas fa-microphone text-white"></i>
         </div>
+        <h4>Listening...</h4>
+        <p class="text-sm text-muted">Speak clearly into your microphone</p>
+        <button class="btn btn-danger btn-sm" onclick="stopVoiceRecording()">Stop</button>
+    </div>
 
-        <div class="main-content">
-            <div class="section" id="dashboard-section">
-                <div class="card">
-                    <div class="card-title">Welcome, <span id="welcomeName">User</span>!</div>
-                    <div class="card-subtitle">Your student productivity companion</div>
-                    <div style="background: var(--bg-secondary); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: var(--shadow);">
-                        <div style="font-style: italic; font-size: 14px; margin-bottom: 6px;" id="quoteText">"The way to get started is to quit talking and begin doing."</div>
-                        <div style="font-weight: 500; color: var(--primary-color);" id="quoteAuthor">— Walt Disney</div>
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <!-- App Logo and Title -->
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>Study Buddy Pro</h2>
+                <p class="text-sm text-muted">AI-Powered Learning Companion</p>
+            </div>
+
+            <!-- Authentication Card -->
+            <div class="card" id="authCard">
+                <div class="card-header">
+                    <h3 id="authTitle">Create Account</h3>
+                </div>
+                
+                <form id="authForm" class="flex flex-col gap-3">
+                    <div class="form-group" id="nameGroup">
+                        <label class="form-label" for="nameInput">Full Name</label>
+                        <input type="text" id="nameInput" class="form-input" placeholder="Enter your full name" required>
                     </div>
-                    <div class="card">
-                        <div class="card-title">Daily Progress</div>
-                        <div style="text-align: center; padding: 12px;">
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
-                            </div>
-                            <div style="font-size: 14px; font-weight: 600; color: var(--primary-color);" id="progressPercent">0%</div>
-                            <div style="font-size: 11px; color: var(--text-secondary);">Complete</div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="emailInput">Email Address</label>
+                        <input type="email" id="emailInput" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="passwordInput">Password</label>
+                        <input type="password" id="passwordInput" class="form-input" placeholder="Create a password" required minlength="6">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <span id="authButtonText">Create Account</span>
+                        <div id="authLoader" class="spinner hidden"></div>
+                    </button>
+                </form>
+                
+                <div class="auth-toggle">
+                    <span id="authSwitchText">Already have an account?</span>
+                    <span class="auth-link" id="authSwitchLink">Sign In</span>
+                </div>
+            </div>
+
+            <!-- User Profile (Hidden initially) -->
+            <div class="card hidden" id="profileCard">
+                <div class="card-header">
+                    <h3>Welcome Back!</h3>
+                </div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+                        <span id="userInitials">U</span>
+                    </div>
+                    <div>
+                        <h4 id="userName">User</h4>
+                        <p class="text-sm text-muted" id="userEmail">user@example.com</p>
+                    </div>
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Sign Out
+                </button>
+            </div>
+
+            <!-- Settings Card -->
+            <div class="card hidden" id="settingsCard">
+                <div class="card-header">
+                    <h3>Settings</h3>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="themeSelect">Theme</label>
+                    <select id="themeSelect" class="form-select">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark (High Contrast)</option>
+                        <option value="vibrant">Vibrant</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="voiceSelect">Voice Assistant</label>
+                    <select id="voiceSelect" class="form-select">
+                        <option value="">Loading voices...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="notificationsToggle" checked>
+                        Enable Notifications
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="soundToggle" checked>
+                        Sound Effects
+                    </label>
+                </div>
+            </div>
+
+            <!-- App Integrations -->
+            <div class="card hidden" id="integrationsCard">
+                <div class="card-header">
+                    <h3>App Integrations</h3>
+                    <span class="text-sm text-muted">Mock connections</span>
+                </div>
+                
+                <div class="integration-item">
+                    <div class="integration-info">
+                        <div class="integration-icon zoom">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div>
+                            <h5>Zoom</h5>
+                            <p class="text-sm text-muted">Video conferencing</p>
+                        </div>
+                    </div>
+                    <div class="toggle-switch" id="zoomToggle">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="integration-item">
+                    <div class="integration-info">
+                        <div class="integration-icon calendar">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div>
+                            <h5>Google Calendar</h5>
+                            <p class="text-sm text-muted">Schedule management</p>
+                        </div>
+                    </div>
+                    <div class="toggle-switch" id="calendarToggle">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                
+                <div class="integration-item">
+                    <div class="integration-info">
+                        <div class="integration-icon slack">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div>
+                            <h5>Slack</h5>
+                            <p class="text-sm text-muted">Team communication</p>
+                        </div>
+                    </div>
+                    <div class="toggle-switch" id="slackToggle">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main">
+            <!-- Motivational Quote -->
+            <div class="quote-card fade-in">
+                <div class="quote-text" id="quoteText">
+                    "Keep studying, you've got this! Every small step forward is progress."
+                </div>
+                <div class="quote-author" id="quoteAuthor">
+                    — Study Buddy Pro
+                </div>
+            </div>
+
+            <!-- Task Management Section -->
+            <div class="card slide-up">
+                <div class="card-header">
+                    <h3>Task Manager</h3>
+                    <button class="btn btn-primary btn-sm" onclick="clearAllTasks()">
+                        <i class="fas fa-trash"></i>
+                        Clear All
+                    </button>
+                </div>
+                
+                <!-- Add Task Input -->
+                <div class="flex gap-3 mb-4">
+                    <input type="text" id="taskInput" class="form-input" placeholder="e.g., Study Math - 7:00 PM" style="flex: 1;">
+                    <button class="btn btn-primary" onclick="addTask()">
+                        <i class="fas fa-plus"></i>
+                        Add
+                    </button>
+                    <button class="btn btn-secondary btn-icon" onclick="startVoiceTaskInput()" title="Voice input">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                
+                <!-- Progress Section -->
+                <div class="progress-container">
+                    <div class="flex justify-between items-center">
+                        <span class="progress-text">Task Progress</span>
+                        <span class="progress-text" id="progressText">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                
+                <!-- Task List -->
+                <ul class="task-list" id="taskList">
+                    <!-- Tasks will be populated here -->
+                </ul>
+                
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-8">
+                    <i class="fas fa-clipboard-list text-6xl text-muted mb-4"></i>
+                    <h4>No tasks yet</h4>
+                    <p class="text-muted">Add your first task to get started!</p>
+                </div>
+            </div>
+
+            <!-- Focus Timer Section -->
+            <div class="card scale-in">
+                <div class="card-header">
+                    <h3>Pomodoro Focus Timer</h3>
+                    <div class="flex gap-2">
+                        <select id="timerPreset" class="form-select">
+                            <option value="1500">25 Minutes (Pomodoro)</option>
+                            <option value="900">15 Minutes (Short)</option>
+                            <option value="3000">50 Minutes (Long)</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="timer-display" id="timerDisplay">25:00</div>
+                    
+                    <div class="timer-controls">
+                        <button class="btn btn-success" id="startButton" onclick="startTimer()">
+                            <i class="fas fa-play"></i>
+                            Start
+                        </button>
+                        <button class="btn btn-warning" id="pauseButton" onclick="pauseTimer()" disabled>
+                            <i class="fas fa-pause"></i>
+                            Pause
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetTimer()">
+                            <i class="fas fa-redo"></i>
+                            Reset
+                        </button>
+                    </div>
+                    
+                    <!-- Timer Status -->
+                    <div class="mt-4">
+                        <p class="text-sm text-muted" id="timerStatus">Ready to focus</p>
+                        <div class="progress-bar mt-2">
+                            <div class="progress-fill" id="timerProgress"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="section hidden" id="tasks-section">
-                <div class="card">
-                    <div class="card-title">Smart Task Creator</div>
-                    <div class="card-subtitle">Add tasks with AI or voice</div>
-                    <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-                        <input type="text" class="auth-input" id="taskInput" placeholder="e.g., Study Math - 7:00 PM">
-                        <button class="btn btn-primary" onclick="createTask()">Create</button>
+            <!-- AI Study Buddy Section -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <h3>AI Study Buddy</h3>
+                    <button class="btn btn-secondary btn-sm" onclick="clearAIChat()">
+                        <i class="fas fa-eraser"></i>
+                        Clear
+                    </button>
+                </div>
+                
+                <!-- AI Chat Container -->
+                <div class="ai-chat-container" id="aiChatContainer">
+                    <div class="ai-message">
+                        <strong>🤖 Study Buddy:</strong> Hi there! I'm here to help you with your studies. Ask me anything about studying, productivity, or motivation!
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-title">Today's Tasks</div>
-                    <div class="card-subtitle" id="tasksSummary">No tasks yet</div>
-                    <div id="tasksList"></div>
+                
+                <!-- AI Input -->
+                <div class="ai-input-container">
+                    <input type="text" id="aiInput" class="form-input" placeholder="Ask me a study question..." style="flex: 1;">
+                    <button class="btn btn-primary" onclick="askAI()">
+                        <i class="fas fa-paper-plane"></i>
+                        Ask
+                    </button>
+                    <button class="btn btn-secondary btn-icon" onclick="startVoiceAIInput()" title="Voice input">
+                        <i class="fas fa-microphone"></i>
+                    </button>
                 </div>
-            </div>
-
-            <div class="section hidden" id="assistant-section">
-                <div class="card">
-                    <div class="card-title">AI Study Buddy</div>
-                    <div class="card-subtitle">Your personal study coach</div>
-                    <div class="voice-controls">
-                        <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()">🎤</button>
-                        <select id="voiceGender" onchange="updateVoice()" style="padding: 6px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
-                            <option value="female">Female Voice</option>
-                            <option value="male">Male Voice</option>
-                        </select>
-                        <div id="voiceStatus" style="font-size: 12px;">Voice ready</div>
-                    </div>
-                    <div class="chat-messages" id="chatMessages"></div>
-                    <div style="display: flex; gap: 8px;">
-                        <input type="text" class="auth-input" id="chatInput" placeholder="Ask me anything...">
-                        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
-                    </div>
-                    <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
-                        <button class="btn btn-secondary" onclick="quickAction('progress')">📊 Progress</button>
-                        <button class="btn btn-secondary" onclick="quickAction('tips')">💡 Study Tips</button>
-                        <button class="btn btn-secondary" onclick="quickAction('motivation')">🚀 Motivate</button>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-title">Ask Your Doubts</div>
-                    <div class="card-subtitle">Get instant study help</div>
-                    <textarea class="auth-input" id="doubtInput" placeholder="e.g., How to solve quadratic equations?..." style="height: 70px; resize: vertical;"></textarea>
-                    <div style="margin-top: 10px;">
-                        <button class="btn btn-primary" onclick="resolveDoubt()">🧠 Get AI Help</button>
-                    </div>
-                    <div id="doubtResponse" style="margin-top: 10px; padding: 10px; background: var(--bg-secondary); border-radius: 8px; box-shadow: var(--shadow); display: none;"></div>
+                
+                <!-- Quick Questions -->
+                <div class="flex gap-2 mt-3" style="flex-wrap: wrap;">
+                    <button class="btn btn-secondary btn-sm" onclick="askQuickQuestion('How to study better?')">
+                        📚 Study Tips
+                    </button>
+                    <button class="btn btn-secondary btn-sm" onclick="askQuickQuestion('Motivate me')">
+                        💪 Motivation
+                    </button>
+                    <button class="btn btn-secondary btn-sm" onclick="askQuickQuestion('Time management')">
+                        ⏰ Time Management
+                    </button>
+                    <button class="btn btn-secondary btn-sm" onclick="askQuickQuestion('Focus techniques')">
+                        🎯 Focus Help
+                    </button>
                 </div>
             </div>
 
-            <div class="section hidden" id="focus-section">
-                <div class="card">
-                    <div class="card-title">Focus Timer</div>
-                    <div class="card-subtitle">Boost productivity with Pomodoro</div>
-                    <div class="timer-controls">
-                        <div style="font-size: 22px; font-weight: 600;" id="timerDisplay">25:00</div>
-                        <button class="timer-btn" id="timerStartBtn" onclick="toggleTimer()">Start</button>
-                        <button class="btn btn-secondary" onclick="resetTimer()">Reset</button>
-                    </div>
-                    <div style="font-size: 12px; color: var(--text-secondary);">Work for 25 minutes, then take a 5-minute break!</div>
+            <!-- Statistics Section -->
+            <div class="card slide-up">
+                <div class="card-header">
+                    <h3>Study Statistics</h3>
                 </div>
-            </div>
-
-            <div class="section hidden" id="integrations-section">
-                <div class="card">
-                    <div class="card-title">App Integrations</div>
-                    <div class="card-subtitle">Connect your study tools</div>
-                    <div class="integrations-section">
-                        <button class="integration-btn" id="zoomBtn" onclick="connectApp('zoom')">📹 Zoom</button>
-                        <button class="integration-btn" id="teamsBtn" onclick="connectApp('teams')">💬 Teams</button>
-                        <button class="integration-btn" id="googleCalendarBtn" onclick="connectApp('googleCalendar')">📅 Google Calendar</button>
-                        <button class="integration-btn" id="outlookBtn" onclick="connectApp('outlook')">📧 Outlook</button>
-                        <button class="integration-btn" id="slackBtn" onclick="connectApp('slack')">📢 Slack</button>
+                
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="text-center p-4 bg-secondary rounded-lg">
+                        <div class="text-2xl font-bold text-primary" id="totalTasks">0</div>
+                        <div class="text-sm text-muted">Total Tasks</div>
                     </div>
-                    <div id="integrationStatus" style="margin-top: 10px; font-size: 12px; color: var(--text-secondary);"></div>
-                </div>
-            </div>
-
-            <div class="section hidden" id="settings-section">
-                <div class="card">
-                    <div class="card-title">Settings</div>
-                    <div class="card-subtitle">Customize your experience</div>
-                    <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-                        <button class="btn btn-secondary active" onclick="setTheme('light')">Light</button>
-                        <button class="btn btn-secondary" onclick="setTheme('dark')">Dark</button>
-                        <button class="btn btn-secondary" onclick="setTheme('vibrant')">Vibrant</button>
+                    <div class="text-center p-4 bg-secondary rounded-lg">
+                        <div class="text-2xl font-bold text-success" id="completedTasks">0</div>
+                        <div class="text-sm text-muted">Completed</div>
+                    </div>
+                    <div class="text-center p-4 bg-secondary rounded-lg">
+                        <div class="text-2xl font-bold text-warning" id="focusTime">0h</div>
+                        <div class="text-sm text-muted">Focus Time</div>
+                    </div>
+                    <div class="text-center p-4 bg-secondary rounded-lg">
+                        <div class="text-2xl font-bold text-info" id="studyStreak">0</div>
+                        <div class="text-sm text-muted">Day Streak</div>
                     </div>
                 </div>
+                
+                <!-- Weekly Overview -->
+                <h5 class="mb-3">This Week</h5>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm">Study Goal Progress</span>
+                    <span class="text-sm font-medium" id="weeklyProgress">60%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="weeklyProgressBar" style="width: 60%;"></div>
+                </div>
             </div>
-        </div>
+        </main>
     </div>
 
     <script>
-        let currentUser = null;
-        let tasks = [];
-        let isLoggedIn = false;
-        let isListening = false;
-        let selectedVoice = null;
-        let recognition = null;
-        let timerInterval = null;
-        let timerSeconds = 25 * 60;
-        let isTimerRunning = false;
-        let integrations = {
-            zoom: false,
-            teams: false,
-            googleCalendar: false,
-            outlook: false,
-            slack: false
-        };
-
-        const quotes = {
-            motivation: [
-                { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
-                { text: "Study hard, dream big, and never give up!", author: "Student Proverb" },
-                { text: "Every small step in your studies is a leap toward your future.", author: "Anonymous" }
-            ],
-            superhero: [
-                { text: "With great knowledge comes great responsibility.", author: "Inspired by Spider-Man" },
-                { text: "Be the hero of your own study journey!", author: "FlowState Pro" }
-            ]
-        };
-
-        async function hashPassword(password) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(password);
-            const hash = await crypto.subtle.digest('SHA-256', data);
-            return Array.from(new Uint8Array(hash))
-                .map(b => b.toString(16).padStart(2, '0'))
-                .join('');
-        }
-
-        class UserManager {
+        // ============ Application State Management ============
+        class StudyBuddyApp {
             constructor() {
                 this.currentUser = null;
-                const storedUser = localStorage.getItem('currentUser');
-                if (storedUser) {
-                    this.currentUser = JSON.parse(storedUser);
-                    this.login(this.currentUser);
-                } else {
-                    this.showAuth();
-                }
-            }
-
-            showAuth() {
-                document.getElementById('authModal').classList.remove('hidden');
-                document.getElementById('authError').textContent = '';
-            }
-
-            hideAuth() {
-                document.getElementById('authModal').classList.add('hidden');
-            }
-
-            async loginWithEmail(email, password) {
-                if (!email || !password) {
-                    document.getElementById('authError').textContent = 'Please enter both email and password.';
-                    return;
-                }
-                const hashedPassword = await hashPassword(password);
-                const users = JSON.parse(localStorage.getItem('users') || '{}');
-                const user = users[email];
-                if (!user) {
-                    document.getElementById('authError').textContent = 'No account found with this email.';
-                    return;
-                }
-                if (user.password !== hashedPassword) {
-                    document.getElementById('authError').textContent = 'Incorrect password.';
-                    return;
-                }
-                this.login({
-                    id: email,
-                    name: user.name,
-                    email: email,
-                    tasks: user.tasks || [],
-                    preferences: user.preferences || { theme: 'light', voice: 'female' }
-                });
-            }
-
-            async register(name, email, password, confirmPassword) {
-                if (!name || !email || !password) {
-                    document.getElementById('authError').textContent = 'Please fill in all fields.';
-                    return;
-                }
-                if (password !== confirmPassword) {
-                    document.getElementById('authError').textContent = 'Passwords do not match.';
-                    return;
-                }
-                if (password.length < 6) {
-                    document.getElementById('authError').textContent = 'Password must be at least 6 characters.';
-                    return;
-                }
-                const users = JSON.parse(localStorage.getItem('users') || '{}');
-                if (users[email]) {
-                    document.getElementById('authError').textContent = 'Email already in use.';
-                    return;
-                }
-                const hashedPassword = await hashPassword(password);
-                users[email] = {
-                    name,
-                    password: hashedPassword,
-                    tasks: [],
-                    preferences: { theme: 'light', voice: 'female' }
+                this.tasks = [];
+                this.isLoggedIn = false;
+                this.timer = {
+                    interval: null,
+                    duration: 1500, // 25 minutes in seconds
+                    timeLeft: 1500,
+                    isRunning: false,
+                    isPaused: false
                 };
-                localStorage.setItem('users', JSON.stringify(users));
-                this.login({
-                    id: email,
+                this.voices = [];
+                this.selectedVoice = null;
+                this.recognition = null;
+                this.isRecording = false;
+                this.settings = {
+                    theme: 'light',
+                    voiceIndex: 0,
+                    notifications: true,
+                    sounds: true
+                };
+                this.stats = {
+                    totalTasks: 0,
+                    completedTasks: 0,
+                    focusTime: 0,
+                    studyStreak: 0
+                };
+                this.integrations = {
+                    zoom: false,
+                    calendar: false,
+                    slack: false
+                };
+                this.deferredPrompt = null;
+                
+                this.init();
+            }
+
+            // ============ Initialization ============
+            init() {
+                this.loadUserData();
+                this.initializeVoices();
+                this.initializeSpeechRecognition();
+                this.bindEventListeners();
+                this.updateTimerDisplay();
+                this.checkLoginStatus();
+                this.initializePWA();
+                this.loadQuote();
+                this.updateStats();
+                this.initializeMobileNavigation();
+            }
+
+            // ============ User Authentication ============
+            checkLoginStatus() {
+                const userData = localStorage.getItem('studybuddy_user');
+                if (userData) {
+                    this.currentUser = JSON.parse(userData);
+                    this.isLoggedIn = true;
+                    this.showMainApp();
+                } else {
+                    this.showAuthForm();
+                }
+            }
+
+            hashPassword(password) {
+                // Simple hash function for demo purposes
+                return btoa(unescape(encodeURIComponent(password)));
+            }
+
+            handleAuth(event) {
+                event.preventDefault();
+                const isSignUp = document.getElementById('authTitle').textContent === 'Create Account';
+                
+                const email = document.getElementById('emailInput').value.trim();
+                const password = document.getElementById('passwordInput').value.trim();
+                const name = document.getElementById('nameInput').value.trim();
+
+                if (!email || !password || (isSignUp && !name)) {
+                    this.showNotification('Please fill in all required fields', 'error');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    this.showNotification('Password must be at least 6 characters long', 'error');
+                    return;
+                }
+
+                this.showAuthLoader(true);
+
+                // Simulate API call delay
+                setTimeout(() => {
+                    try {
+                        if (isSignUp) {
+                            this.register(name, email, password);
+                        } else {
+                            this.login(email, password);
+                        }
+                    } catch (error) {
+                        this.showNotification(error.message, 'error');
+                    } finally {
+                        this.showAuthLoader(false);
+                    }
+                }, 1500);
+            }
+
+            register(name, email, password) {
+                const users = JSON.parse(localStorage.getItem('studybuddy_users') || '{}');
+                
+                if (users[email]) {
+                    throw new Error('An account with this email already exists');
+                }
+
+                const hashedPassword = this.hashPassword(password);
+                const user = {
+                    id: Date.now().toString(),
                     name,
                     email,
+                    password: hashedPassword,
+                    createdAt: new Date().toISOString(),
                     tasks: [],
-                    preferences: { theme: 'light', voice: 'female' }
-                });
+                    settings: { ...this.settings },
+                    stats: { ...this.stats }
+                };
+
+                users[email] = user;
+                localStorage.setItem('studybuddy_users', JSON.stringify(users));
+                
+                this.currentUser = user;
+                this.isLoggedIn = true;
+                localStorage.setItem('studybuddy_user', JSON.stringify(user));
+                
+                this.showNotification(`Welcome, ${name}! Your account has been created.`, 'success');
+                this.showMainApp();
+                this.speak(`Welcome to Study Buddy Pro, ${name}! I'm here to help you succeed in your studies.`);
             }
 
-            login(user) {
+            login(email, password) {
+                const users = JSON.parse(localStorage.getItem('studybuddy_users') || '{}');
+                const user = users[email];
+                
+                if (!user) {
+                    throw new Error('No account found with this email address');
+                }
+
+                const hashedPassword = this.hashPassword(password);
+                if (user.password !== hashedPassword) {
+                    throw new Error('Invalid password');
+                }
+
                 this.currentUser = user;
-                currentUser = user;
-                isLoggedIn = true;
-                tasks = user.tasks || [];
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                document.getElementById('userName').textContent = user.name;
-                document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
-                document.getElementById('welcomeName').textContent = user.name;
-                this.hideAuth();
-                renderTasks();
-                setTheme(user.preferences.theme);
-                document.getElementById('voiceGender').value = user.preferences.voice;
-                updateVoice();
-                addChatMessage(`Welcome, ${user.name}! Let's ace your studies today!`, 'ai');
-                speakText(`Welcome back, ${user.name}! Ready to crush your studies?`);
+                this.isLoggedIn = true;
+                this.tasks = user.tasks || [];
+                this.settings = { ...this.settings, ...user.settings };
+                this.stats = { ...this.stats, ...user.stats };
+                
+                localStorage.setItem('studybuddy_user', JSON.stringify(user));
+                
+                this.showNotification(`Welcome back, ${user.name}!`, 'success');
+                this.showMainApp();
+                this.speak(`Welcome back, ${user.name}! Ready to continue your learning journey?`);
+                this.applySettings();
+                this.renderTasks();
+                this.updateStats();
             }
 
             logout() {
-                localStorage.removeItem('currentUser');
-                this.saveData();
-                window.location.reload();
+                this.saveUserData();
+                localStorage.removeItem('studybuddy_user');
+                this.currentUser = null;
+                this.isLoggedIn = false;
+                this.tasks = [];
+                this.resetTimer();
+                this.showAuthForm();
+                this.showNotification('You have been signed out', 'info');
             }
 
-            saveData() {
-                if (this.currentUser) {
-                    const users = JSON.parse(localStorage.getItem('users') || '{}');
-                    users[this.currentUser.email] = {
-                        ...users[this.currentUser.email],
-                        tasks,
-                        preferences: this.currentUser.preferences
-                    };
-                    localStorage.setItem('users', JSON.stringify(users));
-                    localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+            showAuthForm() {
+                document.getElementById('authCard').classList.remove('hidden');
+                document.getElementById('profileCard').classList.add('hidden');
+                document.getElementById('settingsCard').classList.add('hidden');
+                document.getElementById('integrationsCard').classList.add('hidden');
+            }
+
+            showMainApp() {
+                document.getElementById('authCard').classList.add('hidden');
+                document.getElementById('profileCard').classList.remove('hidden');
+                document.getElementById('settingsCard').classList.remove('hidden');
+                document.getElementById('integrationsCard').classList.remove('hidden');
+                
+                // Update user info
+                document.getElementById('userName').textContent = this.currentUser.name;
+                document.getElementById('userEmail').textContent = this.currentUser.email;
+                document.getElementById('userInitials').textContent = this.currentUser.name.charAt(0).toUpperCase();
+            }
+
+            showAuthLoader(show) {
+                const loader = document.getElementById('authLoader');
+                const buttonText = document.getElementById('authButtonText');
+                
+                if (show) {
+                    loader.classList.remove('hidden');
+                    buttonText.classList.add('hidden');
+                } else {
+                    loader.classList.add('hidden');
+                    buttonText.classList.remove('hidden');
                 }
             }
-        }
 
-        const userManager = new UserManager();
+            toggleAuthMode() {
+                const title = document.getElementById('authTitle');
+                const nameGroup = document.getElementById('nameGroup');
+                const buttonText = document.getElementById('authButtonText');
+                const switchText = document.getElementById('authSwitchText');
+                const switchLink = document.getElementById('authSwitchLink');
+                
+                const isSignUp = title.textContent === 'Create Account';
+                
+                if (isSignUp) {
+                    // Switch to Sign In
+                    title.textContent = 'Welcome Back';
+                    nameGroup.classList.add('hidden');
+                    buttonText.textContent = 'Sign In';
+                    switchText.textContent = "Don't have an account?";
+                    switchLink.textContent = 'Create Account';
+                } else {
+                    // Switch to Sign Up
+                    title.textContent = 'Create Account';
+                    nameGroup.classList.remove('hidden');
+                    buttonText.textContent = 'Create Account';
+                    switchText.textContent = 'Already have an account?';
+                    switchLink.textContent = 'Sign In';
+                }
+                
+                // Clear form
+                document.getElementById('authForm').reset();
+            }
 
-        function initVoice() {
-            if ('webkitSpeechRecognition' in window) {
-                recognition = new webkitSpeechRecognition();
-                recognition.continuous = false;
-                recognition.interimResults = false;
-                recognition.onstart = () => {
-                    isListening = true;
-                    document.getElementById('voiceBtn').classList.add('listening');
-                    document.getElementById('voiceStatus').textContent = 'Listening...';
+            // ============ Task Management ============
+            addTask(taskText = null) {
+                const input = document.getElementById('taskInput');
+                const text = taskText || input.value.trim();
+                
+                if (!text) {
+                    this.showNotification('Please enter a task', 'error');
+                    return;
+                }
+
+                const [title, time] = text.split(' - ').map(s => s.trim());
+                const task = {
+                    id: Date.now().toString(),
+                    title: title,
+                    time: time || null,
+                    completed: false,
+                    createdAt: new Date().toISOString()
                 };
-                recognition.onend = () => {
-                    isListening = false;
-                    document.getElementById('voiceBtn').classList.remove('listening');
-                    document.getElementById('voiceStatus').textContent = 'Voice ready';
-                };
-                recognition.onresult = (event) => {
+
+                this.tasks.push(task);
+                this.renderTasks();
+                this.updateProgress();
+                this.updateStats();
+                this.saveUserData();
+                
+                input.value = '';
+                this.showNotification('Task added successfully!', 'success');
+                
+                if (this.settings.sounds) {
+                    this.playSound('add');
+                }
+                
+                // Generate new motivational quote
+                this.loadQuote();
+            }
+
+            toggleTask(taskId) {
+                const task = this.tasks.find(t => t.id === taskId);
+                if (!task) return;
+
+                task.completed = !task.completed;
+                task.completedAt = task.completed ? new Date().toISOString() : null;
+                
+                this.renderTasks();
+                this.updateProgress();
+                this.updateStats();
+                this.saveUserData();
+
+                if (task.completed) {
+                    this.showNotification('Great job! Task completed! 🎉', 'success');
+                    this.speak('Excellent work! You completed a task. Keep up the great momentum!');
+                    this.loadQuote(); // New quote for completion
+                    
+                    if (this.settings.sounds) {
+                        this.playSound('complete');
+                    }
+                } else {
+                    this.showNotification('Task marked as incomplete', 'info');
+                }
+            }
+
+            deleteTask(taskId) {
+                if (confirm('Are you sure you want to delete this task?')) {
+                    this.tasks = this.tasks.filter(t => t.id !== taskId);
+                    this.renderTasks();
+                    this.updateProgress();
+                    this.updateStats();
+                    this.saveUserData();
+                    
+                    this.showNotification('Task deleted', 'info');
+                    
+                    if (this.settings.sounds) {
+                        this.playSound('delete');
+                    }
+                }
+            }
+
+            clearAllTasks() {
+                if (this.tasks.length === 0) {
+                    this.showNotification('No tasks to clear', 'info');
+                    return;
+                }
+
+                if (confirm('Are you sure you want to clear all tasks?')) {
+                    this.tasks = [];
+                    this.renderTasks();
+                    this.updateProgress();
+                    this.updateStats();
+                    this.saveUserData();
+                    
+                    this.showNotification('All tasks cleared', 'info');
+                }
+            }
+
+            renderTasks() {
+                const taskList = document.getElementById('taskList');
+                const emptyState = document.getElementById('emptyState');
+                
+                if (this.tasks.length === 0) {
+                    taskList.innerHTML = '';
+                    emptyState.classList.remove('hidden');
+                    return;
+                }
+
+                emptyState.classList.add('hidden');
+                
+                taskList.innerHTML = this.tasks.map(task => `
+                    <li class="task-item ${task.completed ? 'completed' : ''}">
+                        <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="app.toggleTask('${task.id}')">
+                            ${task.completed ? '<i class="fas fa-check"></i>' : ''}
+                        </div>
+                        <div class="task-content">
+                            <div class="task-title">${task.title}</div>
+                            ${task.time ? `<div class="task-time"><i class="fas fa-clock"></i> ${task.time}</div>` : ''}
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-danger btn-sm" onclick="app.deleteTask('${task.id}')" title="Delete task">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </li>
+                `).join('');
+            }
+
+            updateProgress() {
+                const total = this.tasks.length;
+                const completed = this.tasks.filter(t => t.completed).length;
+                const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+                
+                document.getElementById('progressText').textContent = `${percentage}%`;
+                document.getElementById('progressFill').style.width = `${percentage}%`;
+            }
+
+            // ============ Focus Timer (Pomodoro) ============
+            updateTimerDisplay() {
+                const minutes = Math.floor(this.timer.timeLeft / 60);
+                const seconds = this.timer.timeLeft % 60;
+                const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                document.getElementById('timerDisplay').textContent = display;
+                
+                // Update progress bar
+                const progress = ((this.timer.duration - this.timer.timeLeft) / this.timer.duration) * 100;
+                document.getElementById('timerProgress').style.width = `${progress}%`;
+                
+                // Update page title with timer
+                if (this.timer.isRunning) {
+                    document.title = `${display} - Study Buddy Pro`;
+                } else {
+                    document.title = 'Study Buddy Pro - AI-Powered Learning Companion';
+                }
+            }
+
+            startTimer() {
+                if (this.timer.isRunning) return;
+                
+                this.timer.isRunning = true;
+                this.timer.isPaused = false;
+                
+                // Update UI
+                document.getElementById('startButton').disabled = true;
+                document.getElementById('pauseButton').disabled = false;
+                document.getElementById('timerDisplay').classList.add('timer-active');
+                document.getElementById('timerStatus').textContent = 'Focus time! Stay concentrated.';
+                
+                // Voice announcement
+                this.speak('Focus session started! Time to concentrate on your studies.');
+                
+                // Show notification
+                if (this.settings.notifications && 'Notification' in window && Notification.permission === 'granted') {
+                    new Notification('Focus Timer Started', {
+                        body: 'Your Pomodoro session has begun. Stay focused!',
+                        icon: 'icon-192.png'
+                    });
+                }
+                
+                // Start countdown
+                this.timer.interval = setInterval(() => {
+                    this.timer.timeLeft--;
+                    this.updateTimerDisplay();
+                    
+                    if (this.timer.timeLeft <= 0) {
+                        this.completeTimer();
+                    }
+                }, 1000);
+                
+                if (this.settings.sounds) {
+                    this.playSound('start');
+                }
+            }
+
+            pauseTimer() {
+                if (!this.timer.isRunning) return;
+                
+                this.timer.isRunning = false;
+                this.timer.isPaused = true;
+                
+                clearInterval(this.timer.interval);
+                
+                // Update UI
+                document.getElementById('startButton').disabled = false;
+                document.getElementById('pauseButton').disabled = true;
+                document.getElementById('timerDisplay').classList.remove('timer-active');
+                document.getElementById('timerStatus').textContent = 'Timer paused. Click start to continue.';
+                
+                this.showNotification('Timer paused', 'info');
+            }
+
+            resetTimer() {
+                clearInterval(this.timer.interval);
+                
+                this.timer.isRunning = false;
+                this.timer.isPaused = false;
+                this.timer.timeLeft = this.timer.duration;
+                
+                // Update UI
+                document.getElementById('startButton').disabled = false;
+                document.getElementById('pauseButton').disabled = true;
+                document.getElementById('timerDisplay').classList.remove('timer-active');
+                document.getElementById('timerStatus').textContent = 'Ready to focus';
+                
+                this.updateTimerDisplay();
+                this.showNotification('Timer reset', 'info');
+            }
+
+            completeTimer() {
+                clearInterval(this.timer.interval);
+                
+                this.timer.isRunning = false;
+                this.timer.isPaused = false;
+                
+                // Update stats
+                this.stats.focusTime += Math.round(this.timer.duration / 60); // Convert to minutes
+                this.updateStats();
+                this.saveUserData();
+                
+                // Update UI
+                document.getElementById('startButton').disabled = false;
+                document.getElementById('pauseButton').disabled = true;
+                document.getElementById('timerDisplay').classList.remove('timer-active');
+                document.getElementById('timerStatus').textContent = 'Session complete! Take a break.';
+                
+                // Notifications and feedback
+                this.speak('Excellent work! Your focus session is complete. Time for a well-deserved break.');
+                this.showNotification('🎉 Focus session complete! Great job!', 'success');
+                
+                if (this.settings.notifications && 'Notification' in window && Notification.permission === 'granted') {
+                    new Notification('Focus Session Complete!', {
+                        body: 'Great job! Take a 5-minute break before your next session.',
+                        icon: 'icon-192.png'
+                    });
+                }
+                
+                if (this.settings.sounds) {
+                    this.playSound('complete');
+                }
+                
+                // Reset timer for next session
+                this.timer.timeLeft = this.timer.duration;
+                this.updateTimerDisplay();
+                
+                // Load new motivational quote
+                this.loadQuote();
+            }
+
+            setTimerDuration() {
+                const preset = document.getElementById('timerPreset').value;
+                
+                if (preset === 'custom') {
+                    const customTime = prompt('Enter custom time in minutes:', '25');
+                    if (customTime && !isNaN(customTime) && customTime > 0) {
+                        this.timer.duration = parseInt(customTime) * 60;
+                    } else {
+                        document.getElementById('timerPreset').value = '1500';
+                        return;
+                    }
+                } else {
+                    this.timer.duration = parseInt(preset);
+                }
+                
+                this.timer.timeLeft = this.timer.duration;
+                this.updateTimerDisplay();
+                this.showNotification(`Timer set to ${Math.round(this.timer.duration / 60)} minutes`, 'info');
+            }
+
+            // ============ AI Study Buddy ============
+            askAI(question = null) {
+                const input = document.getElementById('aiInput');
+                const userQuestion = question || input.value.trim();
+                
+                if (!userQuestion) {
+                    this.showNotification('Please enter a question', 'error');
+                    return;
+                }
+
+                // Add user message to chat
+                this.addAIMessage(`<strong>You:</strong> ${userQuestion}`);
+                
+                // Clear input
+                input.value = '';
+                
+                // Show typing indicator
+                this.addAIMessage('<strong>🤖 Study Buddy:</strong> <i>Thinking...</i>', 'thinking');
+                
+                // Simulate AI processing delay
+                setTimeout(() => {
+                    this.removeThinkingMessage();
+                    const response = this.generateAIResponse(userQuestion);
+                    this.addAIMessage(`<strong>🤖 Study Buddy:</strong> ${response}`);
+                    
+                    if (this.settings.sounds) {
+                        this.speak(response);
+                    }
+                }, 1500);
+            }
+
+            generateAIResponse(question) {
+                const lowerQuestion = question.toLowerCase();
+                
+                // Study tips
+                if (lowerQuestion.includes('study') || lowerQuestion.includes('learn')) {
+                    const studyTips = [
+                        "Try the Pomodoro Technique: 25 minutes of focused study followed by a 5-minute break. It's scientifically proven to improve concentration!",
+                        "Create a study schedule and stick to it. Consistency is key to building strong learning habits.",
+                        "Use active recall by testing yourself instead of just re-reading notes. This strengthens memory retention.",
+                        "Find your optimal study environment - some prefer silence, others need background music. Experiment to find what works for you!",
+                        "Break complex topics into smaller chunks. Master one concept before moving to the next.",
+                        "Teach someone else what you've learned. If you can explain it simply, you truly understand it."
+                    ];
+                    return studyTips[Math.floor(Math.random() * studyTips.length)];
+                }
+                
+                // Motivation
+                if (lowerQuestion.includes('motivat') || lowerQuestion.includes('encourage')) {
+                    const motivationalMessages = [
+                        `${this.currentUser?.name || 'Champion'}, every expert was once a beginner. You're making progress with every study session!`,
+                        `Remember ${this.currentUser?.name || 'friend'}, success is not about being perfect - it's about being persistent. Keep going!`,
+                        `You've got this, ${this.currentUser?.name || 'star'}! Every minute you spend studying is an investment in your future self.`,
+                        `${this.currentUser?.name || 'Amazing student'}, your dedication to learning is inspiring. Small daily efforts lead to big results!`,
+                        `Believe in yourself, ${this.currentUser?.name || 'learner'}! You have the power to achieve anything you set your mind to.`
+                    ];
+                    return motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)];
+                }
+                
+                // Time management
+                if (lowerQuestion.includes('time') || lowerQuestion.includes('manage') || lowerQuestion.includes('schedule')) {
+                    const timeManagementTips = [
+                        "Priority matrix: Divide tasks into urgent/important, important/not urgent, urgent/not important, and neither. Focus on important tasks first!",
+                        "Time blocking: Assign specific time slots to different subjects or activities. This prevents multitasking and improves focus.",
+                        "The 2-minute rule: If something takes less than 2 minutes, do it immediately rather than adding it to your to-do list.",
+                        "Use the 'eating the frog' method: Tackle your most challenging or important task first when your energy is highest.",
+                        "Set boundaries: Learn to say no to activities that don't align with your study goals and priorities."
+                    ];
+                    return timeManagementTips[Math.floor(Math.random() * timeManagementTips.length)];
+                }
+                
+                // Focus techniques
+                if (lowerQuestion.includes('focus') || lowerQuestion.includes('concentrate') || lowerQuestion.includes('distract')) {
+                    const focusTips = [
+                        "Try the 'phone in another room' technique. Physical distance from distractions significantly improves concentration.",
+                        "Use the 'Two-List Strategy': Write down everything you need to do, then circle only the top 3 priorities. Focus solely on those.",
+                        "Practice meditation for just 5 minutes daily. It trains your brain to maintain attention and resist distractions.",
+                        "Create a dedicated study space that your brain associates only with learning and productivity.",
+                        "Use noise-canceling headphones or white noise to create an acoustic barrier against distractions."
+                    ];
+                    return focusTips[Math.floor(Math.random() * focusTips.length)];
+                }
+                
+                // Memory and retention
+                if (lowerQuestion.includes('memory') || lowerQuestion.includes('remember') || lowerQuestion.includes('forget')) {
+                    const memoryTips = [
+                        "Spaced repetition is your best friend! Review material at increasing intervals: 1 day, 3 days, 1 week, 2 weeks, 1 month.",
+                        "Create mental associations and visual imagery. The more unusual or funny the connection, the better you'll remember it!",
+                        "Use the 'Memory Palace' technique: Associate information with specific locations in a familiar place like your home.",
+                        "Get enough sleep! Memory consolidation happens during sleep, especially deep sleep phases.",
+                        "Exercise regularly - it increases blood flow to the brain and promotes the growth of new brain cells."
+                    ];
+                    return memoryTips[Math.floor(Math.random() * memoryTips.length)];
+                }
+                
+                // Exam preparation
+                if (lowerQuestion.includes('exam') || lowerQuestion.includes('test') || lowerQuestion.includes('quiz')) {
+                    const examTips = [
+                        "Start preparing at least 2 weeks before your exam. Create a study timeline breaking down topics by day.",
+                        "Practice with past papers or sample questions. This familiarizes you with the exam format and identifies weak areas.",
+                        "Form a study group with classmates. Teaching others and discussing concepts deepens your understanding.",
+                        "Take care of your physical health: eat brain-healthy foods, stay hydrated, and get adequate sleep.",
+                        "On exam day: arrive early, read all questions carefully, manage your time wisely, and start with questions you're confident about."
+                    ];
+                    return examTips[Math.floor(Math.random() * examTips.length)];
+                }
+                
+                // Default responses
+                const defaultResponses = [
+                    `Great question, ${this.currentUser?.name || 'student'}! I'm here to help you succeed. Can you be more specific about what aspect of studying you'd like help with?`,
+                    "I'd love to help you with your studies! You can ask me about study techniques, time management, motivation, focus strategies, or exam preparation.",
+                    `${this.currentUser?.name || 'Learner'}, I'm equipped with knowledge about effective study methods, productivity tips, and motivational strategies. What would you like to explore?`,
+                    "Learning is a journey, and I'm here to guide you! Whether you need study tips, motivation, or help with time management, just ask!"
+                ];
+                
+                return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+            }
+
+            askQuickQuestion(question) {
+                document.getElementById('aiInput').value = question;
+                this.askAI();
+            }
+
+            addAIMessage(message, type = 'normal') {
+                const container = document.getElementById('aiChatContainer');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `ai-message ${type}`;
+                messageDiv.innerHTML = message;
+                
+                container.appendChild(messageDiv);
+                container.scrollTop = container.scrollHeight;
+            }
+
+            removeThinkingMessage() {
+                const thinkingMessage = document.querySelector('.ai-message.thinking');
+                if (thinkingMessage) {
+                    thinkingMessage.remove();
+                }
+            }
+
+            clearAIChat() {
+                const container = document.getElementById('aiChatContainer');
+                container.innerHTML = `
+                    <div class="ai-message">
+                        <strong>🤖 Study Buddy:</strong> Hi there! I'm here to help you with your studies. Ask me anything about studying, productivity, or motivation!
+                    </div>
+                `;
+            }
+
+            // ============ Voice Features ============
+            initializeVoices() {
+                if ('speechSynthesis' in window) {
+                    // Load voices
+                    const loadVoices = () => {
+                        this.voices = speechSynthesis.getVoices();
+                        this.populateVoiceSelect();
+                    };
+
+                    loadVoices();
+                    speechSynthesis.onvoiceschanged = loadVoices;
+                }
+            }
+
+            populateVoiceSelect() {
+                const voiceSelect = document.getElementById('voiceSelect');
+                voiceSelect.innerHTML = '';
+                
+                this.voices.forEach((voice, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    voiceSelect.appendChild(option);
+                });
+                
+                // Set selected voice
+                voiceSelect.value = this.settings.voiceIndex;
+                this.selectedVoice = this.voices[this.settings.voiceIndex];
+            }
+
+            speak(text) {
+                if ('speechSynthesis' in window && this.selectedVoice) {
+                    // Cancel any ongoing speech
+                    speechSynthesis.cancel();
+                    
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.voice = this.selectedVoice;
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1.0;
+                    utterance.volume = 1.0;
+                    
+                    speechSynthesis.speak(utterance);
+                }
+            }
+
+            initializeSpeechRecognition() {
+                if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    this.recognition = new SpeechRecognition();
+                    
+                    this.recognition.continuous = false;
+                    this.recognition.interimResults = false;
+                    this.recognition.lang = 'en-US';
+                    
+                    this.recognition.onstart = () => {
+                        this.isRecording = true;
+                        document.getElementById('voiceRecording').classList.remove('hidden');
+                    };
+                    
+                    this.recognition.onend = () => {
+                        this.isRecording = false;
+                        document.getElementById('voiceRecording').classList.add('hidden');
+                    };
+                    
+                    this.recognition.onerror = (event) => {
+                        console.error('Speech recognition error:', event.error);
+                        this.showNotification('Voice recognition error. Please try again.', 'error');
+                        this.stopVoiceRecording();
+                    };
+                }
+            }
+
+            startVoiceTaskInput() {
+                if (!this.recognition) {
+                    this.showNotification('Voice recognition not supported in this browser', 'error');
+                    return;
+                }
+                
+                this.recognition.onresult = (event) => {
                     const transcript = event.results[0][0].transcript;
-                    processVoiceCommand(transcript);
+                    document.getElementById('taskInput').value = transcript;
+                    this.addTask();
                 };
-                recognition.onerror = (event) => {
-                    document.getElementById('voiceStatus').textContent = 'Voice recognition error';
-                    console.error(event.error);
+                
+                this.recognition.start();
+            }
+
+            startVoiceAIInput() {
+                if (!this.recognition) {
+                    this.showNotification('Voice recognition not supported in this browser', 'error');
+                    return;
+                }
+                
+                this.recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    this.askAI(transcript);
                 };
+                
+                this.recognition.start();
             }
-            if ('speechSynthesis' in window) {
-                speechSynthesis.onvoiceschanged = updateVoiceOptions;
-                updateVoiceOptions();
-            }
-        }
 
-        function updateVoiceOptions() {
-            const voices = speechSynthesis.getVoices();
-            const genderPref = document.getElementById('voiceGender').value;
-            selectedVoice = voices.find(voice => {
-                const name = voice.name.toLowerCase();
-                return genderPref === 'female' ? 
-                    name.includes('female') || name.includes('samantha') || name.includes('karen') :
-                    name.includes('male') || name.includes('daniel') || name.includes('alex');
-            }) || voices[0];
-        }
-
-        function speakText(text) {
-            if ('speechSynthesis' in window && selectedVoice) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.voice = selectedVoice;
-                utterance.rate = 0.9;
-                speechSynthesis.speak(utterance);
+            stopVoiceRecording() {
+                if (this.recognition && this.isRecording) {
+                    this.recognition.stop();
+                }
             }
-        }
 
-        function toggleVoice() {
-            if (!recognition) {
-                document.getElementById('voiceStatus').textContent = 'Voice not supported';
-                return;
+            // ============ Settings Management ============
+            applySettings() {
+                // Apply theme
+                document.body.setAttribute('data-theme', this.settings.theme);
+                document.getElementById('themeSelect').value = this.settings.theme;
+                
+                // Apply voice
+                document.getElementById('voiceSelect').value = this.settings.voiceIndex;
+                this.selectedVoice = this.voices[this.settings.voiceIndex];
+                
+                // Apply notification setting
+                document.getElementById('notificationsToggle').checked = this.settings.notifications;
+                
+                // Apply sound setting
+                document.getElementById('soundToggle').checked = this.settings.sounds;
             }
-            if (isListening) {
-                recognition.stop();
-            } else {
-                recognition.start();
-            }
-        }
 
-        function processVoiceCommand(command) {
-            document.getElementById('voiceStatus').textContent = `Heard: "${command}"`;
-            if (command.toLowerCase().includes('create') || command.toLowerCase().includes('task')) {
-                document.getElementById('taskInput').value = command;
-                createTask();
-            } else if (command.toLowerCase().includes('progress')) {
-                quickAction('progress');
-            } else if (command.toLowerCase().includes('start timer')) {
-                toggleTimer();
-            } else {
-                document.getElementById('chatInput').value = command;
-                sendMessage();
+            updateSettings() {
+                this.settings.theme = document.getElementById('themeSelect').value;
+                this.settings.voiceIndex = parseInt(document.getElementById('voiceSelect').value) || 0;
+                this.settings.notifications = document.getElementById('notificationsToggle').checked;
+                this.settings.sounds = document.getElementById('soundToggle').checked;
+                
+                this.selectedVoice = this.voices[this.settings.voiceIndex];
+                this.saveUserData();
             }
-        }
 
-        function updateVoice() {
-            updateVoiceOptions();
-            if (currentUser) {
-                currentUser.preferences.voice = document.getElementById('voiceGender').value;
-                userManager.saveData();
+            changeTheme(theme) {
+                this.settings.theme = theme;
+                document.body.setAttribute('data-theme', theme);
+                this.saveUserData();
+                this.showNotification(`Theme changed to ${theme}`, 'success');
             }
-        }
 
-        function toggleTimer() {
-            if ( isTimerRunning) {
-                clearInterval(timerInterval);
-                document.getElementById('timerStartBtn').textContent = 'Start';
-                document.getElementById('timerStartBtn').classList.remove('active');
-                isTimerRunning = false;
-                speakText('Timer
+            changeVoice(voiceIndex) {
+                this.settings.voiceIndex = parseInt(voiceIndex);
+                this.selectedVoice = this.voices[this.settings.voiceIndex];
+                this.saveUserData();
+                
+                // Test the new voice
+                this.speak(`Voice changed to ${this.selectedVoice.name}`);
+            }
+
+            // ============ App Integrations (Mock) ============
+            toggleIntegration(service) {
+                this.integrations[service] = !this.integrations[service];
+                const toggle = document.getElementById(`${service}Toggle`);
+                toggle.classList.toggle('active', this.integrations[service]);
+                
+                const status = this.integrations[service] ? 'connected' : 'disconnected';
+                this.showNotification(`${service.charAt(0).toUpperCase() + service.slice(1)} ${status}`, 'info');
+                
+                if (this.integrations[service]) {
+                    this.speak(`${service} integration activated`);
+                }
+                
+                this.saveUserData();
+            }
+
+            // ============ Statistics ============
+            updateStats() {
+                this.stats.totalTasks = this.tasks.length;
+                this.stats.completedTasks = this.tasks.filter(t => t.completed).length;
+                
+                // Calculate study streak (simplified)
+                const today = new Date().toDateString();
+                const completedToday = this.tasks.filter(t => 
+                    t.completed && new Date(t.completedAt).toDateString() === today
+                ).length;
+                
+                if (completedToday > 0) {
+                    this.stats.studyStreak = Math.max(this.stats.studyStreak, completedToday);
+                }
+                
+                // Update display
+                document.getElementById('totalTasks').textContent = this.stats.totalTasks;
+                document.getElementById('completedTasks').textContent = this.stats.completedTasks;
+                document.getElementById('focusTime').textContent = `${Math.floor(this.stats.focusTime / 60)}h`;
+                document.getElementById('studyStreak').textContent = this.stats.studyStreak;
+                
+                // Update weekly progress (mock calculation)
+                const weeklyGoal = 10; // 10 completed tasks per week
+                const weeklyProgress = Math.min((this.stats.completedTasks / weeklyGoal) * 100, 100);
+                document.getElementById('weeklyProgress').textContent = `${Math.round(weeklyProgress)}%`;
+                document.getElementById('weeklyProgressBar').style.width = `${weeklyProgress}%`;
+            }
+
+            // ============ Motivational Quotes ============
+            loadQuote() {
+                const quotes = [
+                    {
+                        text: "The expert in anything was once a beginner.",
+                        author: "Helen Hayes"
+                    },
+                    {
+                        text: "Education is the most powerful weapon which you can use to change the world.",
+                        author: "Nelson Mandela"
+                    },
+                    {
+                        text: "Learning never exhausts the mind.",
+                        author: "Leonardo da Vinci"
+                    },
+                    {
+                        text: "The beautiful thing about learning is that nobody can take it away from you.",
+                        author: "B.B. King"
+                    },
+                    {
+                        text: "Success is the sum of small efforts repeated day in and day out.",
+                        author: "Robert Collier"
+                    },
+                    {
+                        text: "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice.",
+                        author: "Brian Herbert"
+                    },
+                    {
+                        text: "You don't have to be great to get started, but you have to get started to be great.",
+                        author: "Les Brown"
+                    },
+                    {
+                        text: "The secret of getting ahead is getting started.",
+                        author: "Mark Twain"
+                    },
+                    {
+                        text: "Every accomplishment starts with the decision to try.",
+                        author: "John F. Kennedy"
+                    },
+                    {
+                        text: "Keep studying, you've got this! Every small step forward is progress.",
+                        author: "Study Buddy Pro"
+                    }
+                ];
+                
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                document.getElementById('quoteText').textContent = randomQuote.text;
+                document.getElementById('quoteAuthor').textContent = `— ${randomQuote.author}`;
+            }
+
+            // ============ Notifications ============
+            showNotification(message, type = 'info') {
+                const container = document.getElementById('notificationContainer');
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                
+                const icon = {
+                    success: '✅',
+                    error: '❌',
+                    warning: '⚠️',
+                    info: 'ℹ️'
+                }[type] || 'ℹ️';
+                
+                notification.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="text-lg">${icon}</span>
+                        <span class="flex-1">${message}</span>
+                        <button onclick="this.parentElement.parentElement.remove()" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(notification);
+                
+                // Show notification
+                setTimeout(() => notification.classList.add('show'), 100);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => notification.remove(), 300);
+                }, 5000);
+            }
+
+            // ============ Sound Effects ============
+            playSound(type) {
+                if (!this.settings.sounds) return;
+                
+                // Create audio context for sound effects
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Different sounds for different actions
+                const sounds = {
+                    add: { frequency: 800, duration: 0.2 },
+                    complete: { frequency: 1000, duration: 0.3 },
+                    delete: { frequency: 400, duration: 0.2 },
+                    start: { frequency: 600, duration: 0.5 }
+                };
+                
+                const sound = sounds[type] || sounds.add;
+                
+                oscillator.frequency.setValueAtTime(sound.frequency, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + sound.duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + sound.duration);
+            }
+
+            // ============ Data Management ============
+            saveUserData() {
+                if (this.currentUser) {
+                    const users = JSON.parse(localStorage.getItem('studybuddy_users') || '{}');
+                    
+                    this.currentUser.tasks = this.tasks;
+                    this.currentUser.settings = this.settings;
+                    this.currentUser.stats = this.stats;
+                    this.currentUser.integrations = this.integrations;
+                    this.currentUser.lastActivity = new Date().toISOString();
+                    
+                    users[this.currentUser.email] = this.currentUser;
+                    localStorage.setItem('studybuddy_users', JSON.stringify(users));
+                    localStorage.setItem('studybuddy_user', JSON.stringify(this.currentUser));
+                }
+            }
+
+            loadUserData() {
+                const userData = localStorage.getItem('studybuddy_user');
+                if (userData) {
+                    this.currentUser = JSON.parse(userData);
+                    this.tasks = this.currentUser.tasks || [];
+                    this.settings = { ...this.settings, ...this.currentUser.settings };
+                    this.stats = { ...this.stats, ...this.currentUser.stats };
+                    this.integrations = { ...this.integrations, ...this.currentUser.integrations };
+                }
+            }
+
+            // ============ PWA Features ============
+            initializePWA() {
+                // Request notification permission
+                if ('Notification' in window && Notification.permission === 'default') {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === 'granted') {
+                            this.showNotification('Notifications enabled! You\'ll receive study reminders.', 'success');
+                        }
+                    });
+                }
+
+                // Install prompt
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    this.deferredPrompt = e;
+                    document.getElementById('installPrompt').classList.add('show');
+                });
+
+                // Service worker update detection
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.addEventListener('controllerchange', () => {
+                        if (confirm('New version available! Reload to update?')) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+
+            installApp() {
+                if (this.deferredPrompt) {
+                    this.deferredPrompt.prompt();
+                    this.deferredPrompt.userChoice.then((result) => {
+                        if (result.outcome === 'accepted') {
+                            this.showNotification('App installed successfully!', 'success');
+                        }
+                        this.deferredPrompt = null;
+                        document.getElementById('installPrompt').classList.remove('show');
+                    });
+                }
+            }
+
+            dismissInstall() {
+                document.getElementById('installPrompt').classList.remove('show');
+                this.deferredPrompt = null;
+            }
+
+            // ============ Mobile Navigation ============
+            initializeMobileNavigation() {
+                const navToggle = document.getElementById('navToggle');
+                const sidebar = document.getElementById('sidebar');
+                const main = document.getElementById('main');
+                
+                // Show toggle on mobile
+                if (window.innerWidth <= 768) {
+                    navToggle.classList.remove('hidden');
+                    sidebar.classList.add('hidden');
+                    main.classList.add('full-width');
+                }
+                
+                // Toggle sidebar
+                navToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('show');
+                    sidebar.classList.toggle('hidden');
+                });
+                
+                // Close sidebar when clicking outside on mobile
+                main.addEventListener('click', () => {
+                    if (window.innerWidth <= 768 && sidebar.classList.contains('show')) {
+                        sidebar.classList.remove('show');
+                        sidebar.classList.add('hidden');
+                    }
+                });
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768) {
+                        navToggle.classList.add('hidden');
+                        sidebar.classList.remove('hidden', 'show');
+                        main.classList.remove('full-width');
+                    } else {
+                        navToggle.classList.remove('hidden');
+                        if (!sidebar.classList.contains('show')) {
+                            sidebar.classList.add('hidden');
+                        }
+                        main.classList.add('full-width');
+                    }
+                });
+            }
+
+            // ============ Event Listeners ============
+            bindEventListeners() {
+                // Auth form
+                document.getElementById('authForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleAuth(e);
+                });
+                
+                // Auth mode toggle
+                document.getElementById('authSwitchLink').addEventListener('click', () => {
+                    this.toggleAuthMode();
+                });
+                
+                // Task input enter key
+                document.getElementById('taskInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
