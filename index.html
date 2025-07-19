@@ -228,6 +228,7 @@
             color: var(--danger-color);
             font-size: 13px;
             margin-top: 8px;
+            min-height: 20px;
         }
 
         .btn {
@@ -535,8 +536,10 @@
 
     <script>
         // Firebase Configuration
+        // REPLACE WITH YOUR FIREBASE CONFIG FROM FIREBASE CONSOLE
+        // 1. Go to Firebase Console > Project Settings > General > Your apps > Add app > Web
+        // 2. Copy the config object here
         const firebaseConfig = {
-            // REPLACE WITH YOUR FIREBASE CONFIG FROM FIREBASE CONSOLE
             apiKey: "YOUR_API_KEY",
             authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
             projectId: "YOUR_PROJECT_ID",
@@ -544,7 +547,14 @@
             messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
             appId: "YOUR_APP_ID"
         };
-        firebase.initializeApp(firebaseConfig);
+        
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+        } catch (error) {
+            console.error('Firebase initialization failed:', error);
+            document.getElementById('authError').textContent = 'App configuration error. Please contact support.';
+        }
         const auth = firebase.auth();
 
         // Application State
@@ -592,6 +602,9 @@
                     } else {
                         this.showAuth();
                     }
+                }, error => {
+                    console.error('Auth state change error:', error);
+                    document.getElementById('authError').textContent = 'Authentication service unavailable.';
                 });
             }
 
@@ -605,6 +618,10 @@
             }
 
             async loginWithEmail(email, password) {
+                if (!email || !password) {
+                    document.getElementById('authError').textContent = 'Please enter both email and password.';
+                    return;
+                }
                 try {
                     const userCredential = await auth.signInWithEmailAndPassword(email, password);
                     this.login({
@@ -619,7 +636,19 @@
                 }
             }
 
-            async register(name, email, password) {
+            async register(name, email, password, confirmPassword) {
+                if (!name || !email || !password) {
+                    document.getElementById('authError').textContent = 'Please fill in all fields.';
+                    return;
+                }
+                if (password !== confirmPassword) {
+                    document.getElementById('authError').textContent = 'Passwords do not match.';
+                    return;
+                }
+                if (password.length < 6) {
+                    document.getElementById('authError').textContent = 'Password must be at least 6 characters.';
+                    return;
+                }
                 try {
                     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                     await userCredential.user.updateProfile({ displayName: name });
@@ -640,6 +669,7 @@
             async signInWithGoogle() {
                 try {
                     const provider = new firebase.auth.GoogleAuthProvider();
+                    provider.addScope('email');
                     await auth.signInWithPopup(provider);
                 } catch (error) {
                     document.getElementById('authError').textContent = this.formatAuthError(error);
@@ -649,6 +679,7 @@
             async signInWithMicrosoft() {
                 try {
                     const provider = new firebase.auth.OAuthProvider('microsoft.com');
+                    provider.addScope('User.Read');
                     await auth.signInWithPopup(provider);
                 } catch (error) {
                     document.getElementById('authError').textContent = this.formatAuthError(error);
@@ -656,18 +687,28 @@
             }
 
             formatAuthError(error) {
+                console.error('Auth error:', error.code, error.message);
                 switch (error.code) {
                     case 'auth/invalid-email':
                         return 'Invalid email address.';
                     case 'auth/user-not-found':
+                        return 'No account found with this email.';
                     case 'auth/wrong-password':
-                        return 'Incorrect email or password.';
+                        return 'Incorrect password.';
                     case 'auth/email-already-in-use':
                         return 'Email already in use.';
                     case 'auth/weak-password':
                         return 'Password must be at least 6 characters.';
+                    case 'auth/invalid-credential':
+                        return 'Invalid credentials provided.';
+                    case 'auth/network-request-failed':
+                        return 'Network error. Please check your connection.';
+                    case 'auth/popup-blocked':
+                        return 'Popup blocked. Please allow popups for this site.';
+                    case 'auth/too-many-requests':
+                        return 'Too many attempts. Please try again later.';
                     default:
-                        return 'Authentication failed. Please try again.';
+                        return 'Authentication failed: ' + error.message;
                 }
             }
 
@@ -689,7 +730,9 @@
             }
 
             logout() {
-                auth.signOut();
+                auth.signOut().catch(error => {
+                    console.error('Logout error:', error);
+                });
                 localStorage.removeItem(`tasks-${this.currentUser.id}`);
                 localStorage.removeItem(`prefs-${this.currentUser.id}`);
                 window.location.reload();
@@ -835,9 +878,11 @@
                     case 'teams':
                     case 'outlook':
                         provider = new firebase.auth.OAuthProvider('microsoft.com');
+                        provider.addScope('User.Read');
                         break;
                     case 'googleCalendar':
                         provider = new firebase.auth.GoogleAuthProvider();
+                        provider.addScope('email');
                         break;
                     case 'slack':
                         provider = new firebase.auth.OAuthProvider('oidc.slack');
@@ -849,7 +894,7 @@
                 document.getElementById('integrationStatus').textContent = `${app} connected`;
                 syncTasksWithApp(app);
             } catch (error) {
-                document.getElementById('integrationStatus').textContent = `Failed to connect ${app}`;
+                document.getElementById('integrationStatus').textContent = `Failed to connect ${app}: ${userManager.formatAuthError(error)}`;
                 console.error(error);
             }
         }
@@ -1128,18 +1173,15 @@
         // Authentication Handlers
         document.getElementById('authForm').addEventListener('submit', async e => {
             e.preventDefault();
-            const email = document.getElementById('emailInput').value;
-            const password = document.getElementById('passwordInput').value;
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim();
             const isRegister = document.getElementById('nameInput').style.display !== 'none';
-            const name = document.getElementById('nameInput').value;
+            const name = document.getElementById('nameInput').value.trim();
+            const confirmPassword = document.getElementById('confirmPasswordInput').value.trim();
             document.getElementById('authError').textContent = '';
+
             if (isRegister) {
-                const confirmPassword = document.getElementById('confirmPasswordInput').value;
-                if (password !== confirmPassword) {
-                    document.getElementById('authError').textContent = 'Passwords do not match.';
-                    return;
-                }
-                await userManager.register(name, email, password);
+                await userManager.register(name, email, password, confirmPassword);
             } else {
                 await userManager.loginWithEmail(email, password);
             }
