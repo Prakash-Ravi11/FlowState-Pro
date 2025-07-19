@@ -1,38 +1,28 @@
 {
-    "name": "FlowState Pro - AI Productivity Companion",
+    "name": "FlowState Pro - Ultimate AI Productivity Companion",
     "short_name": "FlowState Pro",
-    "description": "Advanced AI productivity companion with timers and notifications",
+    "description": "Ultimate AI productivity companion with user accounts, voice features, and intelligent assistance",
     "start_url": "./",
     "display": "standalone",
     "background_color": "#f5f7fa",
-    "theme_color": "#007AFF",
+    "theme_color": "#3b82f6",
     "orientation": "portrait-primary",
     "scope": "./",
-    "categories": ["productivity", "utilities", "lifestyle"],
+    "version": "3.0.0",
     "icons": [
         {
             "src": "./icon-192.png",
             "sizes": "192x192",
             "type": "image/png",
-            "purpose": "any"
-        },
-        {
-            "src": "./icon-192.png",
-            "sizes": "192x192", 
-            "type": "image/png",
-            "purpose": "maskable"
+            "purpose": "any maskable"
         },
         {
             "src": "./icon-512.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "any"
-        },
-        {
-            "src": "./icon-512.png",
-            "sizes": "512x512",
-            "type": "image/png", 
-            "purpose": "maskable"
+            "purpose": "any maskable"
         }
-    ]
+    ],
+    "categories": ["productivity", "utilities", "education"],
+    "lang": "en-US"
 }
