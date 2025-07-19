@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlowState Pro - AI Productivity Companion</title>
-    <meta name="description" content="Your Apple-inspired AI productivity companion with task management, voice AI, and app integrations">
+    <title>FlowState Pro - Student Productivity</title>
+    <meta name="description" content="A free, Apple-inspired productivity app for students with task management, AI chat, and focus timer">
     
     <!-- Cache Control -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -15,13 +15,6 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    
-    <!-- External Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-functions-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.0/dist/tesseract.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
@@ -338,12 +331,43 @@
             color: white;
         }
 
-        .tracksheet-upload {
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .timer-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             padding: 12px;
             background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
             border-radius: 8px;
-            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .timer-btn {
+            padding: 8px 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .timer-btn.active {
+            background: var(--danger-color);
         }
 
         @media (max-width: 1024px) {
@@ -385,8 +409,6 @@
                 <span id="authSwitchText">Don't have an account?</span>
                 <a href="#" id="authSwitchLink" onclick="toggleAuthMode()">Sign Up</a>
             </p>
-            <button class="btn btn-secondary" onclick="signInWithGoogle()" style="margin-top: 12px; width: 100%;">Sign in with Google</button>
-            <button class="btn btn-secondary" onclick="signInWithMicrosoft()" style="margin-top: 8px; width: 100%;">Sign in with Microsoft</button>
         </div>
     </div>
 
@@ -401,6 +423,7 @@
                 <div class="nav-item active" data-section="dashboard">📊 Dashboard</div>
                 <div class="nav-item" data-section="tasks">📋 Tasks</div>
                 <div class="nav-item" data-section="assistant">🧠 AI Assistant</div>
+                <div class="nav-item" data-section="focus">⏰ Focus Timer</div>
                 <div class="nav-item" data-section="integrations">🔗 Integrations</div>
                 <div class="nav-item" data-section="settings">⚙️ Settings</div>
                 <div class="nav-item" onclick="userManager.logout()">🚪 Sign Out</div>
@@ -417,7 +440,7 @@
             <div class="section" id="dashboard-section">
                 <div class="card">
                     <div class="card-title">Welcome, <span id="welcomeName">User</span>!</div>
-                    <div class="card-subtitle">Your AI productivity companion</div>
+                    <div class="card-subtitle">Your student productivity companion</div>
                     <div style="background: var(--bg-secondary); border-radius: 8px; padding: 16px; margin-bottom: 16px;">
                         <div style="font-style: italic; font-size: 16px; margin-bottom: 8px;" id="quoteText">"The way to get started is to quit talking and begin doing."</div>
                         <div style="font-weight: 500; color: var(--primary-color);" id="quoteAuthor">— Walt Disney</div>
@@ -425,16 +448,11 @@
                     <div class="card">
                         <div class="card-title">Daily Progress</div>
                         <div style="text-align: center; padding: 16px;">
-                            <div style="width: 80px; height: 80px; margin: 0 auto; position: relative;">
-                                <svg style="width: 100%; height: 100%; transform: rotate(-90deg);">
-                                    <circle cx="40" cy="40" r="32" fill="none" stroke="var(--border-color)" stroke-width="5"></circle>
-                                    <circle cx="40" cy="40" r="32" fill="none" stroke="var(--primary-color)" stroke-width="5" stroke-dasharray="201" stroke-dashoffset="201" id="progressCircle"></circle>
-                                </svg>
-                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                                    <div style="font-size: 16px; font-weight: 600; color: var(--primary-color);" id="progressPercent">0%</div>
-                                    <div style="font-size: 11px; color: var(--text-secondary);">Complete</div>
-                                </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
                             </div>
+                            <div style="font-size: 16px; font-weight: 600; color: var(--primary-color);" id="progressPercent">0%</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">Complete</div>
                         </div>
                     </div>
                 </div>
@@ -444,15 +462,10 @@
             <div class="section hidden" id="tasks-section">
                 <div class="card">
                     <div class="card-title">Smart Task Creator</div>
-                    <div class="card-subtitle">Create tasks with AI and voice support</div>
+                    <div class="card-subtitle">Create tasks with AI or voice</div>
                     <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-                        <input type="text" class="input-field" id="taskInput" placeholder="Describe your task...">
+                        <input type="text" class="input-field" id="taskInput" placeholder="Describe your task (e.g., Study Math - 7:00 PM)">
                         <button class="btn btn-primary" onclick="createTask()">Create</button>
-                    </div>
-                    <div class="tracksheet-upload">
-                        <input type="file" id="tracksheetInput" accept=".pdf,.jpg,.png" style="display: none;">
-                        <button class="btn btn-secondary" onclick="document.getElementById('tracksheetInput').click()">📄 Upload Tracksheet</button>
-                        <div id="uploadStatus" style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;"></div>
                     </div>
                 </div>
                 <div class="card">
@@ -465,8 +478,8 @@
             <!-- AI Assistant Section -->
             <div class="section hidden" id="assistant-section">
                 <div class="card">
-                    <div class="card-title">Ultra AI Assistant</div>
-                    <div class="card-subtitle">Your personal AI coach</div>
+                    <div class="card-title">AI Study Buddy</div>
+                    <div class="card-subtitle">Your personal study coach</div>
                     <div class="voice-controls">
                         <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()">🎤</button>
                         <select id="voiceGender" onchange="updateVoice()">
@@ -482,14 +495,14 @@
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
                         <button class="btn btn-secondary" onclick="quickAction('progress')">📊 Progress</button>
-                        <button class="btn btn-secondary" onclick="quickAction('tips')">💡 Tips</button>
+                        <button class="btn btn-secondary" onclick="quickAction('tips')">💡 Study Tips</button>
                         <button class="btn btn-secondary" onclick="quickAction('motivation')">🚀 Motivate</button>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-title">Ask Your Doubts</div>
-                    <div class="card-subtitle">Get instant help with AI</div>
-                    <textarea class="input-field" id="doubtInput" placeholder="Ask any question..." style="height: 80px; resize: vertical;"></textarea>
+                    <div class="card-subtitle">Get instant study help</div>
+                    <textarea class="input-field" id="doubtInput" placeholder="Ask any question (e.g., How to solve quadratic equations?)..." style="height: 80px; resize: vertical;"></textarea>
                     <div style="margin-top: 12px;">
                         <button class="btn btn-primary" onclick="resolveDoubt()">🧠 Get AI Help</button>
                     </div>
@@ -497,11 +510,25 @@
                 </div>
             </div>
 
+            <!-- Focus Timer Section -->
+            <div class="section hidden" id="focus-section">
+                <div class="card">
+                    <div class="card-title">Focus Timer</div>
+                    <div class="card-subtitle">Boost productivity with Pomodoro</div>
+                    <div class="timer-controls">
+                        <div style="font-size: 24px; font-weight: 600;" id="timerDisplay">25:00</div>
+                        <button class="timer-btn" id="timerStartBtn" onclick="toggleTimer()">Start</button>
+                        <button class="btn btn-secondary" onclick="resetTimer()">Reset</button>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-secondary);">Work for 25 minutes, then take a 5-minute break!</div>
+                </div>
+            </div>
+
             <!-- Integrations Section -->
             <div class="section hidden" id="integrations-section">
                 <div class="card">
                     <div class="card-title">App Integrations</div>
-                    <div class="card-subtitle">Connect your favorite tools</div>
+                    <div class="card-subtitle">Connect your study tools</div>
                     <div class="integrations-section">
                         <button class="integration-btn" id="zoomBtn" onclick="connectApp('zoom')">📹 Zoom</button>
                         <button class="integration-btn" id="teamsBtn" onclick="connectApp('teams')">💬 Teams</button>
@@ -523,40 +550,12 @@
                         <button class="btn btn-secondary" onclick="setTheme('dark')">Dark</button>
                         <button class="btn btn-secondary" onclick="setTheme('elegant')">Elegant</button>
                     </div>
-                    <div>
-                        <label style="font-size: 13px; color: var(--text-secondary);">Subscription</label>
-                        <div style="margin-top: 8px;">
-                            <button class="btn btn-primary" onclick="upgradePlan()">🚀 Upgrade to Premium</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Firebase Configuration
-        // REPLACE WITH YOUR FIREBASE CONFIG FROM FIREBASE CONSOLE
-        // 1. Go to Firebase Console > Project Settings > General > Your apps > Add app > Web
-        // 2. Copy the config object here
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        
-        // Initialize Firebase
-        try {
-            firebase.initializeApp(firebaseConfig);
-        } catch (error) {
-            console.error('Firebase initialization failed:', error);
-            document.getElementById('authError').textContent = 'App configuration error. Please contact support.';
-        }
-        const auth = firebase.auth();
-
         // Application State
         let currentUser = null;
         let tasks = [];
@@ -564,6 +563,9 @@
         let isListening = false;
         let selectedVoice = null;
         let recognition = null;
+        let timerInterval = null;
+        let timerSeconds = 25 * 60;
+        let isTimerRunning = false;
         let integrations = {
             zoom: false,
             teams: false,
@@ -572,40 +574,40 @@
             slack: false
         };
 
-        // Famous Quotes
+        // Student-Focused Quotes
         const quotes = {
             motivation: [
                 { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
-                { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
-                { text: "Success is not final, failure is not fatal.", author: "Winston Churchill" }
+                { text: "Study hard, dream big, and never give up!", author: "Student Proverb" },
+                { text: "Every small step in your studies is a leap toward your future.", author: "Anonymous" }
             ],
             superhero: [
-                { text: "With great power comes great responsibility.", author: "Spider-Man (Uncle Ben)" },
-                { text: "I am vengeance, I am the night, I am Batman.", author: "Batman" }
+                { text: "With great knowledge comes great responsibility.", author: "Inspired by Spider-Man" },
+                { text: "Be the hero of your own study journey!", author: "FlowState Pro" }
             ]
         };
+
+        // Utility to Hash Passwords
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hash = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hash))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
 
         // User Management
         class UserManager {
             constructor() {
                 this.currentUser = null;
-                auth.onAuthStateChanged(user => {
-                    if (user) {
-                        this.currentUser = {
-                            id: user.uid,
-                            name: user.displayName || user.email.split('@')[0],
-                            email: user.email,
-                            tasks: JSON.parse(localStorage.getItem(`tasks-${user.uid}`) || '[]'),
-                            preferences: JSON.parse(localStorage.getItem(`prefs-${user.uid}`) || '{"theme":"light","voice":"female"}')
-                        };
-                        this.login(this.currentUser);
-                    } else {
-                        this.showAuth();
-                    }
-                }, error => {
-                    console.error('Auth state change error:', error);
-                    document.getElementById('authError').textContent = 'Authentication service unavailable.';
-                });
+                const storedUser = localStorage.getItem('currentUser');
+                if (storedUser) {
+                    this.currentUser = JSON.parse(storedUser);
+                    this.login(this.currentUser);
+                } else {
+                    this.showAuth();
+                }
             }
 
             showAuth() {
@@ -622,18 +624,24 @@
                     document.getElementById('authError').textContent = 'Please enter both email and password.';
                     return;
                 }
-                try {
-                    const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                    this.login({
-                        id: userCredential.user.uid,
-                        name: userCredential.user.displayName || email.split('@')[0],
-                        email: userCredential.user.email,
-                        tasks: JSON.parse(localStorage.getItem(`tasks-${userCredential.user.uid}`) || '[]'),
-                        preferences: JSON.parse(localStorage.getItem(`prefs-${userCredential.user.uid}`) || '{"theme":"light","voice":"female"}')
-                    });
-                } catch (error) {
-                    document.getElementById('authError').textContent = this.formatAuthError(error);
+                const hashedPassword = await hashPassword(password);
+                const users = JSON.parse(localStorage.getItem('users') || '{}');
+                const user = users[email];
+                if (!user) {
+                    document.getElementById('authError').textContent = 'No account found with this email.';
+                    return;
                 }
+                if (user.password !== hashedPassword) {
+                    document.getElementById('authError').textContent = 'Incorrect password.';
+                    return;
+                }
+                this.login({
+                    id: email,
+                    name: user.name,
+                    email: email,
+                    tasks: user.tasks || [],
+                    preferences: user.preferences || { theme: 'light', voice: 'female' }
+                });
             }
 
             async register(name, email, password, confirmPassword) {
@@ -649,67 +657,26 @@
                     document.getElementById('authError').textContent = 'Password must be at least 6 characters.';
                     return;
                 }
-                try {
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    await userCredential.user.updateProfile({ displayName: name });
-                    const user = {
-                        id: userCredential.user.uid,
-                        name,
-                        email,
-                        tasks: [],
-                        preferences: { theme: 'light', voice: 'female' }
-                    };
-                    localStorage.setItem(`prefs-${user.id}`, JSON.stringify(user.preferences));
-                    this.login(user);
-                } catch (error) {
-                    document.getElementById('authError').textContent = this.formatAuthError(error);
+                const users = JSON.parse(localStorage.getItem('users') || '{}');
+                if (users[email]) {
+                    document.getElementById('authError').textContent = 'Email already in use.';
+                    return;
                 }
-            }
-
-            async signInWithGoogle() {
-                try {
-                    const provider = new firebase.auth.GoogleAuthProvider();
-                    provider.addScope('email');
-                    await auth.signInWithPopup(provider);
-                } catch (error) {
-                    document.getElementById('authError').textContent = this.formatAuthError(error);
-                }
-            }
-
-            async signInWithMicrosoft() {
-                try {
-                    const provider = new firebase.auth.OAuthProvider('microsoft.com');
-                    provider.addScope('User.Read');
-                    await auth.signInWithPopup(provider);
-                } catch (error) {
-                    document.getElementById('authError').textContent = this.formatAuthError(error);
-                }
-            }
-
-            formatAuthError(error) {
-                console.error('Auth error:', error.code, error.message);
-                switch (error.code) {
-                    case 'auth/invalid-email':
-                        return 'Invalid email address.';
-                    case 'auth/user-not-found':
-                        return 'No account found with this email.';
-                    case 'auth/wrong-password':
-                        return 'Incorrect password.';
-                    case 'auth/email-already-in-use':
-                        return 'Email already in use.';
-                    case 'auth/weak-password':
-                        return 'Password must be at least 6 characters.';
-                    case 'auth/invalid-credential':
-                        return 'Invalid credentials provided.';
-                    case 'auth/network-request-failed':
-                        return 'Network error. Please check your connection.';
-                    case 'auth/popup-blocked':
-                        return 'Popup blocked. Please allow popups for this site.';
-                    case 'auth/too-many-requests':
-                        return 'Too many attempts. Please try again later.';
-                    default:
-                        return 'Authentication failed: ' + error.message;
-                }
+                const hashedPassword = await hashPassword(password);
+                users[email] = {
+                    name,
+                    password: hashedPassword,
+                    tasks: [],
+                    preferences: { theme: 'light', voice: 'female' }
+                };
+                localStorage.setItem('users', JSON.stringify(users));
+                this.login({
+                    id: email,
+                    name,
+                    email,
+                    tasks: [],
+                    preferences: { theme: 'light', voice: 'female' }
+                });
             }
 
             login(user) {
@@ -717,6 +684,7 @@
                 currentUser = user;
                 isLoggedIn = true;
                 tasks = user.tasks || [];
+                localStorage.setItem('currentUser', JSON.stringify(user));
                 document.getElementById('userName').textContent = user.name;
                 document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
                 document.getElementById('welcomeName').textContent = user.name;
@@ -725,23 +693,26 @@
                 setTheme(user.preferences.theme);
                 document.getElementById('voiceGender').value = user.preferences.voice;
                 updateVoice();
-                addChatMessage(`Welcome, ${user.name}! Let's make today productive!`, 'ai');
-                speakText(`Welcome back, ${user.name}! Ready to crush it?`);
+                addChatMessage(`Welcome, ${user.name}! Let's ace your studies today!`, 'ai');
+                speakText(`Welcome back, ${user.name}! Ready to crush your studies?`);
             }
 
             logout() {
-                auth.signOut().catch(error => {
-                    console.error('Logout error:', error);
-                });
-                localStorage.removeItem(`tasks-${this.currentUser.id}`);
-                localStorage.removeItem(`prefs-${this.currentUser.id}`);
+                localStorage.removeItem('currentUser');
+                this.saveData();
                 window.location.reload();
             }
 
             saveData() {
                 if (this.currentUser) {
-                    localStorage.setItem(`tasks-${this.currentUser.id}`, JSON.stringify(tasks));
-                    localStorage.setItem(`prefs-${this.currentUser.id}`, JSON.stringify(this.currentUser.preferences));
+                    const users = JSON.parse(localStorage.getItem('users') || '{}');
+                    users[this.currentUser.email] = {
+                        ...users[this.currentUser.email],
+                        tasks,
+                        preferences: this.currentUser.preferences
+                    };
+                    localStorage.setItem('users', JSON.stringify(users));
+                    localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
                 }
             }
         }
@@ -818,6 +789,8 @@
                 createTask();
             } else if (command.toLowerCase().includes('progress')) {
                 quickAction('progress');
+            } else if (command.toLowerCase().includes('start timer')) {
+                toggleTimer();
             } else {
                 document.getElementById('chatInput').value = command;
                 sendMessage();
@@ -832,81 +805,85 @@
             }
         }
 
-        // Tracksheet Parsing
-        async function parseTracksheet(file) {
-            document.getElementById('uploadStatus').textContent = 'Processing...';
-            try {
-                const { data: { text } } = await Tesseract.recognize(file, 'eng');
-                const tasksExtracted = extractTasksFromText(text);
-                tasks.push(...tasksExtracted);
-                renderTasks();
-                userManager.saveData();
-                document.getElementById('uploadStatus').textContent = `Added ${tasksExtracted.length} tasks`;
-                speakText(`Added ${tasksExtracted.length} tasks from your tracksheet.`);
-            } catch (error) {
-                document.getElementById('uploadStatus').textContent = 'Error processing file';
-                console.error(error);
+        // Focus Timer
+        function toggleTimer() {
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                document.getElementById('timerStartBtn').textContent = 'Start';
+                document.getElementById('timerStartBtn').classList.remove('active');
+                isTimerRunning = false;
+                speakText('Timer stopped. Take a break or keep studying!');
+            } else {
+                timerInterval = setInterval(() => {
+                    timerSeconds--;
+                    if (timerSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        isTimerRunning = false;
+                        document.getElementById('timerStartBtn').textContent = 'Start';
+                        document.getElementById('timerStartBtn').classList.remove('active');
+                        speakText('Great job! Time for a 5-minute break.');
+                        timerSeconds = 25 * 60;
+                    }
+                    updateTimerDisplay();
+                }, 1000);
+                isTimerRunning = true;
+                document.getElementById('timerStartBtn').textContent = 'Stop';
+                document.getElementById('timerStartBtn').classList.add('active');
+                speakText('Focus timer started. Let’s study!');
             }
         }
 
-        function extractTasksFromText(text) {
-            const lines = text.split('\n').filter(line => line.trim());
-            const tasks = [];
-            lines.forEach(line => {
-                const match = line.match(/(.+?)(?:\s*-\s*(\d{1,2}:\d{2}\s*(?:am|pm))?)/i);
-                if (match) {
-                    tasks.push({
-                        id: Date.now() + tasks.length,
-                        title: match[1].trim(),
-                        time: match[2] || '09:00',
-                        completed: false,
-                        createdAt: new Date()
-                    });
-                }
-            });
-            return tasks;
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerSeconds = 25 * 60;
+            isTimerRunning = false;
+            document.getElementById('timerStartBtn').textContent = 'Start';
+            document.getElementById('timerStartBtn').classList.remove('active');
+            updateTimerDisplay();
         }
 
-        // Integrations
-        async function connectApp(app) {
-            try {
-                let provider;
-                switch (app) {
-                    case 'zoom':
-                        provider = new firebase.auth.OAuthProvider('oidc.zoom');
-                        break;
-                    case 'teams':
-                    case 'outlook':
-                        provider = new firebase.auth.OAuthProvider('microsoft.com');
-                        provider.addScope('User.Read');
-                        break;
-                    case 'googleCalendar':
-                        provider = new firebase.auth.GoogleAuthProvider();
-                        provider.addScope('email');
-                        break;
-                    case 'slack':
-                        provider = new firebase.auth.OAuthProvider('oidc.slack');
-                        break;
-                }
-                await auth.signInWithPopup(provider);
-                integrations[app] = true;
-                updateIntegrationStatus();
-                document.getElementById('integrationStatus').textContent = `${app} connected`;
-                syncTasksWithApp(app);
-            } catch (error) {
-                document.getElementById('integrationStatus').textContent = `Failed to connect ${app}: ${userManager.formatAuthError(error)}`;
-                console.error(error);
-            }
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
 
-        async function syncTasksWithApp(app) {
-            const callable = firebase.functions().httpsCallable('syncTasks');
-            try {
-                const result = await callable({ app, tasks });
-                addChatMessage(`Synced ${result.data.count} tasks with ${app}`, 'ai');
+        // Task Management
+        function createTask() {
+            const input = document.getElementById('taskInput');
+            const message = input.value.trim();
+            if (!message) return;
+            input.value = '';
+            addChatMessage(message, 'user');
+            const response = aiAssistant.handleTaskCreation(message);
+            addChatMessage(response, 'ai');
+            speakText(`Task created! ${aiAssistant.getMotivation()}`);
+        }
+
+        function extractTaskFromText(message) {
+            const match = message.match(/(.+?)(?:\s*-\s*(\d{1,2}:\d{2}\s*(?:am|pm))?)/i);
+            const title = match ? match[1].trim() : message.trim() || 'New Task';
+            const time = match && match[2] ? match[2] : '09:00';
+            return {
+                id: Date.now(),
+                title: title.charAt(0).toUpperCase() + title.slice(1),
+                time: time,
+                completed: false,
+                createdAt: new Date()
+            };
+        }
+
+        // Integrations (Mocked)
+        function connectApp(app) {
+            integrations[app] = !integrations[app];
+            updateIntegrationStatus();
+            document.getElementById('integrationStatus').textContent = integrations[app] 
+                ? `${app} connected (mock)` 
+                : `${app} disconnected (mock)`;
+            if (integrations[app]) {
+                addChatMessage(`Synced tasks with ${app} (mock).`, 'ai');
                 speakText(`Synced tasks with ${app}.`);
-            } catch (error) {
-                console.error(`Sync failed for ${app}:`, error);
             }
         }
 
@@ -932,7 +909,7 @@
                     return this.getProgressReport();
                 }
                 if (message.toLowerCase().includes('tip')) {
-                    return this.getProductivityTip();
+                    return this.getStudyTip();
                 }
                 if (message.toLowerCase().includes('motivat')) {
                     return this.getMotivation();
@@ -945,7 +922,7 @@
             }
 
             handleTaskCreation(message) {
-                const task = this.extractTaskFromMessage(message);
+                const task = extractTaskFromText(message);
                 if (task.title) {
                     tasks.push(task);
                     renderTasks();
@@ -956,19 +933,6 @@
                 return "Please provide more task details.";
             }
 
-            extractTaskFromMessage(message) {
-                const title = message.replace(/create|add|schedule|task|remind me to/gi, '').trim() || 'New Task';
-                const timeMatch = message.match(/(\d{1,2}:\d{2}|\d{1,2}\s*(am|pm))/i);
-                const time = timeMatch ? timeMatch[0] : '09:00';
-                return {
-                    id: Date.now(),
-                    title: title.charAt(0).toUpperCase() + title.slice(1),
-                    time: time,
-                    completed: false,
-                    createdAt: new Date()
-                };
-            }
-
             getProgressReport() {
                 const completed = tasks.filter(t => t.completed).length;
                 const total = tasks.length;
@@ -976,35 +940,35 @@
                 return `📊 Progress: ${completed}/${total} tasks\n📈 ${rate}%\n\n${this.getMotivationalMessage(rate)}`;
             }
 
-            getProductivityTip() {
+            getStudyTip() {
                 const tips = [
-                    "🎯 Do quick tasks immediately if they take under 2 minutes.",
-                    "⚡ Schedule tough tasks for your peak energy hours.",
-                    "🔄 Use time-blocking to stay focused.",
-                    "📱 Keep distractions away during work sessions.",
-                    "🧠 Take short breaks to recharge."
+                    "📚 Break your study sessions into 25-minute chunks with 5-minute breaks.",
+                    "🧠 Summarize what you’ve learned in your own words to retain it better.",
+                    "📝 Take notes by hand to improve memory retention.",
+                    "📱 Avoid phone distractions during study time.",
+                    "🎯 Set specific goals for each study session."
                 ];
                 return tips[Math.floor(Math.random() * tips.length)];
             }
 
             getMotivation() {
                 const motivations = [
-                    `🌟 ${currentUser?.name || 'Champion'}, you're unstoppable!`,
+                    `🌟 ${currentUser?.name || 'Scholar'}, you're unstoppable!`,
                     `💪 Keep pushing, ${currentUser?.name || 'Achiever'}!`,
-                    `🚀 ${currentUser?.name || 'Star'}, shine bright today!`
+                    `🚀 ${currentUser?.name || 'Star'}, ace those exams!`
                 ];
                 this.motivationIndex = (this.motivationIndex + 1) % motivations.length;
                 return motivations[this.motivationIndex];
             }
 
             getMotivationalMessage(rate) {
-                if (rate >= 80) return `🎉 Amazing work, ${currentUser?.name || 'Champion'}!`;
+                if (rate >= 80) return `🎉 Amazing work, ${currentUser?.name || 'Scholar'}!`;
                 if (rate >= 40) return `💪 Solid progress, ${currentUser?.name || 'Fighter'}!`;
-                return `🚀 Keep going, ${currentUser?.name || 'Explorer'}!`;
+                return `🚀 Keep studying, ${currentUser?.name || 'Explorer'}!`;
             }
 
             getGeneralResponse(message) {
-                return `Hey ${currentUser?.name || 'friend'}, I'm here to boost your productivity! What's next?`;
+                return `Hey ${currentUser?.name || 'friend'}, I'm here to help you study smarter! What's next?`;
             }
 
             getRandomQuote(category) {
@@ -1031,14 +995,14 @@
             setTimeout(() => {
                 response.innerHTML = `
                     <div style="line-height: 1.5; font-size: 14px;">
-                        <strong>🧠 AI Response:</strong><br>
+                        <strong>🧠 Study Buddy Response:</strong><br>
                         For "<em>${question}</em>":<br>
-                        Here's a simplified explanation to help you understand.<br>
-                        <strong>Tip:</strong> Try breaking it down and practicing daily.<br>
+                        Try breaking it down into smaller parts and practice daily.<br>
+                        <strong>Tip:</strong> Review related concepts or ask your teacher for clarification.<br>
                         <em>💡 Keep learning, ${currentUser?.name || 'student'}!</em>
                     </div>
                 `;
-                speakText('I found an answer to your question.');
+                speakText('I found a study tip for your question.');
             }, 1500);
         }
 
@@ -1072,17 +1036,6 @@
             div.innerHTML = message.replace(/\n/g, '<br>');
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
-        }
-
-        function createTask() {
-            const input = document.getElementById('taskInput');
-            const message = input.value.trim();
-            if (!message) return;
-            input.value = '';
-            addChatMessage(message, 'user');
-            const response = aiAssistant.handleTaskCreation(message);
-            addChatMessage(response, 'ai');
-            speakText(`Task created! ${aiAssistant.getMotivation()}`);
         }
 
         function renderTasks() {
@@ -1139,16 +1092,14 @@
             const completed = tasks.filter(t => t.completed).length;
             const total = tasks.length;
             const percentage = total > 0 ? (completed / total) * 100 : 0;
-            const circle = document.getElementById('progressCircle');
-            const circumference = 2 * Math.PI * 32;
-            circle.style.strokeDashoffset = circumference - (percentage / 100) * circumference;
+            document.getElementById('progressFill').style.width = `${percentage}%`;
             document.getElementById('progressPercent').textContent = `${Math.round(percentage)}%`;
         }
 
         function quickAction(type) {
             const actions = {
                 progress: 'Show my progress report',
-                tips: 'Give me a productivity tip',
+                tips: 'Give me a study tip',
                 motivation: 'I need motivation'
             };
             document.getElementById('chatInput').value = actions[type];
@@ -1164,10 +1115,6 @@
                 currentUser.preferences.theme = theme;
                 userManager.saveData();
             }
-        }
-
-        function upgradePlan() {
-            window.open('https://checkout.stripe.com/...', '_blank'); // REPLACE WITH YOUR STRIPE CHECKOUT URL
         }
 
         // Authentication Handlers
@@ -1187,14 +1134,6 @@
             }
         });
 
-        async function signInWithGoogle() {
-            await userManager.signInWithGoogle();
-        }
-
-        async function signInWithMicrosoft() {
-            await userManager.signInWithMicrosoft();
-        }
-
         // Event Listeners
         document.addEventListener('DOMContentLoaded', () => {
             initVoice();
@@ -1204,9 +1143,6 @@
             });
             document.getElementById('taskInput').addEventListener('keypress', e => {
                 if (e.key === 'Enter') createTask();
-            });
-            document.getElementById('tracksheetInput').addEventListener('change', e => {
-                if (e.target.files[0]) parseTracksheet(e.target.files[0]);
             });
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.addEventListener('click', () => {
