@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prakash-ravi11.github.io/flowstate-pro-new/sitemap.xml
