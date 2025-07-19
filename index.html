@@ -30,7 +30,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="version" content="5.0.0">
+    <meta name="version" content="6.0.0">
     
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
@@ -75,7 +75,6 @@
                     .then(function(registration) {
                         console.log('✅ ServiceWorker registration successful');
                         
-                        // Check for updates
                         registration.addEventListener('updatefound', function() {
                             const newWorker = registration.installing;
                             console.log('🔄 New version found, installing...');
@@ -91,7 +90,6 @@
                             });
                         });
                         
-                        // Listen for controller change
                         navigator.serviceWorker.addEventListener('controllerchange', function() {
                             window.location.reload();
                         });
@@ -408,6 +406,7 @@
         /* Gender Selector */
         .gender-selector {
             margin-bottom: 20px;
+            text-align: left;
         }
 
         .gender-options {
@@ -415,6 +414,7 @@
             gap: 16px;
             margin-top: 8px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .radio-option {
@@ -789,69 +789,6 @@
             font-weight: 600;
         }
 
-        /* Break Interval Controls */
-        .break-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px;
-            background: var(--bg-tertiary);
-            border-radius: 8px;
-            margin-top: 16px;
-        }
-
-        .break-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 48px;
-            height: 26px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--border-color);
-            transition: 0.3s;
-            border-radius: 26px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 2px;
-            bottom: 2px;
-            background-color: white;
-            transition: 0.3s;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        input:checked + .slider {
-            background-color: var(--primary-color);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(22px);
-        }
-
         /* Main Content Layout */
         .main-content {
             display: grid;
@@ -981,90 +918,6 @@
             font-size: 15px;
         }
 
-        /* Timer Display Styles */
-        .activity-timer {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: var(--bg-tertiary);
-            border-radius: 8px;
-            margin-top: 8px;
-        }
-
-        .timer-display {
-            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--primary-color);
-            min-width: 80px;
-        }
-
-        .timer-controls {
-            display: flex;
-            gap: 8px;
-        }
-
-        .timer-btn {
-            padding: 4px 8px;
-            font-size: 12px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .timer-btn:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .timer-btn.active {
-            background: var(--success-color);
-            color: white;
-            border-color: var(--success-color);
-        }
-
-        /* Custom Time Input */
-        .time-input-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .preset-times {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .time-preset {
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .time-preset:hover, .time-preset.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .custom-time-input {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         /* ChatGPT Integration Section */
         .chatgpt-section {
             background: var(--card-bg);
@@ -1188,79 +1041,6 @@
             color: var(--text-secondary);
             display: flex;
             gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .task-category {
-            background: var(--primary-color);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        /* Notification Styles */
-        .notification-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        .notification-modal.show {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .notification-content {
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            padding: 32px;
-            box-shadow: var(--shadow-primary);
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
-
-        .notification-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-            animation: bounce 0.5s ease;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        .notification-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-        }
-
-        .notification-body {
-            color: var(--text-secondary);
-            margin-bottom: 28px;
-            line-height: 1.6;
-            font-size: 16px;
-        }
-
-        .notification-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
             flex-wrap: wrap;
         }
 
@@ -1416,26 +1196,6 @@
             transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Study Mode Indicator */
-        .study-mode-active {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: var(--warning-color);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            z-index: 1100;
-            display: none;
-            animation: pulse 2s infinite;
-        }
-
-        .study-mode-active.show {
-            display: block;
-        }
-
         /* Stats and Analytics */
         .stats-grid {
             display: grid;
@@ -1469,56 +1229,6 @@
             font-size: 13px;
             color: var(--text-secondary);
             font-weight: 600;
-        }
-
-        .chart-container {
-            position: relative;
-            height: 200px;
-            margin: 20px 0;
-        }
-
-        /* Insights Panel */
-        .insights-panel {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 24px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 24px;
-        }
-
-        .insight-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px;
-            background: var(--bg-tertiary);
-            border-radius: 12px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-        }
-
-        .insight-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--accent-gradient);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .insight-content h3 {
-            color: var(--text-primary);
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .insight-content p {
-            color: var(--text-secondary);
-            font-size: 14px;
         }
 
         /* Animations */
@@ -1681,27 +1391,7 @@
         </div>
     </div>
 
-    <!-- Study Mode Indicator -->
-    <div class="study-mode-active" id="studyModeIndicator">
-        📚 Study Mode Active
-    </div>
-
-    <!-- Activity Notification Modal -->
-    <div class="notification-modal" id="activityNotification">
-        <div class="notification-content">
-            <div class="notification-icon" id="notificationIcon">⏰</div>
-            <div class="notification-title" id="notificationTitle">Time for Your Activity!</div>
-            <div class="notification-body" id="notificationBody">It's time to start your scheduled task.</div>
-            <div class="notification-actions" id="notificationActions">
-                <button class="btn btn-primary" onclick="startActivityTimer()">Start Timer</button>
-                <button class="btn btn-secondary" onclick="snoozeActivity(5)">Snooze 5min</button>
-                <button class="btn btn-secondary" onclick="snoozeActivity(10)">Snooze 10min</button>
-                <button class="btn btn-secondary" onclick="dismissActivityNotification()">Skip</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="app-container glass">
+    <div class="app-container glass hidden" id="mainApp">
         <!-- Enhanced App Header -->
         <div class="app-header">
             <div class="app-title">
@@ -1748,6 +1438,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Enhanced Voice Panel -->
         <div class="voice-panel">
             <div class="card-title">🎤 Voice AI Assistant</div>
@@ -1812,88 +1503,6 @@
                 <div class="study-stat">
                     <div class="study-stat-number" id="breaksTaken">0</div>
                     <div class="study-stat-label">Breaks Taken</div>
-                </div>
-            </div>
-
-            <!-- Enhanced Study Alarm with Break Intervals -->
-            <div class="input-group">
-                <div class="input-wrapper">
-                    <label class="input-label" for="studyStartTime">Study Start Time</label>
-                    <input type="time" id="studyStartTime" name="studyStartTime" class="input-field">
-                </div>
-                <div class="input-wrapper">
-                    <label class="input-label" for="studyDuration">Study Duration</label>
-                    <select id="studyDuration" name="studyDuration" class="input-field">
-                        <option value="25">25 minutes</option>
-                        <option value="30">30 minutes</option>
-                        <option value="45">45 minutes</option>
-                        <option value="60">1 hour</option>
-                        <option value="90">1.5 hours</option>
-                        <option value="120">2 hours</option>
-                        <option value="custom">Custom...</option>
-                    </select>
-                </div>
-                <div class="input-wrapper" id="customDurationWrapper" style="display: none;">
-                    <label class="input-label" for="customDuration">Custom Duration (minutes)</label>
-                    <input type="number" id="customDuration" name="customDuration" class="input-field" min="1" max="480" placeholder="Enter minutes">
-                </div>
-            </div>
-
-            <!-- Break Interval Controls -->
-            <div class="break-controls">
-                <div class="break-toggle">
-                    <label class="input-label" for="enableBreaks">Enable Break Intervals</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="enableBreaks" name="enableBreaks" onchange="toggleBreakSettings()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div id="breakSettings" style="display: none; margin-left: 20px;">
-                    <div class="input-wrapper" style="width: 120px;">
-                        <label class="input-label" for="breakInterval">Break Every (min)</label>
-                        <input type="number" id="breakInterval" name="breakInterval" class="input-field" value="25" min="5" max="120">
-                    </div>
-                    <div class="input-wrapper" style="width: 120px;">
-                        <label class="input-label" for="breakDuration">Break Duration (min)</label>
-                        <input type="number" id="breakDuration" name="breakDuration" class="input-field" value="5" min="1" max="30">
-                    </div>
-                </div>
-            </div>
-
-            <div style="margin-top: 16px;">
-                <button class="btn btn-primary" onclick="setAdvancedStudyAlarm()">
-                    📚 Set Study Session
-                </button>
-                <button class="btn btn-secondary" onclick="stopStudySession()" id="stopStudyBtn" style="display: none;">
-                    🛑 Stop Session
-                </button>
-            </div>
-        </div>
-
-        <!-- Personalized Study Insights -->
-        <div class="insights-panel">
-            <div class="card-title">📊 Personalized Study Insights</div>
-            <div id="insightsContainer">
-                <div class="insight-item">
-                    <div class="insight-icon">🧠</div>
-                    <div class="insight-content">
-                        <h3>Peak Learning Time</h3>
-                        <p>Your best study sessions happen between 9 AM - 11 AM based on your activity patterns.</p>
-                    </div>
-                </div>
-                <div class="insight-item">
-                    <div class="insight-icon">📈</div>
-                    <div class="insight-content">
-                        <h3>Weekly Progress</h3>
-                        <p>You've improved focus duration by 23% this week. Keep up the excellent work!</p>
-                    </div>
-                </div>
-                <div class="insight-item">
-                    <div class="insight-icon">🎯</div>
-                    <div class="insight-content">
-                        <h3>Focus Improvement</h3>
-                        <p>Your average session length has increased from 35 to 52 minutes this month!</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1993,27 +1602,6 @@
                         </button>
                     </div>
 
-                    <!-- Custom Time Selection -->
-                    <div class="time-input-section">
-                        <div class="input-label">Quick Duration Presets:</div>
-                        <div class="preset-times">
-                            <span class="time-preset" onclick="selectTimePreset(10)">10m</span>
-                            <span class="time-preset" onclick="selectTimePreset(15)">15m</span>
-                            <span class="time-preset" onclick="selectTimePreset(20)">20m</span>
-                            <span class="time-preset" onclick="selectTimePreset(25)">25m</span>
-                            <span class="time-preset" onclick="selectTimePreset(30)">30m</span>
-                            <span class="time-preset" onclick="selectTimePreset(45)">45m</span>
-                            <span class="time-preset" onclick="selectTimePreset(60)">1h</span>
-                            <span class="time-preset" onclick="selectTimePreset(90)">1.5h</span>
-                            <span class="time-preset" onclick="selectTimePreset(120)">2h</span>
-                        </div>
-                        <div class="custom-time-input">
-                            <span class="input-label">Custom:</span>
-                            <input type="number" id="customMinutes" name="customMinutes" class="input-field" style="width: 80px;" min="1" max="480" placeholder="Min">
-                            <button class="btn btn-secondary btn-small" onclick="addCustomDuration()">Add</button>
-                        </div>
-                    </div>
-
                     <div id="aiProcessing" class="typing-indicator">
                         <span>Ultra AI is analyzing your request</span>
                         <div class="thinking-dots">
@@ -2021,35 +1609,6 @@
                             <div class="thinking-dot"></div>
                             <div class="thinking-dot"></div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Enhanced Learning Hub -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">📚 Smart Learning Hub</div>
-                        <div class="card-subtitle">Advanced learning tools and resources</div>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                        <button class="btn btn-secondary" onclick="openFlashcards()">
-                            🃏 AI Flashcards
-                        </button>
-                        <button class="btn btn-secondary" onclick="openStudyPlanner()">
-                            📅 Study Planner
-                        </button>
-                        <button class="btn btn-secondary" onclick="openFocusTimer()">
-                            ⏱️ Focus Timer
-                        </button>
-                        <button class="btn btn-secondary" onclick="openProgressTracker()">
-                            📊 Progress Tracker
-                        </button>
-                        <button class="btn btn-secondary" onclick="openQuizGenerator()">
-                            ❓ Quiz Generator
-                        </button>
-                        <button class="btn btn-secondary" onclick="openNoteTaker()">
-                            📝 Smart Notes
-                        </button>
                     </div>
                 </div>
             </div>
@@ -2062,7 +1621,13 @@
                         <div class="card-title">📋 Today's Mission</div>
                         <div class="card-subtitle" id="tasksSummary">Ready to conquer your goals</div>
                     </div>
-                    <div id="tasksList"></div>
+                    <div id="tasksList">
+                        <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                            <div style="font-size: 64px; margin-bottom: 20px;">🎯</div>
+                            <div style="font-size: 18px; font-weight: 500;">Your productivity journey starts here!</div>
+                            <div style="font-size: 15px; margin-top: 8px;">Create your first task above</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Enhanced Progress Display -->
@@ -2116,10 +1681,6 @@
                             <div class="stat-label">Total Tasks</div>
                         </div>
                     </div>
-
-                    <div class="chart-container">
-                        <canvas id="progressChart"></canvas>
-                    </div>
                 </div>
 
                 <!-- Weekly Goals Tracker -->
@@ -2153,7 +1714,7 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
+    <!-- Toast Notification Container -->
     <div id="toastContainer" style="position: fixed; top: 20px; right: 20px; z-index: 2000;"></div>
 
     <script>
@@ -2179,9 +1740,9 @@
         };
         let progressChart = null;
         let selectedDuration = 60;
+        let isLoginMode = true;
 
         // Comprehensive Quotes Database with Factual Attribution
-               // Comprehensive Quotes Database with Factual Attribution
         const quotesDatabase = {
             motivation: [
                 { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
@@ -2191,58 +1752,1075 @@
                 { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
                 { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
                 { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
-                { text: "The secret of getting ahead is getting started.", author: "Mark Twain" }
+                { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+                { text: "Success is walking from failure to failure with no loss of enthusiasm.", author: "Winston Churchill" },
+                { text: "Your limitation—it's only your imagination.", author: "Anonymous" }
             ],
             productivity: [
                 { text: "Focus on being productive instead of busy.", author: "Tim Ferriss" },
                 { text: "The key is not to prioritize what's on your schedule, but to schedule your priorities.", author: "Stephen Covey" },
                 { text: "You don't have to be great to get started, but you have to get started to be great.", author: "Les Brown" },
-                { text: "The successful warrior is the average man with laser-like focus.", author: "Bruce Lee" }
+                { text: "Time is what we want most, but what we use worst.", author: "William Penn" },
+                { text: "Productivity is never an accident. It is always the result of a commitment to excellence.", author: "Paul J. Meyer" },
+                { text: "The successful warrior is the average man with laser-like focus.", author: "Bruce Lee" },
+                { text: "Concentrate all your thoughts upon the work at hand.", author: "Alexander Graham Bell" },
+                { text: "Where focus goes, energy flows and results show.", author: "Tony Robbins" }
             ],
             study: [
                 { text: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela" },
                 { text: "The more that you read, the more things you will know. The more that you learn, the more places you'll go.", author: "Dr. Seuss" },
                 { text: "Learning never exhausts the mind.", author: "Leonardo da Vinci" },
-                { text: "The expert in anything was once a beginner.", author: "Helen Hayes" }
+                { text: "The expert in anything was once a beginner.", author: "Helen Hayes" },
+                { text: "Study hard what interests you the most in the most undisciplined, irreverent and original manner possible.", author: "Richard Feynman" },
+                { text: "The beautiful thing about learning is that nobody can take it away from you.", author: "B.B. King" },
+                { text: "Education is not preparation for life; education is life itself.", author: "John Dewey" },
+                { text: "The mind is not a vessel to be filled, but a fire to be kindled.", author: "Plutarch" }
             ],
             fictional: [
                 { text: "With great power comes great responsibility.", author: "Spider-Man (Uncle Ben)" },
                 { text: "I am vengeance, I am the night, I am Batman.", author: "Batman (Bruce Wayne)" },
                 { text: "Do or do not, there is no try.", author: "Yoda (Star Wars)" },
-                { text: "It's not who I am underneath, but what I do that defines me.", author: "Batman (Batman Begins)" }
+                { text: "It's not who I am underneath, but what I do that defines me.", author: "Batman (Batman Begins)" },
+                { text: "In brightest day, in blackest night, no evil shall escape my sight.", author: "Green Lantern Corps" },
+                { text: "I can do this all day.", author: "Captain America (Steve Rogers)" },
+                { text: "Sometimes you gotta run before you can walk.", author: "Iron Man (Tony Stark)" },
+                { text: "The hardest choices require the strongest wills.", author: "Thanos (Avengers)" }
+            ],
+            success: [
+                { text: "Success is not the key to happiness. Happiness is the key to success.", author: "Albert Schweitzer" },
+                { text: "Don't be afraid to give up the good to go for the great.", author: "John D. Rockefeller" },
+                { text: "The way to achieve your own success is to be willing to help somebody else get it first.", author: "Iyanla Vanzant" },
+                { text: "Success is going from failure to failure without losing your enthusiasm.", author: "Winston Churchill" },
+                { text: "Success is not how high you have climbed, but how you make a positive difference to the world.", author: "Roy T. Bennett" }
             ]
         };
 
-        // Initialize all managers and complete the app
+        // Personalized Motivational Messages with User Name Integration
+        const personalizedMotivation = [
+            "🔥 {name}, you're absolutely crushing it today! Your dedication is inspiring everyone around you!",
+            "💪 Hey {name}, remember that every small step you take is building something incredible!",
+            "🌟 {name}, your future self is going to thank you for the amazing work you're doing right now!",
+            "⚡ You've got this, {name}! Your consistency is what separates champions from dreamers!",
+            "🎯 {name}, you're not just completing tasks - you're actively designing the life you want!",
+            "🚀 Amazing work, {name}! Your commitment to growth is truly remarkable and inspiring!",
+            "💎 {name}, every challenge you overcome makes you stronger and more resilient!",
+            "🏆 You're making incredible progress, {name}! Stay focused on your extraordinary goals!",
+            "⭐ {name}, your discipline today creates your freedom and success tomorrow!",
+            "🌈 Outstanding effort, {name}! You're turning dreams into reality with every action!"
+        ];
+
+        // Enhanced User Authentication System with Email Verification
+        class AdvancedUserManager {
+            constructor() {
+                this.users = JSON.parse(localStorage.getItem('flowstate-users') || '{}');
+                this.currentUser = JSON.parse(localStorage.getItem('flowstate-current-user') || 'null');
+                this.verificationCodes = JSON.parse(localStorage.getItem('flowstate-verification') || '{}');
+            }
+
+            async register(userData) {
+                const { name, age, gender, email, password } = userData;
+                
+                if (this.users[email]) {
+                    throw new Error('An account with this email already exists. Please sign in or use a different email.');
+                }
+
+                this.validateRegistrationData(userData);
+
+                const user = {
+                    id: Date.now(),
+                    name: name.trim(),
+                    age: parseInt(age) || null,
+                    gender: gender,
+                    email: email.toLowerCase().trim(),
+                    password: password,
+                    emailVerified: true, // For demo purposes
+                    createdAt: new Date(),
+                    tasks: [],
+                    completedTasks: [],
+                    preferences: {
+                        theme: 'light',
+                        voiceGender: gender === 'female' ? 'female' : 'male',
+                        voiceSpeed: '0.9',
+                        notifications: true
+                    },
+                    stats: {
+                        totalStudyTime: 0,
+                        tasksCompleted: 0,
+                        streakDays: 0,
+                        motivationsReceived: 0
+                    }
+                };
+
+                this.users[email] = user;
+                localStorage.setItem('flowstate-users', JSON.stringify(this.users));
+                return user;
+            }
+
+            validateRegistrationData(userData) {
+                const { name, email, password } = userData;
+
+                if (!name || name.trim().length < 2) {
+                    throw new Error('Please enter a valid full name (at least 2 characters).');
+                }
+
+                if (!this.isValidEmail(email)) {
+                    throw new Error('Please enter a valid email address.');
+                }
+
+                if (password.length < 6) {
+                    throw new Error('Password must be at least 6 characters long.');
+                }
+            }
+
+            isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            authenticate(email, password) {
+                const user = this.users[email.toLowerCase().trim()];
+                
+                if (!user) {
+                    throw new Error('No account found with this email address. Please create an account first.');
+                }
+                
+                if (user.password !== password) {
+                    throw new Error('Incorrect password. Please try again or reset your password.');
+                }
+                
+                return user;
+            }
+
+            login(user) {
+                this.currentUser = user;
+                currentUser = user;
+                isLoggedIn = true;
+
+                localStorage.setItem('flowstate-current-user', JSON.stringify(user));
+
+                tasks = user.tasks || [];
+                completedTasks = user.completedTasks || [];
+                
+                this.updateUserUI();
+                this.hideAuthModal();
+                
+                if (user.preferences) {
+                    setTheme(user.preferences.theme || 'light');
+                }
+
+                const greeting = this.getTimeBasedGreeting();
+                voiceManager.speak(`${greeting}, ${user.name}! Welcome back to FlowState Pro!`);
+                
+                showToast(`Welcome back, ${user.name}! 🎉`);
+                
+                setTimeout(() => {
+                    const personalizedWelcome = `🌟 ${greeting}, ${user.name}! I'm excited to help you achieve your goals today. Your dedication to productivity is truly inspiring!`;
+                    addChatMessage(personalizedWelcome, 'ai');
+                }, 1500);
+            }
+
+            getTimeBasedGreeting() {
+                const hour = new Date().getHours();
+                if (hour < 12) return 'Good morning';
+                if (hour < 17) return 'Good afternoon';
+                return 'Good evening';
+            }
+
+            hideAuthModal() {
+                document.getElementById('authModal').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+            }
+
+            showAuthModal() {
+                document.getElementById('authModal').classList.remove('hidden');
+                document.getElementById('mainApp').classList.add('hidden');
+            }
+
+            logout() {
+                if (this.currentUser) {
+                    this.saveUserData();
+                    voiceManager.speak(`Goodbye, ${this.currentUser.name}! Have a productive day!`);
+                }
+
+                this.currentUser = null;
+                currentUser = null;
+                isLoggedIn = false;
+                tasks = [];
+                completedTasks = [];
+
+                localStorage.removeItem('flowstate-current-user');
+                
+                this.updateUserUI();
+                this.showAuthModal();
+                showToast('Signed out successfully');
+            }
+
+            updateUserUI() {
+                if (this.currentUser) {
+                    document.getElementById('userName').textContent = this.currentUser.name;
+                    document.getElementById('userAvatar').textContent = this.currentUser.name.charAt(0).toUpperCase();
+                } else {
+                    document.getElementById('userName').textContent = 'Guest';
+                    document.getElementById('userAvatar').textContent = '?';
+                }
+                renderTasks();
+            }
+
+            saveUserData() {
+                if (!this.currentUser) return;
+
+                this.currentUser.tasks = tasks;
+                this.currentUser.completedTasks = completedTasks;
+                this.currentUser.preferences = {
+                    theme: currentTheme,
+                    voiceGender: document.getElementById('voiceGender')?.value || 'female',
+                    voiceSpeed: document.getElementById('voiceSpeed')?.value || '0.9',
+                    notifications: true
+                };
+
+                this.users[this.currentUser.email] = this.currentUser;
+                localStorage.setItem('flowstate-users', JSON.stringify(this.users));
+                localStorage.setItem('flowstate-current-user', JSON.stringify(this.currentUser));
+            }
+        }
+
+        // Enhanced Voice Manager with Realistic High-Quality Voices
+        class VoiceManager {
+            constructor() {
+                this.voices = [];
+                this.selectedVoice = null;
+                this.settings = {
+                    rate: 0.9,
+                    pitch: 1.0,
+                    volume: 0.8
+                };
+                this.initializeVoiceRecognition();
+                this.initializeVoiceSynthesis();
+            }
+
+            initializeVoiceRecognition() {
+                if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    this.recognition = new SpeechRecognition();
+                    this.recognition.continuous = false;
+                    this.recognition.interimResults = false;
+                    this.recognition.lang = 'en-US';
+
+                    this.recognition.onstart = () => {
+                        isListening = true;
+                        document.getElementById('voiceBtn').classList.add('listening');
+                        document.getElementById('voiceStatus').textContent = currentUser ? 
+                            `Listening, ${currentUser.name}...` : 'Listening...';
+                    };
+
+                    this.recognition.onend = () => {
+                        isListening = false;
+                        document.getElementById('voiceBtn').classList.remove('listening');
+                        document.getElementById('voiceStatus').textContent = 'Voice AI ready - Click microphone to start';
+                    };
+
+                    this.recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        this.processVoiceCommand(transcript);
+                    };
+
+                    this.recognition.onerror = (event) => {
+                        console.error('Speech recognition error:', event.error);
+                        this.speak('Sorry, I had trouble understanding you. Please try again.');
+                        showToast('❌ Voice recognition error. Please try again.');
+                    };
+                }
+            }
+
+            initializeVoiceSynthesis() {
+                if ('speechSynthesis' in window) {
+                    this.loadVoices();
+                    speechSynthesis.onvoiceschanged = () => this.loadVoices();
+                }
+            }
+
+            loadVoices() {
+                this.voices = speechSynthesis.getVoices();
+                this.selectBestVoice();
+            }
+
+            selectBestVoice() {
+                const genderPref = document.getElementById('voiceGender')?.value || 'female';
+                
+                const preferredVoices = {
+                    female: [
+                        'Samantha', 'Karen', 'Tessa', 'Moira', 'Fiona', 'Google US English Female',
+                        'Microsoft Zira', 'Microsoft Hazel', 'Alex (Enhanced)', 'Ava (Premium)',
+                        'Google français', 'Microsoft Julie'
+                    ],
+                    male: [
+                        'Daniel', 'Thomas', 'Oliver', 'Google US English Male', 'Microsoft David',
+                        'Microsoft Mark', 'Alex', 'Fred (Premium)', 'Google US English',
+                        'Microsoft Paul'
+                    ],
+                    neutral: [
+                        'Alex', 'Google US English', 'Microsoft Speech Platform'
+                    ]
+                };
+
+                const targetVoices = preferredVoices[genderPref] || preferredVoices.female;
+                
+                for (let voiceName of targetVoices) {
+                    const voice = this.voices.find(v => 
+                        v.name.includes(voiceName) && v.lang.includes('en')
+                    );
+                    if (voice) {
+                        this.selectedVoice = voice;
+                        break;
+                    }
+                }
+
+                if (!this.selectedVoice) {
+                    this.selectedVoice = this.voices.find(v => v.lang.includes('en')) || this.voices[0];
+                }
+
+                this.settings.rate = parseFloat(document.getElementById('voiceSpeed')?.value || '0.9');
+            }
+
+            speak(text) {
+                if (!speechSynthesis || !text) return;
+
+                speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                
+                if (this.selectedVoice) {
+                    utterance.voice = this.selectedVoice;
+                }
+                
+                utterance.rate = this.settings.rate;
+                utterance.pitch = this.settings.pitch;
+                utterance.volume = this.settings.volume;
+
+                speechSynthesis.speak(utterance);
+            }
+
+            startListening() {
+                if (this.recognition && !isListening) {
+                    this.recognition.start();
+                }
+            }
+
+            processVoiceCommand(transcript) {
+                console.log('🎤 Voice command received:', transcript);
+                
+                const userName = currentUser ? currentUser.name : 'there';
+                document.getElementById('voiceStatus').textContent = `Processing: "${transcript}"`;
+                
+                if (this.isTaskCreationCommand(transcript)) {
+                    document.getElementById('ultraAIInput').value = transcript;
+                    createTaskWithUltraAI();
+                    this.speak(`Great idea, ${userName}! I'm creating that task for you right now.`);
+                } else if (this.isMotivationRequest(transcript)) {
+                    getPersonalMotivation();
+                } else if (this.isQuoteRequest(transcript)) {
+                    getMotivationalQuote();
+                } else if (this.isStudyRequest(transcript)) {
+                    quickAction('study');
+                } else {
+                    document.getElementById('chatInput').value = transcript;
+                    sendMessage();
+                    this.speak(`Let me help you with that, ${userName}.`);
+                }
+            }
+
+            isTaskCreationCommand(text) {
+                const taskKeywords = ['create', 'add', 'schedule', 'remind', 'task', 'plan', 'do', 'make'];
+                return taskKeywords.some(keyword => text.toLowerCase().includes(keyword));
+            }
+
+            isMotivationRequest(text) {
+                const motivationKeywords = ['motivate', 'inspire', 'encourage', 'boost', 'pump up', 'energy'];
+                return motivationKeywords.some(keyword => text.toLowerCase().includes(keyword));
+            }
+
+            isQuoteRequest(text) {
+                const quoteKeywords = ['quote', 'saying', 'wisdom', 'inspiration', 'inspire me'];
+                return quoteKeywords.some(keyword => text.toLowerCase().includes(keyword));
+            }
+
+            isStudyRequest(text) {
+                const studyKeywords = ['study', 'learn', 'homework', 'assignment', 'exam', 'research'];
+                return studyKeywords.some(keyword => text.toLowerCase().includes(keyword));
+            }
+        }
+
+        // Initialize managers
         const userManager = new AdvancedUserManager();
         const voiceManager = new VoiceManager();
-        const aiAssistant = new UltraAdvancedAI();
-        const chatGPT = new ChatGPTIntegration();
 
-        // Add all the remaining functions and initialization code here
-        // [Include all the remaining JavaScript functions from my previous response]
-
-        // Initialize the app
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 FlowState Pro initialized successfully');
+        // Authentication Functions
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
             
-            // Request notification permission
-            if ('Notification' in window && Notification.permission === 'default') {
-                Notification.requestPermission();
+            const nameInput = document.getElementById('nameInput');
+            const ageInput = document.getElementById('ageInput');
+            const genderSelector = document.getElementById('genderSelector');
+            const confirmInput = document.getElementById('confirmPasswordInput');
+            const submitBtn = document.getElementById('authSubmitBtn');
+            const title = document.getElementById('authTitle');
+            const subtitle = document.getElementById('authSubtitle');
+            const switchText = document.getElementById('authSwitchText');
+            const switchLink = document.getElementById('authSwitchLink');
+            
+            if (isLoginMode) {
+                nameInput.style.display = 'none';
+                ageInput.style.display = 'none';
+                genderSelector.style.display = 'none';
+                confirmInput.style.display = 'none';
+                submitBtn.textContent = 'Sign In';
+                title.textContent = 'Welcome Back';
+                subtitle.textContent = 'Sign in to your FlowState Pro account';
+                switchText.textContent = "Don't have an account?";
+                switchLink.textContent = 'Create Account';
+                
+                nameInput.required = false;
+                confirmInput.required = false;
+            } else {
+                nameInput.style.display = 'block';
+                ageInput.style.display = 'block';
+                genderSelector.style.display = 'block';
+                confirmInput.style.display = 'block';
+                submitBtn.textContent = 'Create Account';
+                title.textContent = 'Join FlowState Pro';
+                subtitle.textContent = 'Create your personalized productivity workspace';
+                switchText.textContent = 'Already have an account?';
+                switchLink.textContent = 'Sign In';
+                
+                nameInput.required = true;
+                confirmInput.required = true;
             }
+            
+            // Clear any errors
+            dismissError();
+        }
+
+        function handleAuth(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value;
+            
+            if (!email || !password) {
+                showErrorMessage('Please fill in all required fields');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('authSubmitBtn');
+            submitBtn.classList.add('loading');
+            
+            try {
+                if (isLoginMode) {
+                    // Login
+                    const user = userManager.authenticate(email, password);
+                    userManager.login(user);
+                    showSuccessMessage(`Welcome back, ${user.name}!`);
+                } else {
+                    // Register
+                    const name = document.getElementById('nameInput').value.trim();
+                    const age = document.getElementById('ageInput').value;
+                    const gender = document.querySelector('input[name="gender"]:checked')?.value;
+                    const confirmPassword = document.getElementById('confirmPasswordInput').value;
+                    
+                    if (password !== confirmPassword) {
+                        throw new Error('Passwords do not match. Please try again.');
+                    }
+                    
+                    const user = userManager.register({ name, age, gender, email, password });
+                    userManager.login(user);
+                    showSuccessMessage(`Account created successfully! Welcome, ${user.name}!`);
+                }
+            } catch (error) {
+                showErrorMessage(error.message);
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = isLoginMode ? 'Sign In' : 'Create Account';
+            }
+        }
+
+        function showErrorMessage(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            errorText.textContent = message;
+            errorDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                errorDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+        function showSuccessMessage(message) {
+            const successDiv = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            
+            successText.textContent = message;
+            successDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                successDiv.classList.add('hidden');
+            }, 3000);
+        }
+
+        function dismissError() {
+            document.getElementById('errorMessage').classList.add('hidden');
+        }
+
+        function showForgotPassword() {
+            showSuccessMessage('Password reset feature coming soon! For now, please create a new account.');
+        }
+
+        // Main App Functions
+        function logout() {
+            userManager.logout();
+        }
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function setTheme(themeName) {
+            currentTheme = themeName;
+            document.body.setAttribute('data-theme', themeName);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === themeName);
+            });
+            
+            localStorage.setItem('flowstate-theme', themeName);
+            showToast(`🎨 Switched to ${themeName} theme`);
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--bg-secondary);
+                color: var(--text-primary);
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: var(--shadow-primary);
+                z-index: 1000;
+                border: 1px solid var(--border-color);
+                backdrop-filter: blur(20px);
+                animation: slideDown 0.3s ease;
+            `;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Voice Functions
+        function toggleVoiceRecognition() {
+            if (!voiceManager.recognition) {
+                showToast('❌ Voice recognition not supported in this browser');
+                return;
+            }
+
+            if (isListening) {
+                voiceManager.recognition.stop();
+            } else {
+                voiceManager.startListening();
+            }
+        }
+
+        function updateVoiceSettings() {
+            voiceManager.selectBestVoice();
+        }
+
+        function testVoice() {
+            const userName = currentUser ? currentUser.name : 'there';
+            voiceManager.speak(`Hello ${userName}! I'm your FlowState Pro AI assistant. I'm here to help you stay productive and motivated!`);
+        }
+
+        function startVoiceTaskCreation() {
+            voiceManager.speak("Please describe the task you want to create");
+            setTimeout(() => {
+                toggleVoiceRecognition();
+            }, 2000);
+        }
+
+        // Quote Functions
+        function getMotivationalQuote() {
+            const categories = Object.keys(quotesDatabase);
+            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+            const categoryQuotes = quotesDatabase[randomCategory];
+            const randomQuote = categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)];
+            
+            displayQuote(randomQuote, randomCategory);
+            
+            addChatMessage(`💫 **Inspirational Quote:**\n\n"${randomQuote.text}"\n\n— ${randomQuote.author}`, 'ai');
+        }
+
+        function displayQuote(quote, category) {
+            document.getElementById('quoteText').textContent = `"${quote.text}"`;
+            document.getElementById('quoteAuthor').textContent = `— ${quote.author}`;
+            document.getElementById('quoteCategory').textContent = category.charAt(0).toUpperCase() + category.slice(1);
+        }
+
+        function getPersonalMotivation() {
+            const userName = currentUser ? currentUser.name : 'friend';
+            const template = personalizedMotivation[motivationCount % personalizedMotivation.length];
+            const message = template.replace('{name}', userName);
+            
+            const quote = getRandomQuote('motivation');
+            
+            motivationCount++;
+            
+            const response = `${message}\n\n✨ **Inspirational Quote:**\n*"${quote.text}"* — ${quote.author}\n\n💪 Keep pushing forward, ${userName}! You're building something amazing!`;
+            
+            addChatMessage(response, 'ai');
+            voiceManager.speak(`${userName}, you're doing amazing! ${quote.text}`);
+        }
+
+        function getRandomQuote(category = 'motivation') {
+            const quotes = quotesDatabase[category] || quotesDatabase.motivation;
+            return quotes[Math.floor(Math.random() * quotes.length)];
+        }
+
+        // Task Functions
+        function createTaskWithUltraAI() {
+            const input = document.getElementById('ultraAIInput');
+            const message = input.value.trim();
+            
+            if (!message) {
+                showToast('❌ Please describe your task');
+                return;
+            }
+            
+            const newTask = {
+                id: Date.now(),
+                title: message,
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                duration: 60,
+                completed: false,
+                createdAt: new Date(),
+                createdBy: 'Ultra AI'
+            };
+            
+            tasks.push(newTask);
+            input.value = '';
+            renderTasks();
+            
+            const userName = currentUser ? currentUser.name : 'friend';
+            addChatMessage(`✅ **Task Created Successfully!**\n\n📋 **Activity:** ${message}\n⏰ **Time:** ${newTask.time}\n⏱️ **Duration:** 60 minutes\n\nGreat work, ${userName}! Your task is ready to go! 🚀`, 'ai');
+            voiceManager.speak(`Task created successfully, ${userName}! ${message} is now in your schedule.`);
+            showToast('✅ Task created successfully!');
+        }
+
+        function toggleTask(id) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                
+                if (task.completed) {
+                    completedTasks.push({ ...task, completedAt: new Date() });
+                    const userName = currentUser ? currentUser.name : 'friend';
+                    voiceManager.speak(`Great job, ${userName}! You completed ${task.title}`);
+                    showToast('🎉 Task completed!');
+                }
+                
+                renderTasks();
+                updateProgress();
+            }
+        }
+
+        function removeTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            completedTasks = completedTasks.filter(t => t.id !== id);
+            renderTasks();
+            updateProgress();
+            showToast('🗑️ Task removed');
+        }
+
+        function renderTasks() {
+            const container = document.getElementById('tasksList');
+            const summary = document.getElementById('tasksSummary');
+            
+            if (tasks.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                        <div style="font-size: 64px; margin-bottom: 20px;">🎯</div>
+                        <div style="font-size: 18px; font-weight: 500;">Your productivity journey starts here!</div>
+                        <div style="font-size: 15px; margin-top: 8px;">Create your first task above</div>
+                    </div>
+                `;
+                summary.textContent = 'Ready to conquer your goals';
+                return;
+            }
+            
+            const today = new Date().toDateString();
+            const todayTasks = tasks.filter(t => t.createdAt.toDateString() === today);
+            const completedToday = todayTasks.filter(t => t.completed).length;
+            
+            summary.textContent = `${completedToday}/${todayTasks.length} completed today`;
+            
+            container.innerHTML = '';
+            
+            tasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.className = 'task-item';
+                if (task.completed) taskElement.classList.add('completed');
+                
+                taskElement.innerHTML = `
+                    <div class="task-main">
+                        <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="toggleTask(${task.id})"></div>
+                        <div class="task-info">
+                            <div class="task-title" ${task.completed ? 'style="text-decoration: line-through; opacity: 0.7;"' : ''}>${task.title}</div>
+                            <div class="task-meta">
+                                <span>⏰ ${task.time}</span>
+                                <span>⏱️ ${task.duration} min</span>
+                                <span>🤖 ${task.createdBy}</span>
+                            </div>
+                        </div>
+                        <button onclick="removeTask(${task.id})" style="padding: 8px 12px; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); cursor: pointer;">Remove</button>
+                    </div>
+                `;
+                container.appendChild(taskElement);
+            });
+            
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const today = new Date().toDateString();
+            const todayTasks = tasks.filter(t => t.createdAt.toDateString() === today);
+            const completedToday = todayTasks.filter(t => t.completed).length;
+            const totalToday = todayTasks.length;
+            const percentage = totalToday > 0 ? (completedToday / totalToday) * 100 : 0;
+            
+            const circle = document.getElementById('progressCircle');
+            const circumference = 2 * Math.PI * 60;
+            const offset = circumference - (percentage / 100) * circumference;
+            
+            circle.style.strokeDashoffset = offset;
+            document.getElementById('progressPercent').textContent = `${Math.round(percentage)}%`;
+            
+            // Update stats
+            document.getElementById('completionRate').textContent = `${Math.round(percentage)}%`;
+            document.getElementById('totalTasks').textContent = totalToday;
+            document.getElementById('streakCount').textContent = completedToday;
+            
+            const messageElement = document.getElementById('dailyMessage');
+            if (percentage >= 100) {
+                messageElement.textContent = "Perfect day! 🎉";
+            } else if (percentage >= 80) {
+                messageElement.textContent = "Almost there! 🌟";
+            } else if (percentage >= 50) {
+                messageElement.textContent = "Great progress! 💪";
+            } else if (percentage > 0) {
+                messageElement.textContent = "Keep going! 🚀";
+            } else {
+                messageElement.textContent = "Ready to achieve greatness!";
+            }
+        }
+
+        // AI Chat Functions
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addChatMessage(message, 'user');
+            input.value = '';
+            
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                hideTypingIndicator();
+                const response = generateAIResponse(message);
+                addChatMessage(response, 'ai');
+            }, 1500);
+        }
+
+        function addChatMessage(message, sender) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `message ${sender}`;
+            
+            if (sender === 'ai') {
+                div.innerHTML = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+            } else {
+                div.textContent = message;
+            }
+            
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').classList.add('show');
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').classList.remove('show');
+        }
+
+        function generateAIResponse(message) {
+            const userName = currentUser ? currentUser.name : 'friend';
+            
+            if (message.toLowerCase().includes('motivat')) {
+                const motivation = personalizedMotivation[Math.floor(Math.random() * personalizedMotivation.length)];
+                return motivation.replace('{name}', userName);
+            }
+            
+            if (message.toLowerCase().includes('tip') || message.toLowerCase().includes('advice')) {
+                const tips = [
+                    `🎯 **Focus Tip for ${userName}:** Try the Pomodoro Technique - 25 minutes focused work, 5 minutes break!`,
+                    `⚡ **Productivity Hack for ${userName}:** Use time-blocking to schedule your most important tasks during peak energy hours!`,
+                    `🧠 **Study Strategy for ${userName}:** Practice active recall - test yourself instead of just re-reading notes!`,
+                    `📱 **Digital Wellness for ${userName}:** Put your phone in 'Do Not Disturb' mode during focused work sessions!`
+                ];
+                return tips[Math.floor(Math.random() * tips.length)];
+            }
+            
+            if (message.toLowerCase().includes('quote') || message.toLowerCase().includes('inspir')) {
+                const quote = getRandomQuote('motivation');
+                return `✨ **Inspirational Quote for ${userName}:**\n\n"${quote.text}"\n\n— ${quote.author}`;
+            }
+            
+            // Default responses
+            const responses = [
+                `Hi ${userName}! I'm your Ultra AI productivity companion. I can help you create tasks, provide motivation, and track your progress. What would you like to accomplish today?`,
+                `Great question, ${userName}! As your AI assistant, I'm here to help optimize your productivity and keep you motivated. How can I support your goals?`,
+                `${userName}, I'm equipped with advanced AI to understand your productivity needs. Whether you need task management, study tips, or motivation - I'm here to help!`,
+                `Ready to boost your productivity, ${userName}? I can assist with intelligent task creation, provide personalized insights, and help you stay focused on your goals!`
+            ];
+            
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        function quickAction(type) {
+            const userName = currentUser ? currentUser.name : 'friend';
+            let response = '';
+            
+            switch(type) {
+                case 'motivation':
+                    getPersonalMotivation();
+                    return;
+                case 'tips':
+                    response = `🎯 **Pro Tip for ${userName}:** Focus on being productive instead of busy. Schedule your priorities, don't prioritize your schedule!`;
+                    break;
+                case 'quote':
+                    getMotivationalQuote();
+                    return;
+                case 'focus':
+                    response = `🧘 **Focus Strategy for ${userName}:** Try the 2-minute rule - if something takes less than 2 minutes, do it immediately!`;
+                    break;
+                case 'study':
+                    response = `📚 **Study Power for ${userName}:** Use spaced repetition - review material at increasing intervals for better retention!`;
+                    break;
+            }
+            
+            addChatMessage(response, 'ai');
+            voiceManager.speak(response.replace(/\*\*/g, ''));
+        }
+
+        // ChatGPT Functions
+        function askChatGPT() {
+            const input = document.getElementById('chatgptInput');
+            const question = input.value.trim();
+            
+            if (!question) {
+                showToast('❌ Please enter a question');
+                return;
+            }
+            
+            const startTime = Date.now();
+            
+            // Simulate AI response
+            setTimeout(() => {
+                const endTime = Date.now();
+                const response = generateChatGPTResponse(question);
+                
+                document.getElementById('chatgptAnswer').innerHTML = response;
+                document.getElementById('chatgptResponse').classList.add('show');
+                document.getElementById('responseTime').textContent = `${endTime - startTime}ms`;
+                document.getElementById('wordCount').textContent = response.split(' ').length;
+                
+                lastChatGPTResponse = response;
+            }, 1000 + Math.random() * 2000);
+        }
+
+        function generateChatGPTResponse(question) {
+            const responses = [
+                `**Great question!** Let me provide a comprehensive answer to help you understand this topic better.\n\nThis is a complex subject that involves multiple factors and considerations. Based on current research and best practices, here's what you should know:\n\n• **Key Point 1:** The fundamental principle behind this concept\n• **Key Point 2:** Practical applications and real-world examples\n• **Key Point 3:** Important considerations and potential challenges\n\nFor the best results, I recommend taking a systematic approach and considering multiple perspectives. Would you like me to elaborate on any specific aspect?`,
+                
+                `**Excellent inquiry!** This is actually a fascinating topic that has significant implications.\n\n**Background:** Understanding the context is crucial for grasping the full picture.\n\n**Analysis:** Breaking this down into manageable components:\n1. Primary factors to consider\n2. Secondary influences and variables\n3. Potential outcomes and implications\n\n**Conclusion:** The most effective approach typically involves balancing multiple considerations while staying focused on your primary objectives.\n\nI hope this helps clarify things! Feel free to ask follow-up questions.`,
+                
+                `**Thank you for this thoughtful question!** Let me walk you through a detailed explanation.\n\n**The Core Concept:**\nThis involves several interconnected elements that work together to create the overall effect you're asking about.\n\n**Step-by-Step Process:**\n1. Initial setup and preparation\n2. Implementation and execution\n3. Monitoring and adjustment\n4. Evaluation and optimization\n\n**Best Practices:**\n• Focus on consistent application\n• Monitor progress regularly\n• Adjust strategy based on results\n• Maintain long-term perspective\n\n**Final Thoughts:** Success in this area typically comes from understanding both the theory and practical application.`
+            ];
+            
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        function clearChatGPT() {
+            document.getElementById('chatgptInput').value = '';
+            document.getElementById('chatgptResponse').classList.remove('show');
+        }
+
+        function speakResponse() {
+            if (lastChatGPTResponse) {
+                const cleanResponse = lastChatGPTResponse.replace(/\*\*/g, '').replace(/•/g, '').replace(/\n/g, ' ');
+                voiceManager.speak(cleanResponse);
+            } else {
+                showToast('❌ No response to speak');
+            }
+        }
+
+        function saveResponse() {
+            if (lastChatGPTResponse) {
+                const dataStr = `FlowState Pro - AI Response\n\nQuestion: ${document.getElementById('chatgptInput').value}\n\nAnswer: ${lastChatGPTResponse}\n\nDate: ${new Date().toLocaleString()}`;
+                const dataBlob = new Blob([dataStr], {type: 'text/plain'});
+                const url = URL.createObjectURL(dataBlob);
+                
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'flowstate-ai-response.txt';
+                link.click();
+                
+                showToast('💾 Response saved successfully!');
+            } else {
+                showToast('❌ No response to save');
+            }
+        }
+
+        // User Interface Functions
+        function showProfile() {
+            if (!currentUser) {
+                showToast('👤 Please log in to view profile');
+                return;
+            }
+            
+            const profile = `**${currentUser.name}'s Profile**\n\n📧 Email: ${currentUser.email}\n📅 Member since: ${new Date(currentUser.createdAt).toLocaleDateString()}\n🎯 Tasks completed: ${completedTasks.length}\n📊 Study time: ${Math.floor(studyStats.totalStudyTime / 60)}h ${studyStats.totalStudyTime % 60}m`;
+            addChatMessage(profile, 'ai');
+        }
+
+        function showStats() {
+            const stats = `📊 **Your Productivity Statistics:**\n\n✅ Total tasks: ${tasks.length + completedTasks.length}\n🏆 Completed: ${completedTasks.length}\n📚 Study sessions: ${studyStats.studyStreak}\n⏱️ Total study time: ${Math.floor(studyStats.totalStudyTime / 60)}h ${studyStats.totalStudyTime % 60}m\n🔥 Current streak: ${studyStats.studyStreak} days`;
+            addChatMessage(stats, 'ai');
+        }
+
+        function exportData() {
+            const data = {
+                user: currentUser,
+                tasks: tasks,
+                completedTasks: completedTasks,
+                studyStats: studyStats,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'flowstate-pro-data.json';
+            link.click();
+            
+            showToast('📤 Data exported successfully!');
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const data = JSON.parse(e.target.result);
+                            tasks = data.tasks || [];
+                            completedTasks = data.completedTasks || [];
+                            studyStats = data.studyStats || studyStats;
+                            renderTasks();
+                            updateProgress();
+                            showToast('📥 Data imported successfully!');
+                        } catch (error) {
+                            showToast('❌ Invalid file format');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+
+        function showSettings() {
+            showToast('⚙️ Settings panel coming soon!');
+        }
+
+        function showHelp() {
+            const help = `🆘 **FlowState Pro Help:**\n\n🎤 **Voice Commands:** Click the microphone and describe tasks naturally\n🤖 **AI Assistant:** Ask questions, get motivation, and productivity tips\n📋 **Task Creation:** Use natural language like "Study math at 7 PM for 2 hours"\n🎯 **Progress:** Track daily completion rates and study statistics\n🎨 **Themes:** Switch between Light, Dark, and Elegant themes\n\nNeed more help? Just ask the AI assistant!`;
+            addChatMessage(help, 'ai');
+        }
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 FlowState Pro initializing...');
             
             // Load saved theme
             const savedTheme = localStorage.getItem('flowstate-theme') || 'light';
             setTheme(savedTheme);
             
-            // Show welcome message
+            // Check if user is already logged in
+            if (userManager.currentUser) {
+                userManager.login(userManager.currentUser);
+            }
+            
+            // Add form event listener
+            document.getElementById('authForm').addEventListener('submit', handleAuth);
+            
+            // Add enter key listeners
+            document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendMessage();
+            });
+            
+            document.getElementById('ultraAIInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') createTaskWithUltraAI();
+            });
+            
+            // Request notification permission
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        showToast('🔔 System notifications enabled!');
+                    }
+                });
+            }
+            
+            // Initial render
+            renderTasks();
+            
+            // Show initial quote
             setTimeout(() => {
-                if (isLoggedIn && currentUser) {
-                    addChatMessage(`👋 Welcome back, ${currentUser.name}! I'm your Ultra AI assistant ready to help you achieve your goals!`, 'ai');
-                } else {
-                    addChatMessage('👋 Welcome to FlowState Pro! Please create an account to get started with personalized productivity tracking.', 'ai');
-                }
+                getMotivationalQuote();
             }, 1000);
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.user-profile')) {
+                    document.getElementById('userDropdown').classList.remove('show');
+                }
+            });
+            
+            console.log('✅ FlowState Pro initialized successfully!');
         });
     </script>
 </body>
