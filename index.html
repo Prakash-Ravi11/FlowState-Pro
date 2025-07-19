@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlowState Pro - AI Productivity Companion</title>
-    <meta name="description" content="Advanced AI-powered productivity companion with smart task management and notifications">
-    <meta name="theme-color" content="#007AFF">
+    <title>FlowState Pro - Advanced AI Productivity Companion</title>
+    <meta name="description" content="Advanced AI-powered productivity companion with smart task management, timers, and notifications">
+    <meta name="theme-color" content="var(--primary-color)">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,18 +28,100 @@
     </script>
     
     <style>
+        :root {
+            /* Light Theme Variables */
+            --bg-primary: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --bg-secondary: rgba(255, 255, 255, 0.8);
+            --bg-tertiary: rgba(255, 255, 255, 0.7);
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-accent: #007AFF;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-primary: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.04);
+            --primary-color: #007AFF;
+            --success-color: #30d158;
+            --warning-color: #ff9500;
+            --danger-color: #ff3b30;
+            --card-bg: rgba(255, 255, 255, 0.7);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Variables */
+            --bg-primary: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            --bg-secondary: rgba(28, 28, 30, 0.8);
+            --bg-tertiary: rgba(44, 44, 46, 0.7);
+            --text-primary: #ffffff;
+            --text-secondary: #98989d;
+            --text-accent: #0a84ff;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-primary: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-secondary: 0 4px 16px rgba(0, 0, 0, 0.2);
+            --primary-color: #0a84ff;
+            --success-color: #32d74b;
+            --warning-color: #ff9f0a;
+            --danger-color: #ff453a;
+            --card-bg: rgba(28, 28, 30, 0.7);
+        }
+
+        [data-theme="minimal"] {
+            /* Minimal Theme Variables */
+            --bg-primary: #fafafa;
+            --bg-secondary: rgba(255, 255, 255, 0.95);
+            --bg-tertiary: rgba(248, 249, 250, 0.9);
+            --text-primary: #2c2c2c;
+            --text-secondary: #757575;
+            --text-accent: #4285f4;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow-primary: 0 2px 16px rgba(0, 0, 0, 0.06);
+            --shadow-secondary: 0 1px 8px rgba(0, 0, 0, 0.03);
+            --primary-color: #4285f4;
+            --card-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        [data-theme="elegant"] {
+            /* Elegant Theme Variables */
+            --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-secondary: rgba(255, 255, 255, 0.9);
+            --bg-tertiary: rgba(255, 255, 255, 0.8);
+            --text-primary: #2c2c54;
+            --text-secondary: #6c5ce7;
+            --text-accent: #a29bfe;
+            --border-color: rgba(108, 92, 231, 0.2);
+            --shadow-primary: 0 12px 40px rgba(108, 92, 231, 0.15);
+            --shadow-secondary: 0 6px 20px rgba(108, 92, 231, 0.08);
+            --primary-color: #6c5ce7;
+            --card-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        [data-theme="awesome"] {
+            /* Awesome Theme Variables */
+            --bg-primary: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            --bg-secondary: rgba(255, 255, 255, 0.9);
+            --bg-tertiary: rgba(255, 255, 255, 0.8);
+            --text-primary: #2d3436;
+            --text-secondary: #636e72;
+            --text-accent: #e17055;
+            --border-color: rgba(225, 112, 85, 0.2);
+            --shadow-primary: 0 12px 40px rgba(255, 107, 107, 0.2);
+            --shadow-secondary: 0 6px 20px rgba(255, 107, 107, 0.1);
+            --primary-color: #e17055;
+            --card-bg: rgba(255, 255, 255, 0.85);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: var(--bg-primary);
             min-height: 100vh;
             padding: 20px;
-            color: #1d1d1f;
+            color: var(--text-primary);
             line-height: 1.47059;
             font-weight: 400;
         }
@@ -59,11 +141,11 @@
         .app-container {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--bg-secondary);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-primary);
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
@@ -73,7 +155,7 @@
             align-items: center;
             margin-bottom: 40px;
             padding-bottom: 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .app-title {
@@ -85,7 +167,7 @@
         .app-logo {
             width: 44px;
             height: 44px;
-            background: linear-gradient(135deg, #007AFF, #5856D6);
+            background: linear-gradient(135deg, var(--primary-color), var(--text-accent));
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -99,15 +181,45 @@
         .app-name {
             font-size: 28px;
             font-weight: 700;
-            color: #1d1d1f;
+            color: var(--text-primary);
             letter-spacing: -0.003em;
         }
 
         .app-subtitle {
             font-size: 15px;
-            color: #6e6e73;
+            color: var(--text-secondary);
             margin-left: 4px;
             font-weight: 400;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .theme-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theme-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .theme-btn:hover, .theme-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
         }
 
         .status-indicator {
@@ -117,7 +229,7 @@
             padding: 8px 16px;
             background: rgba(52, 199, 89, 0.1);
             border-radius: 20px;
-            color: #30d158;
+            color: var(--success-color);
             font-weight: 500;
             font-size: 14px;
         }
@@ -125,7 +237,7 @@
         .status-dot {
             width: 6px;
             height: 6px;
-            background: #30d158;
+            background: var(--success-color);
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
@@ -155,18 +267,18 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.7);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             border-radius: 16px;
             padding: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-secondary);
             transition: all 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow-primary);
         }
 
         .card-header {
@@ -176,13 +288,13 @@
         .card-title {
             font-size: 20px;
             font-weight: 600;
-            color: #1d1d1f;
+            color: var(--text-primary);
             margin-bottom: 4px;
         }
 
         .card-subtitle {
             font-size: 14px;
-            color: #6e6e73;
+            color: var(--text-secondary);
             font-weight: 400;
         }
 
@@ -195,23 +307,24 @@
         .input-field {
             flex: 1;
             padding: 12px 16px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 16px;
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--bg-secondary);
             transition: all 0.2s ease;
             font-family: inherit;
+            color: var(--text-primary);
         }
 
         .input-field:focus {
             outline: none;
-            border-color: #007AFF;
+            border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-secondary);
         }
 
         .input-field::placeholder {
-            color: #6e6e73;
+            color: var(--text-secondary);
         }
 
         .btn {
@@ -229,22 +342,22 @@
         }
 
         .btn-primary {
-            background: #007AFF;
+            background: var(--primary-color);
             color: white;
         }
 
         .btn-primary:hover {
-            background: #0056b3;
+            opacity: 0.9;
             transform: translateY(-1px);
         }
 
         .btn-secondary {
-            background: rgba(0, 0, 0, 0.05);
-            color: #1d1d1f;
+            background: var(--border-color);
+            color: var(--text-primary);
         }
 
         .btn-secondary:hover {
-            background: rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
         }
 
         .btn-small {
@@ -252,148 +365,109 @@
             font-size: 14px;
         }
 
-        .creation-mode {
+        /* Timer Display Styles */
+        .activity-timer {
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: rgba(0, 0, 0, 0.02);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            margin-top: 8px;
         }
 
-        .mode-label {
-            font-weight: 500;
-            color: #1d1d1f;
-            font-size: 15px;
+        .timer-display {
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            min-width: 80px;
         }
 
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 48px;
-            height: 28px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #e5e5e7;
-            transition: 0.3s;
-            border-radius: 28px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 24px;
-            width: 24px;
-            left: 2px;
-            bottom: 2px;
-            background-color: white;
-            transition: 0.3s;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        input:checked + .slider {
-            background-color: #007AFF;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(20px);
-        }
-
-        .ai-chat-container {
-            height: 400px;
+        .timer-controls {
             display: flex;
-            flex-direction: column;
+            gap: 8px;
         }
 
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-            background: rgba(248, 249, 250, 0.5);
-            border-radius: 12px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+        .timer-btn {
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .message {
-            margin-bottom: 16px;
-            padding: 12px 16px;
-            border-radius: 18px;
-            max-width: 85%;
-            word-wrap: break-word;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message.user {
-            background: #007AFF;
+        .timer-btn:hover {
+            background: var(--primary-color);
             color: white;
-            margin-left: auto;
-            text-align: right;
         }
 
-        .message.ai {
-            background: white;
-            color: #1d1d1f;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            margin-right: auto;
+        .timer-btn.active {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
         }
 
-        .message.system {
-            background: rgba(52, 199, 89, 0.1);
-            color: #30d158;
-            text-align: center;
-            margin: 8px auto;
-            font-size: 14px;
-            font-weight: 500;
+        /* Study Alarm Styles */
+        .study-alarm {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
         }
 
+        .alarm-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .alarm-time {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Activity Item Enhanced */
         .task-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            flex-direction: column;
             padding: 16px;
-            background: rgba(248, 249, 250, 0.6);
+            background: var(--bg-tertiary);
             border-radius: 12px;
             margin-bottom: 12px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
             transition: all 0.2s ease;
         }
 
         .task-item:hover {
-            background: rgba(248, 249, 250, 0.8);
+            background: var(--card-bg);
             transform: translateX(4px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow-secondary);
         }
 
         .task-item.completed {
             background: rgba(52, 199, 89, 0.1);
-            border-color: rgba(52, 199, 89, 0.2);
+            border-color: var(--success-color);
+        }
+
+        .task-main {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 8px;
         }
 
         .task-checkbox {
             width: 22px;
             height: 22px;
-            border: 2px solid #007AFF;
+            border: 2px solid var(--primary-color);
             border-radius: 50%;
             margin-right: 16px;
             cursor: pointer;
@@ -406,8 +480,8 @@
         }
 
         .task-checkbox.checked {
-            background: #007AFF;
-            border-color: #007AFF;
+            background: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
         .task-checkbox.checked::after {
@@ -427,14 +501,14 @@
 
         .task-title {
             font-weight: 500;
-            color: #1d1d1f;
+            color: var(--text-primary);
             margin-bottom: 4px;
             font-size: 16px;
         }
 
         .task-meta {
             font-size: 14px;
-            color: #6e6e73;
+            color: var(--text-secondary);
         }
 
         .task-actions {
@@ -442,6 +516,182 @@
             gap: 8px;
         }
 
+        /* Notification Styles */
+        .notification-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .notification-modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .notification-content {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-primary);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .notification-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .notification-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .notification-body {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        /* Install Prompt Styles */
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 122, 255, 0.3);
+            z-index: 1500;
+            display: none;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .install-prompt.show {
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .install-content {
+            margin-bottom: 16px;
+        }
+
+        .install-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .install-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .install-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .install-btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .install-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .install-btn.primary {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-color);
+        }
+
+        .install-btn.primary:hover {
+            background: white;
+        }
+
+        /* Study Mode Indicator */
+        .study-mode-active {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--warning-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            z-index: 1100;
+            display: none;
+            animation: pulse 2s infinite;
+        }
+
+        .study-mode-active.show {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .theme-selector {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 20px;
+            }
+            
+            .header-controls {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+
+            .notification-content {
+                margin: 20px;
+            }
+        }
+
+        /* Additional theme-specific styles */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -450,29 +700,29 @@
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.6);
+            background: var(--card-bg);
             border-radius: 12px;
             padding: 20px;
             text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
             transition: all 0.2s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow-secondary);
         }
 
         .stat-number {
             font-size: 28px;
             font-weight: 700;
-            color: #007AFF;
+            color: var(--primary-color);
             margin-bottom: 8px;
         }
 
         .stat-label {
             font-size: 13px;
-            color: #6e6e73;
+            color: var(--text-secondary);
             font-weight: 500;
         }
 
@@ -496,11 +746,11 @@
         }
 
         .progress-ring .background {
-            stroke: rgba(0, 0, 0, 0.1);
+            stroke: var(--border-color);
         }
 
         .progress-ring .progress {
-            stroke: #007AFF;
+            stroke: var(--primary-color);
             stroke-dasharray: 251;
             stroke-dashoffset: 251;
             transition: stroke-dashoffset 0.5s ease;
@@ -512,10 +762,63 @@
             margin: 20px 0;
         }
 
+        .ai-chat-container {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .message {
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 85%;
+            word-wrap: break-word;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            background: var(--primary-color);
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .message.ai {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            margin-right: auto;
+        }
+
+        .message.system {
+            background: rgba(52, 199, 89, 0.1);
+            color: var(--success-color);
+            text-align: center;
+            margin: 8px auto;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
         .typing-indicator {
             display: none;
             padding: 8px 16px;
-            color: #6e6e73;
+            color: var(--text-secondary);
             font-style: italic;
             font-size: 14px;
         }
@@ -533,18 +836,19 @@
 
         .quick-action {
             padding: 6px 12px;
-            background: rgba(0, 0, 0, 0.05);
+            background: var(--border-color);
             border: none;
             border-radius: 16px;
             font-size: 13px;
             cursor: pointer;
             transition: all 0.2s ease;
-            color: #1d1d1f;
+            color: var(--text-primary);
             font-weight: 500;
         }
 
         .quick-action:hover {
-            background: rgba(0, 0, 0, 0.1);
+            background: var(--primary-color);
+            color: white;
             transform: translateY(-1px);
         }
 
@@ -552,14 +856,14 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-secondary);
             backdrop-filter: blur(20px);
-            color: #1d1d1f;
+            color: var(--text-primary);
             padding: 16px 24px;
             border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            box-shadow: var(--shadow-primary);
             z-index: 1000;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
             display: none;
             animation: slideIn 0.3s ease;
         }
@@ -576,7 +880,7 @@
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            color: #6e6e73;
+            color: var(--text-secondary);
         }
 
         .empty-state-icon {
@@ -585,199 +889,104 @@
             opacity: 0.6;
         }
 
-        .ai-thinking {
+        .creation-mode {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: #6e6e73;
-            font-size: 14px;
-            font-style: italic;
-        }
-
-        .thinking-dots {
-            display: flex;
-            gap: 4px;
-        }
-
-        .thinking-dot {
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: #6e6e73;
-            animation: thinking 1.4s infinite ease-in-out;
-        }
-
-        .thinking-dot:nth-child(1) { animation-delay: -0.32s; }
-        .thinking-dot:nth-child(2) { animation-delay: -0.16s; }
-
-        @keyframes thinking {
-            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-            40% { transform: scale(1.2); opacity: 1; }
-        }
-
-        .install-banner {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #007AFF;
-            color: white;
-            padding: 16px 24px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 122, 255, 0.3);
-            z-index: 1000;
-            display: none;
-            animation: slideUp 0.3s ease;
-        }
-
-        .install-banner.show {
-            display: block;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
-            to { transform: translateX(-50%) translateY(0); opacity: 1; }
-        }
-
-        .notification-permission {
-            background: rgba(255, 193, 7, 0.1);
-            border: 1px solid rgba(255, 193, 7, 0.2);
-            padding: 16px;
-            border-radius: 12px;
+            gap: 16px;
             margin-bottom: 20px;
-            display: none;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
         }
 
-        .notification-permission.show {
-            display: block;
+        .mode-label {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 15px;
         }
 
-        .offline-indicator {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: #ff6b6b;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            z-index: 1001;
-            display: none;
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 28px;
         }
 
-        .offline-indicator.show {
-            display: block;
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
         }
 
-        .system-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-            z-index: 1002;
-            max-width: 350px;
-            display: none;
-        }
-
-        .system-notification.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-
-        .notification-title {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #1d1d1f;
-        }
-
-        .notification-body {
-            color: #6e6e73;
-            margin-bottom: 16px;
-        }
-
-        .notification-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .notification-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 8px;
+        .slider {
+            position: absolute;
             cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-color);
+            transition: 0.3s;
+            border-radius: 28px;
         }
 
-        .notification-btn.primary {
-            background: #007AFF;
-            color: white;
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .notification-btn.secondary {
-            background: rgba(0, 0, 0, 0.05);
-            color: #1d1d1f;
+        input:checked + .slider {
+            background-color: var(--primary-color);
         }
 
-        @media (max-width: 1024px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .app-container {
-                padding: 20px;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .input-group {
-                flex-direction: column;
-            }
+        input:checked + .slider:before {
+            transform: translateX(20px);
         }
     </style>
 </head>
-<body>
-    <!-- Install Banner -->
-    <div class="install-banner" id="installBanner">
-        <div style="display: flex; align-items: center; gap: 16px;">
-            <div>
-                <div style="font-weight: 600; margin-bottom: 4px;">Install FlowState Pro</div>
-                <div style="font-size: 14px; opacity: 0.8;">Get the full app experience with notifications</div>
+<body data-theme="light">
+    <!-- Install Prompt -->
+    <div class="install-prompt" id="installPrompt">
+        <div class="install-content">
+            <div class="install-title">📱 Install FlowState Pro</div>
+            <div class="install-subtitle">Get the full app experience with offline access and notifications</div>
+        </div>
+        <div class="install-actions">
+            <button class="install-btn primary" onclick="installApp()">Install Now</button>
+            <button class="install-btn" onclick="dismissInstall()">Maybe Later</button>
+            <button class="install-btn" onclick="dismissInstall()">×</button>
+        </div>
+    </div>
+
+    <!-- Study Mode Indicator -->
+    <div class="study-mode-active" id="studyModeIndicator">
+        📚 Study Mode Active
+    </div>
+
+    <!-- Activity Notification Modal -->
+    <div class="notification-modal" id="activityNotification">
+        <div class="notification-content">
+            <div class="notification-icon">⏰</div>
+            <div class="notification-title" id="notificationTitle">Time for Your Activity!</div>
+            <div class="notification-body" id="notificationBody">It's time to start your scheduled task.</div>
+            <div class="notification-actions">
+                <button class="btn btn-primary" onclick="startActivityTimer()">Start Timer</button>
+                <button class="btn btn-secondary" onclick="snoozeActivity(5)">Snooze 5min</button>
+                <button class="btn btn-secondary" onclick="snoozeActivity(10)">Snooze 10min</button>
+                <button class="btn btn-secondary" onclick="dismissActivityNotification()">Skip</button>
             </div>
-            <button class="btn btn-secondary" onclick="installApp()" style="flex-shrink: 0;">Install</button>
-            <button class="btn btn-secondary" onclick="dismissInstall()" style="flex-shrink: 0;">×</button>
         </div>
     </div>
-    
-    <!-- Offline Indicator -->
-    <div class="offline-indicator" id="offlineIndicator">
-        📴 Offline Mode
-    </div>
-    
-    <!-- System Notification -->
-    <div class="system-notification" id="systemNotification">
-        <div class="notification-title" id="notificationTitle">Task Reminder</div>
-        <div class="notification-body" id="notificationBody">It's time to start your scheduled activity!</div>
-        <div class="notification-actions">
-            <button class="notification-btn primary" onclick="startTask()">Start Now</button>
-            <button class="notification-btn secondary" onclick="snoozeTask()">Snooze 5min</button>
-            <button class="notification-btn secondary" onclick="dismissSystemNotification()">Dismiss</button>
-        </div>
-    </div>
-    
+
     <div class="app-container">
         <!-- App Header -->
         <div class="app-header">
@@ -788,22 +997,41 @@
                     <div class="app-subtitle">Advanced AI Productivity Companion</div>
                 </div>
             </div>
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span>AI Model Active</span>
+            <div class="header-controls">
+                <div class="theme-selector">
+                    <button class="theme-btn active" data-theme="light" onclick="setTheme('light')">Light</button>
+                    <button class="theme-btn" data-theme="dark" onclick="setTheme('dark')">Dark</button>
+                    <button class="theme-btn" data-theme="minimal" onclick="setTheme('minimal')">Minimal</button>
+                    <button class="theme-btn" data-theme="elegant" onclick="setTheme('elegant')">Elegant</button>
+                    <button class="theme-btn" data-theme="awesome" onclick="setTheme('awesome')">Awesome</button>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>AI Model Active</span>
+                </div>
             </div>
         </div>
 
-        <!-- Notification Permission Banner -->
-        <div class="notification-permission" id="notificationBanner">
-            <div style="display: flex; align-items: center; gap: 16px;">
-                <div style="font-size: 24px;">🔔</div>
-                <div style="flex: 1;">
-                    <div style="font-weight: 600; margin-bottom: 4px;">Enable Notifications</div>
-                    <div style="font-size: 14px; color: #6e6e73;">Get reminders for your scheduled tasks</div>
+        <!-- Study Alarm Section -->
+        <div class="study-alarm">
+            <div class="card-title">📚 Study Alarm</div>
+            <div class="card-subtitle">Set focused study sessions with break reminders</div>
+            <div class="alarm-controls">
+                <div class="alarm-time">
+                    <label for="studyStartTime" class="sr-only">Study Start Time</label>
+                    <input type="time" id="studyStartTime" name="studyStartTime" class="input-field" style="width: 120px;">
+                    <span>for</span>
+                    <label for="studyDuration" class="sr-only">Study Duration</label>
+                    <select id="studyDuration" name="studyDuration" class="input-field" style="width: 100px;">
+                        <option value="25">25 min</option>
+                        <option value="45">45 min</option>
+                        <option value="60">1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
+                    </select>
                 </div>
-                <button class="btn btn-primary btn-small" onclick="requestNotificationPermission()">Enable</button>
-                <button class="btn btn-secondary btn-small" onclick="dismissNotificationBanner()">Later</button>
+                <button class="btn btn-primary btn-small" onclick="setStudyAlarm()">Set Study Alarm</button>
+                <button class="btn btn-secondary btn-small" onclick="stopStudyAlarm()" id="stopStudyBtn" style="display: none;">Stop Alarm</button>
             </div>
         </div>
 
@@ -859,14 +1087,6 @@
                             <button class="btn btn-primary" onclick="createTaskAI()">
                                 <span>🤖</span> Create
                             </button>
-                        </div>
-                        <div id="aiProcessing" class="ai-thinking" style="display: none;">
-                            <span>AI is processing your request</span>
-                            <div class="thinking-dots">
-                                <div class="thinking-dot"></div>
-                                <div class="thinking-dot"></div>
-                                <div class="thinking-dot"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -950,13 +1170,13 @@
                             <circle class="progress" cx="50" cy="50" r="40" id="progressCircle"></circle>
                         </svg>
                         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                            <div style="font-size: 20px; font-weight: 600; color: #007AFF;" id="progressPercent">0%</div>
-                            <div style="font-size: 12px; color: #6e6e73;">Complete</div>
+                            <div style="font-size: 20px; font-weight: 600;" id="progressPercent">0%</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">Complete</div>
                         </div>
                     </div>
 
                     <div style="text-align: center; margin-top: 16px;">
-                        <div style="font-size: 16px; font-weight: 500; color: #1d1d1f;" id="dailyMessage">Ready to start!</div>
+                        <div style="font-size: 16px; font-weight: 500;" id="dailyMessage">Ready to start!</div>
                     </div>
                 </div>
             </div>
@@ -972,311 +1192,264 @@
         let completedTasks = [];
         let isAIMode = false;
         let progressChart = null;
+        let currentTheme = 'light';
+        let activeTimers = new Map();
+        let studyAlarmTimeout = null;
+        let studyModeActive = false;
+        let deferredPrompt = null;
 
-        // Advanced AI Model - Enhanced Natural Language Processing
-        class AdvancedFlowStateAI {
+        // Advanced AI with Enhanced Natural Language Processing
+        class UltraAdvancedAI {
             constructor() {
                 this.context = [];
-                this.userPreferences = {};
-                this.learningData = {};
+                this.learningPatterns = new Map();
+                this.userPreferences = {
+                    preferredTimes: [],
+                    commonActivities: [],
+                    productivityPeaks: []
+                };
                 
-                // Enhanced pattern recognition with multiple extraction methods
-                this.patterns = {
-                    // Task creation patterns with improved flexibility
+                this.advancedPatterns = {
                     taskCreation: [
-                        // Standard patterns
-                        /(?:create|add|schedule|make|set up|plan)\s+(?:a\s+)?(?:task|activity|reminder|appointment)?\s*(?:to\s+|for\s+)?([^,]+?)(?:\s+at\s+|\s+from\s+|\s+starting\s+)(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)(?:\s+for\s+|\s+lasting\s+)?(?:(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i,
-                        
-                        // Conversational patterns
-                        /(?:i\s+(?:want|need|would like)\s+to\s+|let me\s+|help me\s+)([^,]+?)(?:\s+at\s+|\s+around\s+)(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)(?:\s+for\s+)?(?:(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i,
-                        
-                        // Direct patterns
-                        /([^,]+?)\s+(?:at\s+|from\s+|starting\s+)(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)(?:\s+for\s+)?(?:(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i,
-                        
-                        // Time-first patterns
-                        /(?:at\s+|from\s+|starting\s+)(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)(?:\s+(?:i\s+)?(?:want|need|would like)\s+to\s+|,?\s*)([^,]+?)(?:\s+for\s+)?(?:(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i,
-                        
-                        // Duration-first patterns
-                        /(?:for\s+)?(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr)\s+(?:of\s+)?([^,]+?)(?:\s+at\s+|\s+starting\s+)(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)/i
+                        /(?:create|add|schedule|make|set(?:\s+up)?|plan|organize|arrange)\s+(?:a\s+)?(?:task|activity|reminder|appointment|session|event)?\s*(?:to\s+|for\s+)?([^,]+?)(?:\s+(?:at|from|starting|beginning)\s+)(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)(?:\s+(?:for|lasting|duration)\s+)?(?:(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i,
+                        /(?:i\s+(?:want|need|would\s+like|plan)\s+to\s+|let\s+me\s+|help\s+me\s+|remind\s+me\s+to\s+)([^,]+?)(?:\s+(?:at|around|by)\s+)(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)(?:\s+(?:for|lasting)\s+)?(?:(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i,
+                        /([^,]+?)\s+(?:at|from|starting|@)\s+(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)(?:\s+(?:for|lasting)\s+)?(?:(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i,
+                        /(?:at|from|starting|@)\s+(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)(?:\s+(?:i\s+)?(?:want|need|would\s+like|plan)\s+to\s+|,?\s*)([^,]+?)(?:\s+(?:for|lasting)\s+)?(?:(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr))?/i,
+                        /(?:(?:for|lasting)\s+)?(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr)\s+(?:of\s+)?([^,]+?)(?:\s+(?:at|starting|from)\s+)(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)/i
                     ],
-                    
-                    // Progress and analytics patterns
-                    progress: [
-                        /show\s+(?:my\s+)?progress/i,
-                        /how\s+(?:am\s+i\s+|are\s+we\s+)?doing/i,
-                        /(?:my\s+)?stats/i,
-                        /analytics/i,
-                        /report/i,
-                        /dashboard/i,
-                        /summary/i
+                    studySession: [
+                        /study|learn|read|review|research|practice|homework|assignment/i
                     ],
-                    
-                    // Tips and advice patterns
-                    tips: [
-                        /tip/i,
-                        /advice/i,
-                        /suggest/i,
-                        /help.*improve/i,
-                        /how.*better/i,
-                        /productiv/i,
-                        /efficient/i,
-                        /optimize/i
+                    workSession: [
+                        /work|meeting|call|project|coding|writing|email|presentation/i
                     ],
-                    
-                    // Motivation patterns
-                    motivation: [
-                        /motivat/i,
-                        /encourag/i,
-                        /inspir/i,
-                        /boost/i,
-                        /cheer/i,
-                        /energy/i,
-                        /confidence/i
+                    wellness: [
+                        /exercise|workout|meditation|yoga|walk|run|gym|fitness|health/i
+                    ]
+                };
+
+                this.motivationalResponses = {
+                    study: [
+                        "🧠 **Study Power!** Knowledge is the best investment you can make in yourself!",
+                        "📚 **Learning Mode Activated!** Every minute of study builds your future success!",
+                        "🎓 **Academic Excellence!** You're developing skills that will serve you for life!",
+                        "⚡ **Mental Growth!** Your brain is like a muscle - the more you use it, the stronger it gets!"
+                    ],
+                    work: [
+                        "💼 **Professional Excellence!** You're building the career of your dreams!",
+                        "🚀 **Career Momentum!** Every task completed moves you closer to your goals!",
+                        "🎯 **Work Focus!** Your dedication today creates opportunities tomorrow!",
+                        "💪 **Achievement Mindset!** You're turning challenges into victories!"
+                    ],
+                    wellness: [
+                        "🏃‍♂️ **Health Hero!** Taking care of your body is taking care of your future!",
+                        "💚 **Wellness Warrior!** Every healthy choice compounds into amazing results!",
+                        "🌟 **Energy Boost!** Physical activity fuels both body and mind!",
+                        "🧘‍♀️ **Mind-Body Connection!** You're investing in your complete well-being!"
+                    ],
+                    general: [
+                        "🔥 **Unstoppable Energy!** You're creating positive momentum in every area of life!",
+                        "⭐ **Excellence in Action!** Your commitment to growth is truly inspiring!",
+                        "🌈 **Life Designer!** You're actively creating the life you want to live!",
+                        "💎 **Personal Development!** Every task completed is a step toward your best self!"
                     ]
                 };
             }
 
-            // Enhanced message processing with multiple parsing strategies
             async processMessage(message) {
-                console.log('Processing message:', message);
-                
-                // Add to context for learning
+                console.log('Processing advanced message:', message);
                 this.context.push({ message, timestamp: new Date() });
-                
-                // Try task creation first
-                const taskResult = await this.attemptTaskCreation(message);
+                this.learnFromInput(message);
+
+                // Enhanced task creation with context awareness
+                const taskResult = await this.attemptAdvancedTaskCreation(message);
                 if (taskResult.success) {
                     return taskResult.response;
                 }
-                
-                // Check for other intents
-                for (let pattern of this.patterns.progress) {
-                    if (pattern.test(message)) {
-                        return this.generateProgressReport();
-                    }
+
+                // Enhanced progress analysis
+                if (this.matchesPattern(message, ['progress', 'stats', 'analytics', 'report', 'summary'])) {
+                    return this.generateAdvancedProgressReport();
                 }
-                
-                for (let pattern of this.patterns.tips) {
-                    if (pattern.test(message)) {
-                        return this.generateTip();
-                    }
+
+                // Enhanced tips with personalization
+                if (this.matchesPattern(message, ['tip', 'advice', 'suggest', 'help', 'improve', 'productiv'])) {
+                    return this.generatePersonalizedTip();
                 }
-                
-                for (let pattern of this.patterns.motivation) {
-                    if (pattern.test(message)) {
-                        return this.generateMotivation();
-                    }
+
+                // Enhanced motivation with context
+                if (this.matchesPattern(message, ['motivat', 'encourag', 'inspir', 'boost', 'cheer', 'energy'])) {
+                    return this.generateContextualMotivation();
                 }
-                
-                // Default conversational response
-                return this.generateConversationalResponse(message);
+
+                // Theme and customization requests
+                if (this.matchesPattern(message, ['theme', 'color', 'appearance', 'mode', 'style'])) {
+                    return this.handleThemeRequest(message);
+                }
+
+                return this.generateIntelligentResponse(message);
             }
 
-            // Enhanced task creation with multiple parsing attempts
-            async attemptTaskCreation(message) {
-                console.log('Attempting task creation for:', message);
-                
-                for (let pattern of this.patterns.taskCreation) {
+            learnFromInput(message) {
+                // Extract time patterns
+                const timeMatches = message.match(/\d{1,2}(?::\d{2})?(?:\s*[ap]m)?/gi);
+                if (timeMatches) {
+                    timeMatches.forEach(time => {
+                        this.userPreferences.preferredTimes.push(time);
+                    });
+                }
+
+                // Extract activity patterns
+                const words = message.toLowerCase().split(/\s+/);
+                words.forEach(word => {
+                    if (word.length > 3) {
+                        const count = this.learningPatterns.get(word) || 0;
+                        this.learningPatterns.set(word, count + 1);
+                    }
+                });
+            }
+
+            matchesPattern(message, keywords) {
+                const lowerMessage = message.toLowerCase();
+                return keywords.some(keyword => lowerMessage.includes(keyword));
+            }
+
+            async attemptAdvancedTaskCreation(message) {
+                for (let pattern of this.advancedPatterns.taskCreation) {
                     const match = message.match(pattern);
                     if (match) {
-                        console.log('Pattern matched:', pattern, 'Match:', match);
-                        
-                        const taskData = this.extractTaskData(match, message);
+                        const taskData = this.extractAdvancedTaskData(match, message);
                         if (taskData.activity && taskData.time) {
-                            const success = this.createTask(taskData);
+                            const success = this.createAdvancedTask(taskData);
                             if (success) {
+                                const category = this.categorizeActivity(taskData.activity);
                                 return {
                                     success: true,
-                                    response: `✅ **Task Created Successfully!**\n\n📋 **Activity:** ${taskData.activity}\n⏰ **Time:** ${taskData.time}\n⏱️ **Duration:** ${taskData.duration} minutes\n\nYour task is now in your schedule and you'll be reminded when it's time to start! 🎯`
+                                    response: `✅ **Task Created Successfully!**\n\n📋 **Activity:** ${taskData.activity}\n⏰ **Time:** ${taskData.time}\n⏱️ **Duration:** ${taskData.duration} minutes\n🎯 **Category:** ${category}\n\n${this.getContextualEncouragement(category)}`
                                 };
                             }
                         }
                     }
                 }
-                
-                // If no pattern matches, try alternative extraction
-                const alternativeResult = this.tryAlternativeExtraction(message);
-                if (alternativeResult.success) {
-                    return alternativeResult;
-                }
-                
-                return {
-                    success: false,
-                    response: null
-                };
-            }
-
-            // Enhanced data extraction with improved parsing
-            extractTaskData(match, originalMessage) {
-                console.log('Extracting task data from match:', match);
-                
-                let activity = '';
-                let time = '';
-                let duration = 60; // Default duration
-                
-                // Different extraction strategies based on match groups
-                if (match.length >= 3) {
-                    // Standard pattern: activity, time, duration
-                    activity = match[1] ? match[1].trim() : '';
-                    time = match[2] ? match[2].trim() : '';
-                    duration = match[3] ? this.parseDuration(match[3]) : 60;
-                } else if (match.length >= 2) {
-                    // Simpler pattern: activity, time
-                    activity = match[1] ? match[1].trim() : '';
-                    time = match[2] ? match[2].trim() : '';
-                }
-                
-                // Clean up activity name
-                activity = this.cleanActivityName(activity);
-                
-                // Parse and normalize time
-                if (time) {
-                    time = this.parseTime(time);
-                }
-                
-                // Validate duration
-                if (duration < 5) duration = 15; // Minimum 15 minutes
-                if (duration > 480) duration = 120; // Maximum 8 hours
-                
-                console.log('Extracted data:', { activity, time, duration });
-                
-                return { activity, time, duration };
-            }
-
-            // Alternative extraction for edge cases
-            tryAlternativeExtraction(message) {
-                console.log('Trying alternative extraction for:', message);
-                
-                // Look for time patterns anywhere in the message
-                const timeMatches = message.match(/(\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m)/gi);
-                const durationMatches = message.match(/(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr)/gi);
-                
-                if (timeMatches && timeMatches.length > 0) {
-                    const time = this.parseTime(timeMatches[0]);
-                    let duration = 60;
-                    
-                    if (durationMatches && durationMatches.length > 0) {
-                        duration = this.parseDuration(durationMatches[0]);
-                    }
-                    
-                    // Try to extract activity by removing time and duration references
-                    let activity = message
-                        .replace(/(?:create|add|schedule|make|set up|plan)\s+(?:a\s+)?(?:task|activity|reminder|appointment)?\s*(?:to\s+|for\s+)?/i, '')
-                        .replace(/\d{1,2}(?::\d{2})?(?:\s*[ap]m)?|\d{1,2}\s*[ap]m/gi, '')
-                        .replace(/\d+\s*(?:min|minute|minutes|hour|hours|h|hr)/gi, '')
-                        .replace(/(?:at|from|starting|for|lasting)\s+/gi, '')
-                        .trim();
-                    
-                    activity = this.cleanActivityName(activity);
-                    
-                    if (activity && time) {
-                        const success = this.createTask({ activity, time, duration });
-                        if (success) {
-                            return {
-                                success: true,
-                                response: `✅ **Task Created!**\n\n📋 **Activity:** ${activity}\n⏰ **Time:** ${time}\n⏱️ **Duration:** ${duration} minutes\n\nI've added this to your schedule! 🎯`
-                            };
-                        }
-                    }
-                }
-                
                 return { success: false };
             }
 
-            // Improved activity name cleaning
-            cleanActivityName(activity) {
-                if (!activity) return '';
-                
-                // Remove common filler words
+            extractAdvancedTaskData(match, originalMessage) {
+                let activity = '';
+                let time = '';
+                let duration = 60;
+
+                // Smart extraction based on match pattern
+                if (match.length >= 4) {
+                    activity = match[1] ? match[1].trim() : '';
+                    time = match[2] ? match[2].trim() : '';
+                    duration = match[3] ? this.parseDuration(match[3]) : this.predictDuration(activity);
+                }
+
+                // Enhanced activity cleaning
+                activity = this.enhancedActivityCleaning(activity);
+                time = this.enhancedTimeParsing(time);
+
+                return { activity, time, duration };
+            }
+
+            enhancedActivityCleaning(activity) {
+                if (!activity) return 'New Task';
+
+                // Remove filler words and improve formatting
                 activity = activity
-                    .replace(/^(to\s+|for\s+|i\s+want\s+to\s+|i\s+need\s+to\s+|let\s+me\s+|help\s+me\s+)/i, '')
+                    .replace(/^(to\s+|for\s+|i\s+want\s+to\s+|i\s+need\s+to\s+|let\s+me\s+|help\s+me\s+|remind\s+me\s+to\s+)/i, '')
                     .replace(/\s+(at|from|starting|for|lasting)\s+.*$/i, '')
+                    .replace(/^\s*(a|an|the)\s+/i, '')
                     .trim();
-                
-                // Capitalize first letter
+
+                // Smart capitalization
                 activity = activity.charAt(0).toUpperCase() + activity.slice(1);
-                
-                // If empty or too short, provide default
-                if (activity.length < 2) {
+
+                // Add context if too short
+                if (activity.length < 3) {
                     activity = 'New Task';
                 }
-                
+
                 return activity;
             }
 
-            // Enhanced time parsing with better format support
-            parseTime(timeStr) {
-                console.log('Parsing time:', timeStr);
-                
+            enhancedTimeParsing(timeStr) {
                 if (!timeStr) return '';
-                
+
                 const cleanTime = timeStr.replace(/\s+/g, '').toLowerCase();
-                
-                // Handle 24-hour format
+
+                // Handle various time formats
                 if (cleanTime.includes(':')) {
                     const parts = cleanTime.split(':');
                     if (parts.length === 2) {
                         let hour = parseInt(parts[0]);
                         let minute = parseInt(parts[1].replace(/[^\d]/g, ''));
-                        
-                        // Handle AM/PM
-                        if (cleanTime.includes('pm') && hour !== 12) {
-                            hour += 12;
-                        } else if (cleanTime.includes('am') && hour === 12) {
-                            hour = 0;
-                        }
-                        
+
+                        if (cleanTime.includes('pm') && hour !== 12) hour += 12;
+                        if (cleanTime.includes('am') && hour === 12) hour = 0;
+
                         return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
                     }
                 }
-                
-                // Handle 12-hour format without colon
+
                 const match = cleanTime.match(/(\d{1,2})(am|pm)/);
                 if (match) {
                     let hour = parseInt(match[1]);
                     const period = match[2];
-                    
-                    if (period === 'pm' && hour !== 12) {
-                        hour += 12;
-                    } else if (period === 'am' && hour === 12) {
-                        hour = 0;
-                    }
-                    
+
+                    if (period === 'pm' && hour !== 12) hour += 12;
+                    if (period === 'am' && hour === 12) hour = 0;
+
                     return `${hour.toString().padStart(2, '0')}:00`;
                 }
-                
+
                 return timeStr;
             }
 
-            // Enhanced duration parsing
             parseDuration(durationStr) {
-                console.log('Parsing duration:', durationStr);
-                
-                if (!durationStr) return 60;
-                
                 const match = durationStr.match(/(\d+)\s*(?:min|minute|minutes|hour|hours|h|hr)/i);
                 if (match) {
                     const value = parseInt(match[1]);
                     const unit = match[0].toLowerCase();
-                    
-                    if (unit.includes('hour') || unit.includes('hr') || unit.includes('h')) {
-                        return value * 60;
-                    }
-                    return value;
+                    return unit.includes('hour') || unit.includes('hr') || unit.includes('h') ? value * 60 : value;
                 }
+                return 60;
+            }
+
+            predictDuration(activity) {
+                const lowerActivity = activity.toLowerCase();
+                
+                if (this.advancedPatterns.studySession.test(lowerActivity)) return 45;
+                if (this.advancedPatterns.workSession.test(lowerActivity)) return 60;
+                if (this.advancedPatterns.wellness.test(lowerActivity)) return 30;
                 
                 return 60;
             }
 
-            // Create task with proper validation
-            createTask(taskData) {
-                console.log('Creating task with data:', taskData);
+            categorizeActivity(activity) {
+                const lowerActivity = activity.toLowerCase();
                 
-                if (!taskData.activity || !taskData.time) {
-                    console.log('Invalid task data - missing activity or time');
-                    return false;
-                }
+                if (this.advancedPatterns.studySession.test(lowerActivity)) return 'Study & Learning';
+                if (this.advancedPatterns.workSession.test(lowerActivity)) return 'Work & Professional';
+                if (this.advancedPatterns.wellness.test(lowerActivity)) return 'Health & Wellness';
                 
+                return 'Personal & Lifestyle';
+            }
+
+            getContextualEncouragement(category) {
+                const categoryMap = {
+                    'Study & Learning': 'study',
+                    'Work & Professional': 'work',
+                    'Health & Wellness': 'wellness'
+                };
+                
+                const responseKey = categoryMap[category] || 'general';
+                const responses = this.motivationalResponses[responseKey];
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            createAdvancedTask(taskData) {
                 const newTask = {
                     id: Date.now(),
                     title: taskData.activity,
@@ -1284,101 +1457,142 @@
                     duration: taskData.duration,
                     completed: false,
                     createdAt: new Date(),
-                    createdBy: 'AI'
+                    createdBy: 'AI',
+                    category: this.categorizeActivity(taskData.activity),
+                    hasTimer: false,
+                    timerActive: false,
+                    remainingTime: taskData.duration * 60,
+                    notificationScheduled: true
                 };
-                
-                console.log('New task created:', newTask);
-                
+
                 tasks.push(newTask);
+                scheduleTaskNotification(newTask);
                 this.updateUI();
                 showNotification(`✅ Task created: ${taskData.activity} at ${taskData.time}`);
-                
+
                 return true;
             }
 
-            // Update UI after task creation
+            generateAdvancedProgressReport() {
+                const today = new Date().toDateString();
+                const todayTasks = tasks.filter(t => t.createdAt.toDateString() === today);
+                const completedToday = todayTasks.filter(t => t.completed).length;
+                const totalToday = todayTasks.length;
+                const completionRate = totalToday > 0 ? Math.round((completedToday / totalToday) * 100) : 0;
+
+                // Category analysis
+                const categories = {};
+                todayTasks.forEach(task => {
+                    const cat = task.category || 'General';
+                    categories[cat] = (categories[cat] || 0) + (task.completed ? 1 : 0);
+                });
+
+                let report = `📊 **Advanced Progress Analytics**\n\n`;
+                report += `📝 **Today's Overview:** ${completedToday}/${totalToday} tasks (${completionRate}%)\n`;
+                report += `⏱️ **Time Investment:** ${this.calculateTotalTime()} minutes\n`;
+                report += `🔥 **Productivity Streak:** ${this.calculateStreak()} days\n\n`;
+
+                // Category breakdown
+                if (Object.keys(categories).length > 0) {
+                    report += `📈 **Category Performance:**\n`;
+                    Object.entries(categories).forEach(([category, completed]) => {
+                        report += `• ${category}: ${completed} completed\n`;
+                    });
+                    report += `\n`;
+                }
+
+                // Intelligent insights
+                report += this.generateIntelligentInsights(completionRate, categories);
+
+                return report;
+            }
+
+            generateIntelligentInsights(completionRate, categories) {
+                let insights = `🧠 **AI Insights:**\n`;
+
+                if (completionRate >= 90) {
+                    insights += `🌟 **Outstanding Performance!** You're operating at peak productivity today!`;
+                } else if (completionRate >= 75) {
+                    insights += `🎯 **Excellent Focus!** You're maintaining strong momentum!`;
+                } else if (completionRate >= 50) {
+                    insights += `💪 **Solid Progress!** You're building consistent habits!`;
+                } else if (completionRate >= 25) {
+                    insights += `🚀 **Building Momentum!** Every step forward counts!`;
+                } else {
+                    insights += `✨ **Fresh Opportunities!** Today is full of potential!`;
+                }
+
+                // Add personalized suggestions
+                insights += `\n\n💡 **Personalized Suggestions:**\n`;
+                insights += `• Consider time-blocking your most important tasks\n`;
+                insights += `• Try the Pomodoro technique for better focus\n`;
+                insights += `• Schedule breaks to maintain energy levels`;
+
+                return insights;
+            }
+
+            generatePersonalizedTip() {
+                const tips = [
+                    "🎯 **Smart Scheduling:** Align your most challenging tasks with your peak energy hours - usually 2-4 hours after waking up.",
+                    "⚡ **Energy Management:** Use the 90-minute ultradian rhythm - work in focused 90-minute blocks with 20-minute breaks.",
+                    "🔄 **Habit Stacking:** Link new productive habits to existing ones for automatic behavioral chains.",
+                    "📱 **Digital Boundaries:** Use app blockers during focused work - your future self will thank you.",
+                    "🧠 **Cognitive Load:** Keep a running task list to free up mental RAM for creative thinking.",
+                    "🌅 **Morning Protocol:** Start each day by identifying your 'one thing' - the task that would make today feel successful.",
+                    "🎨 **Environment Design:** Create distinct spaces for different types of work to trigger the right mindset automatically.",
+                    "⏰ **Time Awareness:** Use the Pomodoro Technique but customize your intervals based on your attention span patterns."
+                ];
+
+                return tips[Math.floor(Math.random() * tips.length)];
+            }
+
+            generateContextualMotivation() {
+                const hour = new Date().getHours();
+                let timeBasedMotivation;
+
+                if (hour < 10) {
+                    timeBasedMotivation = "🌅 **Morning Energy!** You're starting strong - this momentum will carry you through the entire day!";
+                } else if (hour < 14) {
+                    timeBasedMotivation = "☀️ **Peak Performance Time!** Your mind is sharp and your energy is high - perfect time for your most important work!";
+                } else if (hour < 17) {
+                    timeBasedMotivation = "🎯 **Afternoon Focus!** You're in the productivity zone - keep that momentum going strong!";
+                } else {
+                    timeBasedMotivation = "🌆 **Evening Excellence!** You're finishing strong - every completed task is a victory!";
+                }
+
+                return timeBasedMotivation;
+            }
+
+            handleThemeRequest(message) {
+                const themes = ['light', 'dark', 'minimal', 'elegant', 'awesome'];
+                const requestedTheme = themes.find(theme => message.toLowerCase().includes(theme));
+                
+                if (requestedTheme) {
+                    setTheme(requestedTheme);
+                    return `🎨 **Theme Updated!** I've switched to ${requestedTheme} mode. How does it look?`;
+                }
+                
+                return `🎨 **Theme Options:** I can switch to Light, Dark, Minimal, Elegant, or Awesome themes. Just say "switch to dark theme" or similar!`;
+            }
+
+            generateIntelligentResponse(message) {
+                const responses = [
+                    "I'm your advanced AI productivity coach! I can create tasks from natural language, analyze your progress with deep insights, and provide personalized motivation. What would you like to accomplish?",
+                    "Ready to boost your productivity to the next level? I understand complex requests and can help you optimize your entire workflow. How can I assist you today?",
+                    "I'm here to help you achieve peak performance! Try asking me to create tasks, analyze patterns in your productivity, or provide personalized coaching. What's your goal?",
+                    "Your AI productivity partner is ready! I can handle natural language task creation, provide intelligent insights, and adapt to your personal style. What shall we work on?"
+                ];
+
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+
             updateUI() {
-                console.log('Updating UI with tasks:', tasks);
                 renderTasks();
                 updateStats();
                 updateProgressChart();
                 updateProgressRing();
             }
 
-            // Enhanced progress reporting
-            generateProgressReport() {
-                const today = new Date().toDateString();
-                const todayTasks = tasks.filter(t => t.createdAt.toDateString() === today);
-                const completedToday = todayTasks.filter(t => t.completed).length;
-                const totalToday = todayTasks.length;
-                const completionRate = totalToday > 0 ? Math.round((completedToday / totalToday) * 100) : 0;
-                
-                let report = `📊 **Your Progress Report**\n\n`;
-                report += `📝 **Today's Tasks:** ${completedToday}/${totalToday}\n`;
-                report += `📈 **Completion Rate:** ${completionRate}%\n`;
-                report += `⏱️ **Time Spent:** ${this.calculateTotalTime()} minutes\n`;
-                report += `🔥 **Current Streak:** ${this.getStreak()} days\n\n`;
-                
-                if (completionRate >= 90) {
-                    report += `🌟 **Outstanding!** You're absolutely crushing your goals today!`;
-                } else if (completionRate >= 75) {
-                    report += `🎯 **Excellent work!** You're having a very productive day!`;
-                } else if (completionRate >= 50) {
-                    report += `💪 **Good progress!** You're on the right track!`;
-                } else if (completionRate >= 25) {
-                    report += `🚀 **Getting started!** Keep building that momentum!`;
-                } else {
-                    report += `✨ **Fresh start!** Today is full of possibilities!`;
-                }
-                
-                return report;
-            }
-
-            // Enhanced tip generation
-            generateTip() {
-                const tips = [
-                    "🎯 **Focus Strategy:** Use the Pomodoro Technique - 25 minutes focused work, 5 minutes break.",
-                    "⚡ **Energy Management:** Schedule your most important tasks during your peak energy hours.",
-                    "🔄 **Habit Building:** Start with just 2 minutes a day to build lasting habits.",
-                    "📱 **Digital Minimalism:** Keep your phone in another room during deep work sessions.",
-                    "🧠 **Mental Clarity:** Take regular breaks to prevent mental fatigue and maintain focus.",
-                    "🎨 **Environment Design:** Create a dedicated workspace that signals 'focus time' to your brain.",
-                    "📝 **Planning Power:** Spend 10 minutes each evening planning tomorrow's top 3 priorities.",
-                    "🌅 **Morning Routine:** Start your day with 10 minutes of intention setting and planning."
-                ];
-                
-                return tips[Math.floor(Math.random() * tips.length)];
-            }
-
-            // Enhanced motivation generation
-            generateMotivation() {
-                const motivations = [
-                    "🔥 **You're unstoppable!** Every task you complete is building the future you want!",
-                    "💎 **Growth mindset activated!** You're not just checking boxes, you're building character!",
-                    "🌟 **Progress champion!** Small consistent actions create extraordinary results!",
-                    "🚀 **Momentum master!** You're creating positive energy that compounds over time!",
-                    "⚡ **Excellence in action!** Your commitment to growth is truly inspiring!",
-                    "🎯 **Goal crusher!** You're turning dreams into reality, one task at a time!",
-                    "💪 **Discipline builder!** Every completed task strengthens your willpower muscle!",
-                    "🌈 **Future creator!** You're actively designing the life you want to live!"
-                ];
-                
-                return motivations[Math.floor(Math.random() * motivations.length)];
-            }
-
-            // Enhanced conversational responses
-            generateConversationalResponse(message) {
-                const responses = [
-                    "I'm here to help you stay productive and achieve your goals! Try asking me to create a task, show your progress, or give you some tips.",
-                    "Let's make today amazing! I can help you schedule tasks, track your progress, or provide motivation when you need it.",
-                    "I'm your intelligent productivity partner! What would you like to work on today?",
-                    "Ready to boost your productivity? I can create tasks from natural language, analyze your progress, or provide personalized advice!"
-                ];
-                
-                return responses[Math.floor(Math.random() * responses.length)];
-            }
-
-            // Helper methods
             calculateTotalTime() {
                 const today = new Date().toDateString();
                 return completedTasks
@@ -1386,19 +1600,475 @@
                     .reduce((total, t) => total + (t.duration || 0), 0);
             }
 
-            getStreak() {
+            calculateStreak() {
                 const today = new Date().toDateString();
                 const todayCompleted = completedTasks.filter(t => 
                     t.completedAt && t.completedAt.toDateString() === today
                 ).length;
-                return todayCompleted > 0 ? Math.min(todayCompleted, 10) : 0;
+                return todayCompleted > 0 ? Math.min(todayCompleted, 15) : 0;
             }
         }
 
-        // Initialize advanced AI
-        const ai = new AdvancedFlowStateAI();
+        const ai = new UltraAdvancedAI();
 
-        // UI Functions
+        // Theme Management
+        function setTheme(themeName) {
+            currentTheme = themeName;
+            document.body.setAttribute('data-theme', themeName);
+            
+            // Update theme buttons
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === themeName);
+            });
+            
+            // Save theme preference
+            localStorage.setItem('flowstate-theme', themeName);
+            
+            // Update chart colors if chart exists
+            if (progressChart) {
+                updateProgressChart();
+            }
+            
+            showNotification(`🎨 Switched to ${themeName} theme`);
+        }
+
+        // Load saved theme
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('flowstate-theme') || 'light';
+            setTheme(savedTheme);
+        }
+
+        // Enhanced Timer Management
+        function startActivityTimer(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            task.hasTimer = true;
+            task.timerActive = true;
+            
+            const timerId = setInterval(() => {
+                if (task.remainingTime > 0) {
+                    task.remainingTime--;
+                    renderTasks(); // Update display
+                } else {
+                    completeTaskTimer(taskId);
+                }
+            }, 1000);
+            
+            activeTimers.set(taskId, timerId);
+            renderTasks();
+            showNotification(`⏱️ Timer started for ${task.title}`);
+        }
+
+        function pauseActivityTimer(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            task.timerActive = false;
+            const timerId = activeTimers.get(taskId);
+            if (timerId) {
+                clearInterval(timerId);
+                activeTimers.delete(taskId);
+            }
+            renderTasks();
+            showNotification(`⏸️ Timer paused for ${task.title}`);
+        }
+
+        function completeTaskTimer(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            // Clear timer
+            const timerId = activeTimers.get(taskId);
+            if (timerId) {
+                clearInterval(timerId);
+                activeTimers.delete(taskId);
+            }
+
+            // Mark as completed
+            task.completed = true;
+            task.timerActive = false;
+            completedTasks.push({
+                ...task,
+                completedAt: new Date()
+            });
+
+            // Show completion notification with snooze option
+            showTaskCompletionModal(task);
+            
+            renderTasks();
+            updateStats();
+            updateProgressChart();
+            updateProgressRing();
+        }
+
+        function showTaskCompletionModal(task) {
+            const modal = document.getElementById('activityNotification');
+            const title = document.getElementById('notificationTitle');
+            const body = document.getElementById('notificationBody');
+            
+            title.textContent = '🎉 Task Completed!';
+            body.innerHTML = `
+                <strong>${task.title}</strong><br>
+                Great job! You've completed your ${task.duration}-minute session.<br><br>
+                Would you like to extend your session?
+            `;
+            
+            // Update modal actions for completion
+            const actions = modal.querySelector('.notification-actions');
+            actions.innerHTML = `
+                <button class="btn btn-primary" onclick="extendTask(${task.id}, 15)">Extend 15min</button>
+                <button class="btn btn-primary" onclick="extendTask(${task.id}, 30)">Extend 30min</button>
+                <button class="btn btn-secondary" onclick="dismissActivityNotification()">Finish</button>
+            `;
+            
+            modal.classList.add('show');
+        }
+
+        function extendTask(taskId, additionalMinutes) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            task.remainingTime = additionalMinutes * 60;
+            task.duration += additionalMinutes;
+            task.completed = false;
+            task.timerActive = true;
+
+            // Remove from completed tasks
+            completedTasks = completedTasks.filter(t => t.id !== taskId);
+
+            startActivityTimer(taskId);
+            dismissActivityNotification();
+            showNotification(`⏱️ Extended ${task.title} by ${additionalMinutes} minutes`);
+        }
+
+        // Study Alarm System
+        function setStudyAlarm() {
+            const startTime = document.getElementById('studyStartTime').value;
+            const duration = parseInt(document.getElementById('studyDuration').value);
+            
+            if (!startTime) {
+                showNotification('❌ Please select a start time');
+                return;
+            }
+
+            const now = new Date();
+            const alarmTime = new Date();
+            const [hours, minutes] = startTime.split(':');
+            alarmTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
+            // If alarm time is in the past, set for tomorrow
+            if (alarmTime <= now) {
+                alarmTime.setDate(alarmTime.getDate() + 1);
+            }
+
+            const timeUntilAlarm = alarmTime.getTime() - now.getTime();
+
+            studyAlarmTimeout = setTimeout(() => {
+                triggerStudyAlarm(duration);
+            }, timeUntilAlarm);
+
+            studyModeActive = true;
+            document.getElementById('studyModeIndicator').classList.add('show');
+            document.getElementById('stopStudyBtn').style.display = 'inline-block';
+            
+            const timeString = alarmTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            showNotification(`📚 Study alarm set for ${timeString} (${duration} minutes)`);
+        }
+
+        function triggerStudyAlarm(duration) {
+            const modal = document.getElementById('activityNotification');
+            const title = document.getElementById('notificationTitle');
+            const body = document.getElementById('notificationBody');
+            
+            title.textContent = '📚 Study Time!';
+            body.innerHTML = `
+                <strong>Time to focus!</strong><br>
+                Your ${duration}-minute study session is starting now.<br>
+                Create a distraction-free environment and let's begin!
+            `;
+            
+            // Update modal actions for study session
+            const actions = modal.querySelector('.notification-actions');
+            actions.innerHTML = `
+                <button class="btn btn-primary" onclick="startStudySession(${duration})">Start Studying</button>
+                <button class="btn btn-secondary" onclick="snoozeStudyAlarm(5)">Snooze 5min</button>
+                <button class="btn btn-secondary" onclick="snoozeStudyAlarm(10)">Snooze 10min</button>
+                <button class="btn btn-secondary" onclick="dismissActivityNotification()">Skip</button>
+            `;
+            
+            modal.classList.add('show');
+            
+            // Play study alarm sound (if browser supports)
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance('Study time! Time to focus and learn.');
+                utterance.rate = 0.8;
+                utterance.pitch = 1.2;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        function startStudySession(duration) {
+            // Create a study task automatically
+            const studyTask = {
+                id: Date.now(),
+                title: 'Focused Study Session',
+                time: new Date().toTimeString().slice(0, 5),
+                duration: duration,
+                completed: false,
+                createdAt: new Date(),
+                createdBy: 'Study Alarm',
+                category: 'Study & Learning',
+                hasTimer: true,
+                timerActive: true,
+                remainingTime: duration * 60,
+                notificationScheduled: false
+            };
+
+            tasks.push(studyTask);
+            startActivityTimer(studyTask.id);
+            dismissActivityNotification();
+            
+            renderTasks();
+            showNotification('📚 Study session started! Stay focused!');
+        }
+
+        function snoozeStudyAlarm(minutes) {
+            studyAlarmTimeout = setTimeout(() => {
+                triggerStudyAlarm(parseInt(document.getElementById('studyDuration').value));
+            }, minutes * 60000);
+            
+            dismissActivityNotification();
+            showNotification(`😴 Study alarm snoozed for ${minutes} minutes`);
+        }
+
+        function stopStudyAlarm() {
+            if (studyAlarmTimeout) {
+                clearTimeout(studyAlarmTimeout);
+                studyAlarmTimeout = null;
+            }
+            
+            studyModeActive = false;
+            document.getElementById('studyModeIndicator').classList.remove('show');
+            document.getElementById('stopStudyBtn').style.display = 'none';
+            
+            showNotification('📚 Study alarm stopped');
+        }
+
+        // Enhanced Task Rendering with Timers
+        function renderTasks() {
+            const container = document.getElementById('tasksList');
+            const summary = document.getElementById('tasksSummary');
+            
+            if (tasks.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <div>No tasks yet. Create your first task above!</div>
+                    </div>
+                `;
+                summary.textContent = 'No tasks scheduled';
+                return;
+            }
+            
+            const today = new Date().toDateString();
+            const todayTasks = tasks.filter(t => t.createdAt.toDateString() === today);
+            const completedToday = todayTasks.filter(t => t.completed).length;
+            
+            summary.textContent = `${completedToday}/${todayTasks.length} completed today`;
+            
+            container.innerHTML = '';
+            
+            // Sort tasks by time
+            const sortedTasks = [...tasks].sort((a, b) => a.time.localeCompare(b.time));
+            
+            sortedTasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.className = `task-item ${task.completed ? 'completed' : ''}`;
+                
+                // Format timer display
+                const formatTime = (seconds) => {
+                    const hrs = Math.floor(seconds / 3600);
+                    const mins = Math.floor((seconds % 3600) / 60);
+                    const secs = seconds % 60;
+                    if (hrs > 0) {
+                        return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                    }
+                    return `${mins}:${secs.toString().padStart(2, '0')}`;
+                };
+
+                taskElement.innerHTML = `
+                    <div class="task-main">
+                        <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="toggleTask(${task.id})"></div>
+                        <div class="task-info">
+                            <div class="task-title">${task.title}</div>
+                            <div class="task-meta">${task.time} • ${task.duration} min • ${task.createdBy || 'Manual'}</div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-secondary btn-small" onclick="removeTask(${task.id})">Remove</button>
+                        </div>
+                    </div>
+                    ${task.hasTimer ? `
+                        <div class="activity-timer">
+                            <div class="timer-display">${formatTime(task.remainingTime)}</div>
+                            <div class="timer-controls">
+                                ${!task.timerActive ? 
+                                    `<button class="timer-btn" onclick="startActivityTimer(${task.id})">Start</button>` : 
+                                    `<button class="timer-btn active" onclick="pauseActivityTimer(${task.id})">Pause</button>`
+                                }
+                                <button class="timer-btn" onclick="resetActivityTimer(${task.id})">Reset</button>
+                                <button class="timer-btn" onclick="completeTaskTimer(${task.id})">Complete</button>
+                            </div>
+                        </div>
+                    ` : `
+                        <div class="activity-timer">
+                            <button class="timer-btn" onclick="addTimerToTask(${task.id})">Add Timer</button>
+                        </div>
+                    `}
+                `;
+                container.appendChild(taskElement);
+            });
+        }
+
+        function addTimerToTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            task.hasTimer = true;
+            task.remainingTime = task.duration * 60;
+            renderTasks();
+            showNotification(`⏱️ Timer added to ${task.title}`);
+        }
+
+        function resetActivityTimer(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            // Clear existing timer
+            const timerId = activeTimers.get(taskId);
+            if (timerId) {
+                clearInterval(timerId);
+                activeTimers.delete(taskId);
+            }
+
+            task.remainingTime = task.duration * 60;
+            task.timerActive = false;
+            renderTasks();
+            showNotification(`🔄 Timer reset for ${task.title}`);
+        }
+
+        // Task notification scheduling
+        function scheduleTaskNotification(task) {
+            if (!('Notification' in window) || Notification.permission !== 'granted') return;
+
+            const taskTime = new Date();
+            const [hours, minutes] = task.time.split(':');
+            taskTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
+            // If time is in the past, schedule for tomorrow
+            if (taskTime <= new Date()) {
+                taskTime.setDate(taskTime.getDate() + 1);
+            }
+
+            const timeUntilTask = taskTime.getTime() - Date.now();
+
+            setTimeout(() => {
+                showTaskNotification(task);
+            }, timeUntilTask);
+        }
+
+        function showTaskNotification(task) {
+            const modal = document.getElementById('activityNotification');
+            const title = document.getElementById('notificationTitle');
+            const body = document.getElementById('notificationBody');
+            
+            title.textContent = `⏰ Time for ${task.title}!`;
+            body.innerHTML = `
+                Your ${task.duration}-minute session is starting now.<br>
+                Ready to be productive?
+            `;
+            
+            const actions = modal.querySelector('.notification-actions');
+            actions.innerHTML = `
+                <button class="btn btn-primary" onclick="startActivityFromNotification(${task.id})">Start Timer</button>
+                <button class="btn btn-secondary" onclick="snoozeActivity(5)">Snooze 5min</button>
+                <button class="btn btn-secondary" onclick="snoozeActivity(10)">Snooze 10min</button>
+                <button class="btn btn-secondary" onclick="dismissActivityNotification()">Skip</button>
+            `;
+            
+            modal.classList.add('show');
+
+            // Browser notification
+            if (Notification.permission === 'granted') {
+                new Notification(`Time for ${task.title}!`, {
+                    body: `Your ${task.duration}-minute session is starting now.`,
+                    icon: 'icon-192.png',
+                    tag: `task-${task.id}`
+                });
+            }
+        }
+
+        function startActivityFromNotification(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            if (!task.hasTimer) {
+                addTimerToTask(taskId);
+            }
+            
+            startActivityTimer(taskId);
+            dismissActivityNotification();
+        }
+
+        function snoozeActivity(minutes) {
+            const modal = document.getElementById('activityNotification');
+            const taskId = modal.dataset.taskId;
+            
+            setTimeout(() => {
+                // Re-show the notification
+                const task = tasks.find(t => t.id === parseInt(taskId));
+                if (task) {
+                    showTaskNotification(task);
+                }
+            }, minutes * 60000);
+            
+            dismissActivityNotification();
+            showNotification(`😴 Task snoozed for ${minutes} minutes`);
+        }
+
+        function dismissActivityNotification() {
+            document.getElementById('activityNotification').classList.remove('show');
+        }
+
+        // PWA Installation Enhanced
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show custom install prompt instead of browser's default
+            setTimeout(() => {
+                document.getElementById('installPrompt').classList.add('show');
+            }, 5000); // Show after 5 seconds
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        showNotification('🎉 App installed successfully!');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+            dismissInstall();
+        }
+
+        function dismissInstall() {
+            document.getElementById('installPrompt').classList.remove('show');
+        }
+
+        // Core Functions (Enhanced versions of previous functions)
         function toggleCreationMode() {
             isAIMode = !isAIMode;
             const modeText = document.getElementById('modeText');
@@ -1433,10 +2103,16 @@
                 duration: duration,
                 completed: false,
                 createdAt: new Date(),
-                createdBy: 'Manual'
+                createdBy: 'Manual',
+                category: ai.categorizeActivity(title),
+                hasTimer: false,
+                timerActive: false,
+                remainingTime: duration * 60,
+                notificationScheduled: true
             };
             
             tasks.push(newTask);
+            scheduleTaskNotification(newTask);
             
             // Clear inputs
             document.getElementById('taskTitle').value = '';
@@ -1458,10 +2134,6 @@
                 return;
             }
             
-            // Show processing indicator
-            const processingDiv = document.getElementById('aiProcessing');
-            processingDiv.style.display = 'flex';
-            
             // Add user message to chat
             addChatMessage(message, 'user');
             
@@ -1473,57 +2145,10 @@
                 const response = await ai.processMessage(message);
                 addChatMessage(response, 'ai');
                 
-                // Hide processing indicator
-                processingDiv.style.display = 'none';
-                
             } catch (error) {
                 console.error('AI processing error:', error);
                 addChatMessage('I apologize, but I encountered an error processing your request. Please try again.', 'ai');
-                processingDiv.style.display = 'none';
             }
-        }
-
-        function renderTasks() {
-            const container = document.getElementById('tasksList');
-            const summary = document.getElementById('tasksSummary');
-            
-            if (tasks.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📋</div>
-                        <div>No tasks yet. Create your first task above!</div>
-                    </div>
-                `;
-                summary.textContent = 'No tasks scheduled';
-                return;
-            }
-            
-            const today = new Date().toDateString();
-            const todayTasks = tasks.filter(t => t.createdAt.toDateString() === today);
-            const completedToday = todayTasks.filter(t => t.completed).length;
-            
-            summary.textContent = `${completedToday}/${todayTasks.length} completed today`;
-            
-            container.innerHTML = '';
-            
-            // Sort tasks by time
-            const sortedTasks = [...tasks].sort((a, b) => a.time.localeCompare(b.time));
-            
-            sortedTasks.forEach(task => {
-                const taskElement = document.createElement('div');
-                taskElement.className = `task-item ${task.completed ? 'completed' : ''}`;
-                taskElement.innerHTML = `
-                    <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="toggleTask(${task.id})"></div>
-                    <div class="task-info">
-                        <div class="task-title">${task.title}</div>
-                        <div class="task-meta">${task.time} • ${task.duration} min ${task.createdBy ? '• ' + task.createdBy : ''}</div>
-                    </div>
-                    <div class="task-actions">
-                        <button class="btn btn-secondary btn-small" onclick="removeTask(${task.id})">Remove</button>
-                    </div>
-                `;
-                container.appendChild(taskElement);
-            });
         }
 
         function toggleTask(id) {
@@ -1532,6 +2157,13 @@
                 task.completed = !task.completed;
                 
                 if (task.completed) {
+                    // Clear any active timer
+                    const timerId = activeTimers.get(id);
+                    if (timerId) {
+                        clearInterval(timerId);
+                        activeTimers.delete(id);
+                    }
+                    
                     completedTasks.push({
                         ...task,
                         completedAt: new Date()
@@ -1550,6 +2182,13 @@
         }
 
         function removeTask(id) {
+            // Clear any active timer
+            const timerId = activeTimers.get(id);
+            if (timerId) {
+                clearInterval(timerId);
+                activeTimers.delete(id);
+            }
+            
             tasks = tasks.filter(t => t.id !== id);
             completedTasks = completedTasks.filter(t => t.id !== id);
             renderTasks();
@@ -1566,7 +2205,7 @@
             const totalToday = todayTasks.length;
             const completionRate = totalToday > 0 ? Math.round((completedToday / totalToday) * 100) : 0;
             const totalTime = Math.round(ai.calculateTotalTime() / 60 * 10) / 10;
-            const streak = ai.getStreak();
+            const streak = ai.calculateStreak();
             
             document.getElementById('completionRate').textContent = `${completionRate}%`;
             document.getElementById('totalTime').textContent = `${totalTime}h`;
@@ -1581,7 +2220,6 @@
                 progressChart.destroy();
             }
             
-            // Generate data for the past 7 days
             const data = [];
             const labels = [];
             
@@ -1596,6 +2234,10 @@
                 data.push(dayTasks);
             }
             
+            // Get current theme colors
+            const style = getComputedStyle(document.documentElement);
+            const primaryColor = style.getPropertyValue('--primary-color').trim();
+            
             progressChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -1603,15 +2245,15 @@
                     datasets: [{
                         label: 'Completed Tasks',
                         data: data,
-                        borderColor: '#007AFF',
-                        backgroundColor: 'rgba(0, 122, 255, 0.1)',
-                        borderWidth: 2,
+                        borderColor: primaryColor,
+                        backgroundColor: primaryColor + '20',
+                        borderWidth: 3,
                         fill: true,
                         tension: 0.4,
-                        pointBackgroundColor: '#007AFF',
+                        pointBackgroundColor: primaryColor,
                         pointBorderColor: '#ffffff',
                         pointBorderWidth: 2,
-                        pointRadius: 4
+                        pointRadius: 5
                     }]
                 },
                 options: {
@@ -1626,13 +2268,10 @@
                         y: {
                             beginAtZero: true,
                             grid: {
-                                color: 'rgba(0, 0, 0, 0.05)'
+                                color: style.getPropertyValue('--border-color').trim()
                             },
                             ticks: {
-                                color: '#6e6e73',
-                                font: {
-                                    size: 12
-                                }
+                                color: style.getPropertyValue('--text-secondary').trim()
                             }
                         },
                         x: {
@@ -1640,10 +2279,7 @@
                                 display: false
                             },
                             ticks: {
-                                color: '#6e6e73',
-                                font: {
-                                    size: 12
-                                }
+                                color: style.getPropertyValue('--text-secondary').trim()
                             }
                         }
                     }
@@ -1720,9 +2356,9 @@
 
         function quickAction(action) {
             const actions = {
-                'progress': 'Show my progress report',
-                'tips': 'Give me a productivity tip',
-                'motivation': 'I need some motivation'
+                'progress': 'Show my detailed progress analysis',
+                'tips': 'Give me a personalized productivity tip',
+                'motivation': 'I need some motivation and encouragement'
             };
             
             const input = document.getElementById('chatInput');
@@ -1740,113 +2376,52 @@
             }, 3000);
         }
 
-        // PWA Installation
-        let deferredPrompt;
-        
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('installBanner').classList.add('show');
-        });
-        
-        function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('App installed');
-                    }
-                    deferredPrompt = null;
-                    document.getElementById('installBanner').classList.remove('show');
-                });
-            }
-        }
-        
-        function dismissInstall() {
-            document.getElementById('installBanner').classList.remove('show');
-        }
-        
-        // Notification Management
-        let notificationPermission = false;
-        
+        // Request notification permission
         function requestNotificationPermission() {
             if ('Notification' in window) {
                 Notification.requestPermission().then(permission => {
                     if (permission === 'granted') {
-                        notificationPermission = true;
-                        localStorage.setItem('notificationPermission', 'granted');
-                        dismissNotificationBanner();
-                        showNotification('🎉 Notifications enabled! You\'ll now get task reminders.');
-                    } else {
-                        showNotification('❌ Notifications blocked. Enable them in browser settings for task reminders.');
+                        showNotification('🔔 Notifications enabled for task reminders');
                     }
                 });
             }
         }
-        
-        function dismissNotificationBanner() {
-            document.getElementById('notificationBanner').classList.remove('show');
-        }
-
-        function startTask() {
-            const notification = document.getElementById('systemNotification');
-            const taskId = notification.dataset.taskId;
-            if (taskId) {
-                startTaskById(parseInt(taskId));
-            }
-            dismissSystemNotification();
-        }
-        
-        function snoozeTask() {
-            const notification = document.getElementById('systemNotification');
-            const taskId = notification.dataset.taskId;
-            if (taskId) {
-                const task = tasks.find(t => t.id === parseInt(taskId));
-                if (task) {
-                    setTimeout(() => showTaskNotification(task), 5 * 60 * 1000);
-                }
-            }
-            dismissSystemNotification();
-        }
-        
-        function dismissSystemNotification() {
-            document.getElementById('systemNotification').classList.remove('show');
-        }
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
             renderTasks();
             updateStats();
             updateProgressChart();
             updateProgressRing();
             
-            // Check notification permission
-            if ('Notification' in window) {
-                if (Notification.permission === 'granted') {
-                    notificationPermission = true;
-                } else if (Notification.permission === 'default') {
-                    document.getElementById('notificationBanner').classList.add('show');
-                }
+            // Request notification permission
+            if ('Notification' in window && Notification.permission === 'default') {
+                setTimeout(requestNotificationPermission, 2000);
             }
             
             // Add welcome message
             setTimeout(() => {
-                addChatMessage("👋 Welcome to FlowState Pro! I'm your advanced AI productivity companion with enhanced natural language processing. I can understand complex requests like 'Exercise at 6 PM for 1 hour' or 'Help me read for 30 minutes at 8 AM'. Try the AI mode for intelligent task creation!", 'ai');
-            }, 1000);
+                addChatMessage("👋 Welcome to FlowState Pro! I'm your ultra-advanced AI productivity companion with natural language understanding, individual task timers, study alarms, and multiple beautiful themes. Try asking me to 'create a study session at 8 PM for 45 minutes' or explore the different themes above!", 'ai');
+            }, 1500);
             
-            // Enable Enter key for chat
+            // Enable Enter key for all inputs
             document.getElementById('chatInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
+                if (e.key === 'Enter') sendMessage();
             });
             
-            // Enable Enter key for AI task creation
             document.getElementById('aiTaskInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    createTaskAI();
-                }
+                if (e.key === 'Enter') createTaskAI();
             });
+            
+            // Show install prompt for non-installed users
+            if (!window.matchMedia('(display-mode: standalone)').matches) {
+                setTimeout(() => {
+                    if (deferredPrompt) {
+                        document.getElementById('installPrompt').classList.add('show');
+                    }
+                }, 10000);
+            }
         });
     </script>
 </body>
